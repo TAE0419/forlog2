@@ -21,77 +21,15 @@
 </head>
 
 <body>
-   <header>
-        <div class="headerInner">
-            <div class="logo"><a href="../Home/index.html"><img src="../common/img/logo(black) 2.png" alt="logo"></a>
-            </div>
-            <ul class="gnb">
-                <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
-                    <ul class="snb">
-                        <li><a href="../brandstory/brandstory.html#concept">CONCEPT</a></li>
-                        <li><a href="../brandstory/brandstory.html#chologi">CHOLOGI</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="../products/products_index.html">PRODUCT</a>
-                    <ul class="snb">
-                        <li><a href="../products/products_index.html">SHOP</a></li>
-                        <li><a href="../products/cart_test.html">CART</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="../support/index.html">SUPPORT</a>
-                    <ul class="snb">
-                        <li><a href="../support/index.html#news">NEWS</a></li>
-                        <li><a href="../support/index.html#faq">FAQ</a></li>
-                        <li><a href="../support/index.html#location">LOCATION</a></li>
-                    </ul>
-                </li>
-                <li><a href="../products/login.html">LOG IN</a></li>
-                <li><a href="../products/signup.html">SIGN UP</a></li>
-            </ul>
-            <div class="ham">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </header>
-
-    <div class="dim"></div>
-    <div class="hamSideMenu">
-        <div class="close">&#10006;</div>
-        <ul class="hamGnb">
-            <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
-                <ul class="hamSnb">
-                    <li><a href="../brandstory/brandstory.html">CONCEPT</a></li>
-                    <li><a href="#">CHOLOGI</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="../products/products_index.html">PRODUCT</a>
-                <ul class="hamSnb">
-                    <li><a href="../products/products_index.html">SHOP</a></li>
-                    <li><a href="../products/cart_test.html">CART</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="../support/index.html">SUPPORT</a>
-                <ul class="hamSnb">
-                    <li><a href="#news">NEWS</a></li>
-                    <li><a href="#faq">FAQ</a></li>
-                    <li><a href="#location">LOCATION</a></li>
-                </ul>
-            </li>
-            <li><a href="../products/login.html">LOG IN</a></li>
-            <li><a href="../products/signup.html">SIGN UP</a></li>
-        </ul>
-    </div>
+    <!-- 팀 공통 헤더가 삽입될 위치 -->
+    <div id="headers"></div>
     
     <div class="striped-bg">
         <main class="page">
+
             <section class="hero-section">
                 <h1 class="hero-title bubbly-font">PRODUCT</h1>
+
                 <div class="hero-slider-container">
                     <div class="swiper hero-swiper">
                         <div class="swiper-wrapper">
@@ -126,6 +64,7 @@
                         </p>
                         <button class="clover-btn" type="button" data-category-jump=".nnnbox">확인하기 →</button>
                     </article>
+
                     <div class="swiper weekly-swiper" style="width: 100%; min-width: 0;">
                         <div class="swiper-wrapper" id="weekly-wrapper"></div>
                     </div>
@@ -145,20 +84,26 @@
     <main class="page product-list-section">
         <div class="all-section-head">
             <h2 class="all-title bubbly-font">ALL</h2>
+
             <select class="sort-select" id="sort-select">
                 <option value="newest">신상품순</option>
                 <option value="price-low">낮은가격순</option>
                 <option value="price-high">높은가격순</option>
             </select>
+
         </div>
+
         <div class="wavy-divider"></div>
+
         <div class="product-grid" id="product-grid"></div>
+
         <div id="pagination" class="pagination-container"></div>
     </main>
 
     <section class="band-green">
         <div class="wavy-divider2"></div>
         <div class="recommend-container">
+
             <div id="test-start-view" class="test-view">
                 <h2 class="recommend-title">초로기의 1분 취향 테스트 🍀</h2>
                 <p class="recommend-desc">5개의 질문으로 당신에게 딱 맞는 FOR-LOG 제품을 매칭해 드려요!</p>
@@ -174,91 +119,72 @@
                     <button type="button" class="ans-btn" onclick="nextQuestion(true)">그렇다 (YES)</button>
                     <button type="button" class="ans-btn" onclick="nextQuestion(false)">아니다 (NO)</button>
                 </div>
+
                 <button type="button" class="test-reset-btn" onclick="restartTest()">
                     <i class="fa-solid fa-arrow-rotate-left"></i> 첫 화면으로 돌아가기
                 </button>
+
             </div>
 
             <div id="test-result-view" class="test-view" style="display: none;">
                 <h2 class="recommend-title" style="font-size: 2.5rem;">당신에게 딱 맞는 굿즈 조합! ✨</h2>
                 <p class="recommend-desc" id="result-message">분석 중...</p>
-                <div class="result-products-grid" id="result-products-box"></div>
-                <button type="button" class="retry-btn" onclick="restartTest()">첫 화면으로 돌아가기 <i class="fa-solid fa-rotate-right"></i></button>
+
+                <div class="result-products-grid" id="result-products-box">
+                </div>
+
+                <button type="button" class="retry-btn" onclick="restartTest()">첫 화면으로 돌아가기 <i
+                        class="fa-solid fa-rotate-right"></i></button>
             </div>
+
         </div>
     </section>
 
-    <footer>
-        <div class="left">
-            <div class="info">
-                <p>주소 : 서울특별시 강남구 테헤란로 427 위워크타워 10층</p>
-                <p>대표 : 김태은</p>
-                <p>사업자등록번호 : 123-45-67890</p>
-                <p>이메일 : info@company.com</p>
-                <p>이용약관 | 개인정보처리방침</p>
-                <p>© 2023 Company. All rights reserved.</p>
-            </div>
-            <div class="line">
-                <hr style="border: none; border-top: 2px dashed var(--bg-color);">
-            </div>
-            <div class="logo">
-                <img src="../common/img/logo(white).png" alt="logo">
-            </div>
-        </div>
-        <div class="right">
-            <div class="sns">
-                <img src="../common/img/youtube.png" alt="youtube">
-                <img src="../common/img/instagram.png" alt="instagram">
-                <img src="../common/img/blog.png" alt="blog">
-            </div>
-        </div>
-    </footer>
+    <!-- 팀 공통 푸터가 삽입될 위치 -->
+    <div id="footer"></div>
 
     <div class="roundG4"></div>
-    
     <script src="../products/mouseEffect.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- 공통 헤더/푸터 및 관련 스크립트 비동기 호출 -->
+    <script src="../common/header.js"></script>
     <script>
-        $(function () {
-            // PC용 GNB
-            $('.gnb > li').mouseenter(function () {
-                $('.snb').stop().slideUp(300);
-                $(this).children('.snb').stop().slideDown(300);
-            });
-            $('.gnb > li').mouseleave(function () {
-                $('.snb').stop().slideUp(300);
-            });
+        // Blob 환경 및 개발 환경 공통 에러 처리를 위한 try-catch 추가
+        try {
+            fetch('../common/header.html')
+                .then(response => {
+                    if (!response.ok) throw new Error("헤더 파일을 찾을 수 없습니다.");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('headers').innerHTML = data;
+                    if (typeof initHeader === 'function') initHeader(); 
+                })
+                .catch(err => console.warn("헤더를 불러올 수 없습니다 (로컬 환경에서 실행 필요):", err));
+        } catch (error) {
+            console.warn("헤더 경로를 파싱할 수 없습니다 (미리보기 환경 오류).");
+        }
 
-            // 모바일 햄버거 메뉴 및 dim
-            $('.ham').click(function () {
-                $('.dim').addClass('on');
-                $('.hamSideMenu').addClass('on');
-            });
-            $('.dim, .close').click(function () {
-                $('.dim').removeClass('on');
-                $('.hamSideMenu').removeClass('on');
-            });
+        try {
+            fetch('../common/footer.html')
+                .then(response => {
+                    if (!response.ok) throw new Error("푸터 파일을 찾을 수 없습니다.");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('footer').innerHTML = data;
+                })
+                .catch(err => console.warn("푸터를 불러올 수 없습니다 (로컬 환경에서 실행 필요):", err));
+        } catch (error) {
+            console.warn("푸터 경로를 파싱할 수 없습니다 (미리보기 환경 오류).");
+        }
+    </script>
+    <script>
+    
 
-            // 모바일 사이드 서브메뉴 (아코디언 버그 픽스 완료!)
-            $('.hamGnb > li > a').click(function (e) {
-                let myMenu = $(this).siblings('.hamSnb');
-                // 서브메뉴가 있는 링크를 눌렀을 때만 이동 방지 및 아코디언 동작
-                if (myMenu.length > 0) {
-                    e.preventDefault(); 
-                    $('.hamSnb').not(myMenu).stop().slideUp(300);
-                    myMenu.stop().slideToggle(300);
-                }
-            });
-
-            // 메뉴 클릭 시 dim 닫히는 기능 (안전하게 DOM Ready 안으로 이동 완료)
-            $('.hamGnb a').click(function () {
-                if (!$(this).siblings('.hamSnb').length || $(this).parents('.hamSnb').length) {
-                    $('.dim').removeClass('on');
-                    $('.hamSideMenu').removeClass('on');
-                }
-            });
-        });
-
+        // 경로 단순화: 같은 폴더에 있으므로 파일 이름만 정확히 지정
         const PRODUCT_URL = "./products.json";
         let allProducts = [];
         let cart = [];
@@ -270,11 +196,15 @@
 
         let currentCategory = "all";
         let currentSort = "newest";
-        let currentPage = 1;
-        const itemsPerPage = 8; 
 
+        // 페이지네이션용 변수 추가
+        let currentPage = 1;
+        const itemsPerPage = 8; // 4열 x 2줄 = 8개
+
+        // 1. 카테고 타임라인 렌더링
         function renderCategories() {
             const categories = ["all", "Living", "Desk", "Chorogi", "Fashion"];
+
             const btnHtml = categories.map(cat => `
                 <button class="category-btn" data-category="${cat.toLowerCase()}">
                     <span>${cat.toUpperCase()}</span>
@@ -286,24 +216,28 @@
                 categoryList.innerHTML = `<div class="timeline-line"></div>` + btnHtml;
             }
 
+            // 카테고리 버튼 클릭 이벤트 안에서
             document.querySelectorAll(".category-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     currentCategory = btn.dataset.category;
-                    currentPage = 1; 
+                    currentPage = 1; // 카테고리가 바뀌면 무조건 1페이지로 리셋
                     renderProducts();
                 });
             });
 
+            // 2. 정렬(신상품순, 가격순) 셀렉트 박스 이벤트 안에서
             if (sortSelect) {
                 sortSelect.addEventListener("change", () => {
                     currentSort = sortSelect.value;
-                    currentPage = 1; 
+                    currentPage = 1; // 정렬 방식이 바뀌어도 무조건 1페이지로 리셋!
                     renderProducts();
                 });
             }
         }
 
+        // 2. 상품 카드 HTML 템플릿
         function getProductCardHtml(product) {
+            // 1. 로컬 스토리지에서 해당 상품이 이미 찜(좋아요) 상태인지 체크하는 로직 추가
             const wishes = JSON.parse(localStorage.getItem("forlog_wishes")) || [];
             const isWished = wishes.includes(product.id);
             const heartIcon = isWished ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
@@ -333,6 +267,7 @@
     `;
         }
 
+        // 3. 위클리 베스트 렌더링
         function renderWeekly() {
             const weeklyProducts = allProducts.filter(p => p.weeklyBest);
             document.getElementById("weekly-wrapper").innerHTML = weeklyProducts.map(p => `
@@ -349,9 +284,14 @@
             });
         }
 
+
+        // 4. 일반 상품 리스트 렌더링
         function renderProducts() {
             if (!grid) return;
+
             let filtered = allProducts;
+
+            // 카테고리 필터링
             if (currentCategory !== "all") {
                 filtered = allProducts.filter(p => {
                     if (currentCategory === "living") return p.category === "plant" || p.subCategory === "living";
@@ -362,52 +302,77 @@
                 });
             }
 
+            // 정렬 로직
             if (currentSort === "price-low") filtered.sort((a, b) => a.price - b.price);
             else if (currentSort === "price-high") filtered.sort((a, b) => b.price - a.price);
             else filtered.sort((a, b) => b.id - a.id);
 
+            // 1. 하단에 페이지네이션 번호 버튼들 그리기 호출
             renderPagination(filtered.length);
 
+            // 2. 현재 페이지에 맞는 8개만 잘라내기 (핵심!)
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedProducts = filtered.slice(startIndex, endIndex);
 
+            // 3. 잘라낸 데이터(paginatedProducts)로 화면 렌더링
             grid.innerHTML = paginatedProducts.map(p => getProductCardHtml(p)).join("");
 
+            // 타이틀 애니메이션
             const allTitleEl = document.querySelector('.all-title');
             if (allTitleEl) {
                 allTitleEl.textContent = currentCategory.toUpperCase();
+
                 gsap.fromTo(allTitleEl,
-                    { opacity: 0, y: 40 },
-                    { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" }
+                    {
+                        opacity: 0,
+                        y: 40
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1.2,
+                        ease: "power3.out"
+                    }
                 );
             }
         }
 
+        // 전체 상품 개수를 바탕으로 하단에 1, 2, 3 버튼을 만들어주는 함수
         function renderPagination(totalItems) {
             const paginationEl = document.getElementById("pagination");
             if (!paginationEl) return;
 
             const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+            // 상품이 너무 적어 1페이지뿐이면 버튼 영역 숨기기
             if (totalPages <= 1) {
                 paginationEl.innerHTML = "";
                 return;
             }
 
             let html = '';
+
+            // 이전(<) 버튼
             html += `<button type="button" class="page-arrow" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
 
+            // 숫자 버튼 생성 (1, 2, 3 ...)
             for (let i = 1; i <= totalPages; i++) {
                 html += `<button type="button" class="page-num ${currentPage === i ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
             }
 
+            // 다음(>) 버튼
             html += `<button type="button" class="page-arrow" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
+
             paginationEl.innerHTML = html;
         }
 
+        // 페이지 번호를 클릭했을 때 실행되는 함수 수정
         function changePage(pageNumber) {
             currentPage = pageNumber;
-            renderProducts(); 
+            renderProducts(); // 바뀐 페이지 번호로 상품 다시 불러오기
+
+            // 스크롤 대상을 거대한 빅로고 대신 상품 그리드(#product-grid)로 변경
             const targetEl = document.getElementById("product-grid");
             if (targetEl) {
                 const topPos = targetEl.getBoundingClientRect().top + window.scrollY - 90;
@@ -415,8 +380,39 @@
             }
         }
 
+
+        // 장바구니 UI 기능
+        const cartDrawer = document.getElementById("cart-drawer");
+        const drawerBackdrop = document.getElementById("drawer-backdrop");
+        const toggleDrawer = (open) => {
+            if (cartDrawer && drawerBackdrop) {
+                cartDrawer.classList.toggle("open", open);
+                drawerBackdrop.classList.toggle("open", open);
+            }
+        }
+
+        if (document.getElementById("open-cart")) {
+            document.getElementById("open-cart").addEventListener("click", () => toggleDrawer(true));
+        }
+        if (document.getElementById("close-cart")) {
+            document.getElementById("close-cart").addEventListener("click", () => toggleDrawer(false));
+        }
+        if (drawerBackdrop) {
+            drawerBackdrop.addEventListener("click", () => toggleDrawer(false));
+        }
+
+        if (sortSelect) {
+            sortSelect.addEventListener("change", () => {
+                currentSort = sortSelect.value;
+                renderProducts();
+            });
+        }
+
+
+        // 취향 테스트용 상태 관리 변수들
         let currentQIdx = 0;
         const scores = { living: 0, desk: 0, chorogi: 0, fashion: 0 };
+
         const questions = [
             { text: "1. 나는 외출할 때 액세서리나 인형 키링을 꼭 챙기는 편이다.", cat: "fashion" },
             { text: "2. 내 책상 위 문구류는 깔끔하게 톤앤매너가 맞아야 기분이 좋다.", cat: "desk" },
@@ -435,6 +431,7 @@
 
         function showQuestion() {
             if (currentQIdx < questions.length) {
+                // 문항 교체 및 게이지 바 증가
                 document.getElementById("question-text").textContent = questions[currentQIdx].text;
                 const progressPercent = ((currentQIdx) / questions.length) * 100;
                 document.getElementById("progress-line").style.width = `${progressPercent}%`;
@@ -456,6 +453,7 @@
             document.getElementById("test-question-view").style.display = "none";
             document.getElementById("test-result-view").style.display = "flex";
 
+            // 점수가 가장 높은 최고의 카테고리 1개 판별
             let bestCat = "living";
             let maxScore = -1;
             for (const [cat, score] of Object.entries(scores)) {
@@ -465,12 +463,14 @@
                 }
             }
 
+            // UI 멘트 설정
             const msgEl = document.getElementById("result-message");
             if (bestCat === 'fashion') msgEl.textContent = "트렌디한 패셔니스타 초로기 타입인 당신을 위한 픽!";
             else if (bestCat === 'desk') msgEl.textContent = "똑부러지는 프로 데스크테리어족 타입인 당신을 위한 픽!";
             else if (bestCat === 'chorogi') msgEl.textContent = "초로기 귀여움에 중독된 골수 포로그 팬 타입인 당신을 위한 픽!";
             else msgEl.textContent = "방구석 감성 아틀리에 인테리어 전문가 타입인 당신을 위한 픽!";
 
+            // 핵심: JSON 데이터(allProducts)에서 최고 평점 카테고리와 일치하는 제품들을 필터링해 상위 2개 추출
             let recommended = allProducts.filter(p => {
                 if (bestCat === "living") return p.category === "plant" || p.subCategory === "living";
                 if (bestCat === "desk") return p.subCategory === "stationery";
@@ -479,7 +479,10 @@
                 return true;
             });
 
+            // 2개만 무작위 또는 상위 추출
             const finalTwo = recommended.slice(0, 2);
+
+            // 결과 박스에 기존 카드 디자인 마크업 연동 (중복 로직 재활용)
             const resultBox = document.getElementById("result-products-box");
             if (finalTwo.length > 0) {
                 resultBox.innerHTML = finalTwo.map(p => getProductCardHtml(p)).join("");
@@ -494,22 +497,34 @@
             document.getElementById("test-start-view").style.display = "flex";
         }
 
+        // 5. 상단 히어로 배너 애니메이션 초기화
         function initAnimations() {
             if (typeof Swiper !== 'undefined') {
                 new Swiper('.hero-swiper', {
                     loop: true,
                     speed: 1000,
-                    autoplay: { delay: 3500, disableOnInteraction: false },
-                    pagination: { el: '.hero-slider-container .swiper-pagination', clickable: true }
+                    autoplay: {
+                        delay: 3500,
+                        disableOnInteraction: false
+                    },
+                    pagination: {
+                        el: '.hero-slider-container .swiper-pagination',
+                        clickable: true
+                    }
                 });
             }
         }
 
+        // 6. 데이터 불러오기 진입점
         async function fetchProducts() {
             try {
+                // 💡 상단에 정의한 PRODUCT_URL(./products.json) 변수를 올바르게 사용합니다!
                 const response = await fetch(PRODUCT_URL);
                 if (!response.ok) throw new Error("데이터 로드 실패");
+
+                // 전역 변수 allProducts에 const 없이 깨끗하게 대입합니다.
                 allProducts = await response.json();
+
                 renderCategories();
                 renderWeekly();
                 renderProducts();
@@ -522,6 +537,7 @@
             }
         }
 
+        // 장바구니 수량 실시간 업데이트 함수
         function updateCartCount() {
             const cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
             const countEl = document.querySelector("#cart-count");
@@ -531,15 +547,23 @@
             }
         }
 
+        // 장바구니 담기 실행 로직 (이벤트 위임 방식)
         document.body.addEventListener("click", function (e) {
+
+            // 1. 확인하기(클로버 블랍) 버튼 클릭 시 스크롤 점프 기능
             const jumpBtn = e.target.closest(".clover-btn");
             if (jumpBtn) {
-                const targetSelector = jumpBtn.getAttribute("data-category-jump");
+                const targetSelector = jumpBtn.getAttribute("data-category-jump"); // ".product-grid" 가져오기
                 const targetEl = document.querySelector(targetSelector);
-                if (targetEl) targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-                return; 
+
+                if (targetEl) {
+                    // 해당 위치로 부드럽게 스크롤 이동
+                    targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+                return; // 다른 이벤트로 전파되지 않도록 종료
             }
 
+            // 2. 장바구니 버튼 클릭 시 
             const cartBtn = e.target.closest(".add-cart-btn");
             if (cartBtn) {
                 const productId = parseInt(cartBtn.getAttribute("data-product-id"));
@@ -549,16 +573,28 @@
                     let cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
                     const existingItem = cart.find(item => item.id === productId);
 
-                    if (existingItem) existingItem.quantity += 1;
-                    else cart.push({ id: targetProduct.id, name: targetProduct.name, price: targetProduct.price, image: targetProduct.image, quantity: 1 });
+                    if (existingItem) {
+                        existingItem.quantity += 1;
+                    } else {
+                        cart.push({
+                            id: targetProduct.id,
+                            name: targetProduct.name,
+                            price: targetProduct.price,
+                            image: targetProduct.image,
+                            quantity: 1
+                        });
+                    }
 
                     localStorage.setItem("forlog_cart", JSON.stringify(cart));
-                    if (typeof updateCartCount === 'function') updateCartCount(); 
+                    if (typeof updateCartCount === 'function') updateCartCount(); // 상단 숫자 업데이트
+
+                    // 기존 기본 alert 알림창 대신 커스텀 확인 모달 띄우기
                     openCartConfirmModal();
                 }
-                return; 
+                return; // 여기서 종료 (이벤트가 모달 여는 곳까지 안 넘어감)
             }
 
+            // 2. 찜하기 버튼 클릭 시
             const wishBtn = e.target.closest(".wish-inline-btn");
             if (wishBtn) {
                 const productId = parseInt(wishBtn.getAttribute("data-product-id"));
@@ -566,6 +602,7 @@
                 const icon = wishBtn.querySelector("i");
 
                 if (wishes.includes(productId)) {
+                    // 찜 해제
                     wishes = wishes.filter(id => id !== productId);
                     wishBtn.classList.remove("active");
                     if (icon) {
@@ -573,6 +610,7 @@
                         icon.style.animation = "none";
                     }
                 } else {
+                    // 찜 추가 및 쿵쾅 애니메이션 강제 재실행
                     wishes.push(productId);
                     wishBtn.classList.add("active");
                     if (icon) {
@@ -581,27 +619,43 @@
                         setTimeout(() => icon.style.animation = "", 10);
                     }
 
+                    // ✨ 클릭한 하트 버튼 좌표를 계산해서 국소부위 미니 폭죽 쏘기 ✨
                     const rect = wishBtn.getBoundingClientRect();
                     const x = (rect.left + rect.width / 2) / window.innerWidth;
                     const y = (rect.top + rect.height / 2) / window.innerHeight;
 
                     confetti({
-                        particleCount: 30, spread: 360, startVelocity: 10, ticks: 45,
-                        origin: { x: x, y: y }, colors: ['#FF1493', '#FF6600', '#ADFF2F', '#00FFFF'],
-                        zIndex: 9999, scalar: 0.5, disableForReducedMotion: true
+                        particleCount: 30,
+                        spread: 360,
+                        startVelocity: 10,
+                        ticks: 45,
+                        origin: { x: x, y: y },
+                        colors: ['#FF1493', '#FF6600', '#ADFF2F', '#00FFFF'],
+                        zIndex: 9999,
+                        scalar: 0.5,
+                        disableForReducedMotion: true
                     });
                 }
+
                 localStorage.setItem("forlog_wishes", JSON.stringify(wishes));
-                return; 
+                return; // 💡 여기서 종료되므로 상품 카드 클릭(모달) 이벤트가 발생하지 않음
             }
 
+            // 3. 상품 카드 클릭 시 (장바구니/찜 버튼이 아닐 때만 작동)
             const card = e.target.closest(".product-card");
             if (card) {
                 const productId = parseInt(card.getAttribute("data-product-id"));
-                if (productId) openProductModal(productId);
+                if (productId) {
+                    openProductModal(productId);
+                }
             }
         });
 
+        // ========================================================
+        //  모달창 열고 닫기 핵심 로직
+        // ========================================================
+
+        // 1. 모달창 열기 함수
         function getProductModalTag(product) {
             if (product.weeklyBest) return "Weekly Best";
             if (product.isNew) return "NEW";
@@ -613,39 +667,65 @@
         }
 
         function openProductModal(productId) {
+            // 전역 데이터(allProducts)에서 클릭된 상품의 id와 일치하는 데이터 찾기
             const product = allProducts.find(p => p.id === productId);
             if (!product) return;
 
+            // 모달창 HTML 구조 안에 데이터 매핑하기
             document.getElementById("modal-img").src = product.image;
             document.getElementById("modal-tag").textContent = getProductModalTag(product);
             document.getElementById("modal-title").textContent = product.name;
             document.getElementById("modal-price").textContent = `${product.price.toLocaleString()}원`;
+
             document.getElementById("modal-desc").textContent = product.description || "초로기가 보장하는 멋진 라이프스타일 굿즈 아이템!";
+
             document.getElementById("modal-cart-btn").setAttribute("data-product-id", product.id);
+
             document.getElementById("product-modal").style.display = "flex";
+
+
         }
 
+        // 2. 모달창 닫기 함수
         function closeModal() {
             document.getElementById("product-modal").style.display = "none";
         }
 
+        // 장바구니 추가 완료 모달 열기/닫기 함수
         function openCartConfirmModal() {
             document.getElementById("cart-confirm-modal").style.display = "flex";
+
+            // 모달이 뜰 때 양옆에서 축포 터뜨리기
             const duration = 1500;
             const animationEnd = Date.now() + duration;
             const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 };
 
-            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
 
             const interval = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
-                if (timeLeft <= 0) return clearInterval(interval);
+
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
 
                 const particleCount = 50 * (timeLeft / duration);
                 const colors = ['#9EAB57', '#657F38', '#D57640', '#FFFEF3'];
 
-                confetti(Object.assign({}, defaults, { particleCount, colors: colors, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-                confetti(Object.assign({}, defaults, { particleCount, colors: colors, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+                // 왼쪽에서 터짐
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    colors: colors,
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                }));
+                // 오른쪽에서 터짐
+                confetti(Object.assign({}, defaults, {
+                    particleCount,
+                    colors: colors,
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                }));
             }, 250);
         }
 
@@ -653,8 +733,11 @@
             document.getElementById("cart-confirm-modal").style.display = "none";
         }
 
+        // 3. 위클리 슬라이드 클릭 시 하트/장바구니 버튼 충돌 완벽 차단!
         document.body.addEventListener("click", function (e) {
             const card = e.target.closest(".weekly-swiper .product-card");
+
+            // 타겟이 장바구니 버튼이거나 '새롭게 추가된 하트 클래스(wish-inline-btn)'일 때는 모달 띄우기를 무시
             if (card && !e.target.closest(".add-cart-btn") && !e.target.closest(".wish-inline-btn")) {
                 const cartBtn = card.querySelector(".add-cart-btn");
                 if (cartBtn) {
@@ -664,8 +747,13 @@
             }
         });
 
+
+
+        // 모든 준비가 끝나면 실행
         fetchProducts();
     </script>
+
+    <!-- 모달창 -->
 
     <div id="product-modal" class="custom-modal" style="display: none;">
         <div class="modal-overlay" onclick="closeModal()"></div>
