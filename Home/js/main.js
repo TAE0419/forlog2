@@ -52,21 +52,33 @@ if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").match
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
+    function getWateringImageRect(width, height) {
+        const imageSize = Math.min(width, height);
+
+        return {
+            x: (width - imageSize) / 2,
+            y: (height - imageSize) / 2,
+            size: imageSize
+        };
+    }
+
     function makeWaterDrop(width, height) {
-        const startX = width * 0.34;
-        const startY = height * 0.58;
-        const targetX = width * (0.22 + Math.random() * 0.13);
-        const targetY = height * (0.72 + Math.random() * 0.06);
+        const imageRect = getWateringImageRect(width, height);
+        const startX = imageRect.x + imageRect.size * 0.385;
+        const startY = imageRect.y + imageRect.size * 0.62;
+        const targetX = imageRect.x + imageRect.size * (0.43 + Math.random() * 0.16);
+        const targetY = imageRect.y + imageRect.size * (0.76 + Math.random() * 0.04);
 
         drops.push({
-            x: startX + Math.random() * width * 0.025,
-            y: startY + Math.random() * height * 0.015,
-            vx: (targetX - startX) * (0.55 + Math.random() * 0.25),
-            vy: (targetY - startY) * (0.1 + Math.random() * 0.12),
-            gravity: height * (1.25 + Math.random() * 0.35),
+            x: startX + Math.random() * imageRect.size * 0.018,
+            y: startY + Math.random() * imageRect.size * 0.012,
+            vx: (targetX - startX) * (0.5 + Math.random() * 0.18),
+            vy: (targetY - startY) * (0.04 + Math.random() * 0.08),
+            gravity: imageRect.size * (1.05 + Math.random() * 0.25),
             life: 0,
-            maxLife: 0.8 + Math.random() * 0.28,
-            radius: Math.max(2, width * (0.0035 + Math.random() * 0.002)),
+            maxLife: 0.62 + Math.random() * 0.22,
+            floorY: imageRect.y + imageRect.size * 0.8,
+            radius: Math.max(2, imageRect.size * (0.003 + Math.random() * 0.0018)),
             alpha: 0.72 + Math.random() * 0.22
         });
     }
@@ -110,7 +122,7 @@ if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").match
             drop.x += drop.vx * delta;
             drop.y += drop.vy * delta + drop.gravity * drop.life * delta;
 
-            if (drop.life >= drop.maxLife || drop.y > height * 0.82) {
+            if (drop.life >= drop.maxLife || drop.y > drop.floorY) {
                 drops.splice(i, 1);
                 continue;
             }
@@ -126,7 +138,60 @@ if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").match
     window.addEventListener("resize", resizeWateringCanvas);
 }
 
+const luckyCloverButtons = document.querySelectorAll(".luckyCloverButton");
+
+if (luckyCloverButtons.length > 0) {
+    const luckyRewards = [
+        "./img/character image/jeju.png",
+        "./img/character image/jeju2.png",
+        "./img/character image/jeju3.png"
+    ];
+
+    const luckyModal = document.createElement("div");
+
+    luckyModal.className = "luckyCloverModal";
+    luckyModal.innerHTML = `
+        <div class="luckyCloverModalBox">
+            <button class="luckyCloverClose" type="button" aria-label="Close">&times;</button>
+            <img class="luckyCloverCoupon" src="" alt="">
+        </div>
+    `;
+
+    document.body.appendChild(luckyModal);
+
+    function openLuckyCloverModal() {
+        const reward = luckyRewards[Math.floor(Math.random() * luckyRewards.length)];
+        const image = luckyModal.querySelector(".luckyCloverCoupon");
+
+        image.src = reward;
+        image.alt = "Lucky clover reward";
+        luckyModal.classList.add("on");
+    }
+
+    function closeLuckyCloverModal() {
+        luckyModal.classList.remove("on");
+    }
+
+    luckyCloverButtons.forEach(function (button) {
+        button.addEventListener("click", openLuckyCloverModal);
+    });
+
+    luckyModal.addEventListener("click", function (e) {
+        if (e.target === luckyModal || e.target.closest(".luckyCloverClose")) {
+            closeLuckyCloverModal();
+        }
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            closeLuckyCloverModal();
+        }
+    });
+}
+
 const eventPop = document.querySelector(".eventPop");
+let isEventIntroDone = !eventPop;
+let isHeroLogoReady = !eventPop;
 
 if (eventPop) {
     const canvas = document.createElement("canvas");
@@ -134,6 +199,7 @@ if (eventPop) {
     const clovers = [];
     const duration = 3200;
     const fadeOutDuration = 550;
+    const heroLogoLeadTime = 800;
     let startTime = 0;
     let animationId = null;
 
@@ -375,12 +441,24 @@ if (eventPop) {
         drawEventFinalMotion(progress, width, height);
     }
 
+    function notifyHeroLogoReady() {
+        if (isHeroLogoReady) return;
+
+        isHeroLogoReady = true;
+        window.dispatchEvent(new Event("heroLogoReady"));
+    }
+
     function animateEventPop(timestamp) {
         if (!startTime) startTime = timestamp;
 
-        const progress = Math.min((timestamp - startTime) / duration, 1);
+        const elapsed = timestamp - startTime;
+        const progress = Math.min(elapsed / duration, 1);
 
         drawEventPop(progress);
+
+        if (elapsed >= duration - heroLogoLeadTime) {
+            notifyHeroLogoReady();
+        }
 
         if (progress < 1) {
             animationId = requestAnimationFrame(animateEventPop);
@@ -389,15 +467,119 @@ if (eventPop) {
 
         eventPop.classList.add("hide");
         cancelAnimationFrame(animationId);
+        notifyHeroLogoReady();
 
         setTimeout(function () {
             document.body.classList.remove("eventIntroPlaying");
+            isEventIntroDone = true;
+            window.dispatchEvent(new Event("eventIntroDone"));
         }, fadeOutDuration);
     }
 
     resizeEventCanvas();
     animationId = requestAnimationFrame(animateEventPop);
     window.addEventListener("resize", resizeEventCanvas);
+}
+
+const sec3CloverCanvas = document.querySelector(".sec3CloverCanvas");
+
+if (sec3CloverCanvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const sec3 = sec3CloverCanvas.closest(".sec3");
+    const ctx = sec3CloverCanvas.getContext("2d");
+    const clovers = [];
+    let sec3CloverAnimationId = null;
+
+    function makeNonGreenHue() {
+        let hue = Math.random() * 360;
+
+        while (hue > 70 && hue < 170) {
+            hue = Math.random() * 360;
+        }
+
+        return hue;
+    }
+
+    function resizeSec3CloverCanvas() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        const rect = sec3.getBoundingClientRect();
+
+        sec3CloverCanvas.width = Math.floor(rect.width * dpr);
+        sec3CloverCanvas.height = Math.floor(rect.height * dpr);
+        sec3CloverCanvas.style.width = `${rect.width}px`;
+        sec3CloverCanvas.style.height = `${rect.height}px`;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        makeSec3Clovers(rect.width, rect.height);
+    }
+
+    function makeSec3Clovers(width, height) {
+        clovers.length = 0;
+
+        for (let i = 0; i < 12; i += 1) {
+            const size = 34 + Math.random() * 58;
+
+            clovers.push({
+                x: size + Math.random() * Math.max(1, width - size * 2),
+                y: size + Math.random() * Math.max(1, height - size * 2),
+                size,
+                speedX: -1.2 + Math.random() * 2.4,
+                speedY: -1.2 + Math.random() * 2.4,
+                rotate: Math.random() * Math.PI * 2,
+                rotateSpeed: -0.01 + Math.random() * 0.02,
+                color: `hsla(${makeNonGreenHue()}, 70%, 80%, 0.3)`
+            });
+        }
+    }
+
+    function drawSec3Clover(clover) {
+        const size = clover.size;
+
+        ctx.save();
+        ctx.translate(clover.x, clover.y);
+        ctx.rotate(clover.rotate);
+        ctx.fillStyle = clover.color;
+
+        for (let i = 0; i < 4; i += 1) {
+            ctx.save();
+            ctx.rotate((Math.PI / 2) * i);
+            ctx.beginPath();
+            ctx.moveTo(0, size * 0.06);
+            ctx.bezierCurveTo(-size * 0.52, -size * 0.18, -size * 0.5, -size * 0.72, 0, -size * 0.54);
+            ctx.bezierCurveTo(size * 0.5, -size * 0.72, size * 0.52, -size * 0.18, 0, size * 0.06);
+            ctx.fill();
+            ctx.restore();
+        }
+        ctx.restore();
+    }
+
+    function animateSec3Clovers() {
+        const width = sec3CloverCanvas.clientWidth;
+        const height = sec3CloverCanvas.clientHeight;
+
+        ctx.clearRect(0, 0, width, height);
+
+        clovers.forEach(function (clover) {
+            clover.x += clover.speedX;
+            clover.y += clover.speedY;
+            clover.rotate += clover.rotateSpeed;
+
+            if (clover.x + clover.size > width || clover.x - clover.size < 0) {
+                clover.speedX *= -1;
+            }
+
+            if (clover.y + clover.size > height || clover.y - clover.size < 0) {
+                clover.speedY *= -1;
+            }
+
+            drawSec3Clover(clover);
+        });
+
+        sec3CloverAnimationId = requestAnimationFrame(animateSec3Clovers);
+    }
+
+    resizeSec3CloverCanvas();
+    sec3CloverAnimationId = requestAnimationFrame(animateSec3Clovers);
+    window.addEventListener("resize", resizeSec3CloverCanvas);
 }
 
  $(function(){
@@ -421,19 +603,19 @@ if (eventPop) {
                 $('.dim').removeClass('on')
                 $('.hamSideMenu').removeClass('on')
             })
-            //사이드(슬라이드 메뉴) :: 아코디언 구현
+            //?�이???�라?�드 메뉴) :: ?�코?�언 구현
             $(document).on('click', '.hamGnb>li>a', function(e){
                 if ($(this).attr('href') !== '#') {
                     return true
                 }
 
-                e.preventDefault() //a태그가 원래 가지고 있던 기능을 막기
+                e.preventDefault() //a?�그가 ?�래 가지�??�던 기능??막기
 
-                let myMenu = $(this).siblings('.hamSnb') //클릭한 li a태그의 형제(hamSnb)
+                let myMenu = $(this).siblings('.hamSnb') //?�릭??li a?�그???�제(hamSnb)
 
-                $('.hamSnb').not(myMenu).stop().slideUp(300) //내가 클릭한 메뉴 말고 다 닫기
+                $('.hamSnb').not(myMenu).stop().slideUp(300) //?��? ?�릭??메뉴 말고 ???�기
 
-                $(this).siblings('.hamSnb').stop().slideToggle(300) //내가 선택한 메뉴의 서브메뉴만 보이기
+                $(this).siblings('.hamSnb').stop().slideToggle(300) //?��? ?�택??메뉴???�브메뉴�?보이�?
             })
         })
 
@@ -455,7 +637,7 @@ if (eventPop) {
         if (rule) {
     observer30.observe(rule);
 }
-// 여기는 Shot어쩌고의 자리
+// ?�기??Shot?�쩌고의 ?�리
     const txt1=document.querySelector(".heroContent2")
         const observer2=new IntersectionObserver(function(entries){
             entries.forEach(function(entry){
@@ -474,7 +656,7 @@ if (eventPop) {
 if (txt1) {
     observer2.observe(txt1);
 }
-// 쇼트컷의 이미지가 올라오는 부분
+// ?�트컷의 ?��?지가 ?�라?�는 부�?
  const slowUp=document.querySelector(".boxUp")
         const observer10=new IntersectionObserver(function(entries){
             entries.forEach(function(entry){
@@ -513,9 +695,9 @@ if (txt1) {
     observer11.observe(slowUp2);
 }
 
-// 끝-----------------------------
+// ??----------------------------
 
-// About For-log의 시작(옵저버)----------------------
+// About For-log???�작(?��?�?----------------------
  const pikabu=document.querySelector(".character span:nth-child(1)")
         const observer12=new IntersectionObserver(function(entries){
             entries.forEach(function(entry){
@@ -572,7 +754,7 @@ if (txt1) {
     observer14.observe(characterImg);
 }
 
-// 클래스명을 CSS와 똑같이 .characterWrap으로 맞춰주세요!
+// ?�래?�명??CSS?� ?�같??.characterWrap?�로 맞춰주세??
 const cham = document.querySelector(".character span:nth-child(2)");
 
 const observerBB = new IntersectionObserver(function(entries){
@@ -580,24 +762,24 @@ const observerBB = new IntersectionObserver(function(entries){
         if(entry.isIntersecting){
             const target = entry.target;
             
-            // 1. 먼저 옵저버 전용 클래스를 추가해서 첫 번째 애니메이션 시작!
+            // 1. 먼�? ?��?�??�용 ?�래?��? 추�??�서 �?번째 ?�니메이???�작!
             target.classList.add("on"); 
             
-            // 2. 첫 번째 애니메이션이 끝나는 시점을 감시하는 이벤트 리스너 등록
-            // CSS가 transition 기반이라면 'transitionend', @keyframes 기반이라면 'animationend' 사용
+            // 2. �?번째 ?�니메이?�이 ?�나???�점??감시?�는 ?�벤??리스???�록
+            // CSS가 transition 기반?�라�?'transitionend', @keyframes 기반?�라�?'animationend' ?�용
             target.addEventListener("animationend", function handleNextAnimation() {
                 
-                // 여기에 옵저버 애니메이션이 끝난 후 실행할 코드를 적습니다.
-                console.log("옵저버 애니메이션 종료! 다음 애니메이션을 시작합니다.");
+                // ?�기???��?�??�니메이?�이 ?�난 ???�행??코드�??�습?�다.
+                console.log("?��?�??�니메이??종료! ?�음 ?�니메이?�을 ?�작?�니??");
                 
-                // 예시: 다음 애니메이션을 트리거할 클래스 추가
+                // ?�시: ?�음 ?�니메이?�을 ?�리거할 ?�래??추�?
                 target.classList.add("next-animation-on");
                 
-                // 이벤트를 한 번만 실행하고 제거 (메모리 관리 및 중복 실행 방지)
+                // ?�벤?��? ??번만 ?�행?�고 ?�거 (메모�?관�?�?중복 ?�행 방�?)
                 target.removeEventListener("animationend", handleNextAnimation);
             });
 
-            // 한 번 들어와서 실행됐다면 옵저버 관찰을 종료 (원치 않으시면 지우셔도 됩니다)
+            // ??�??�어?�???�행?�다�??��?�?관찰을 종료 (?�치 ?�으?�면 지?�셔???�니??
             observerBB.unobserve(target);
         }
     });
@@ -609,7 +791,7 @@ if (cham) {
     observerBB.observe(cham);
 }
 
-//끝남-----------------------------
+//?�남-----------------------------
 
 const fadeSlider = document.querySelector(".slider");
 const fadeDots = document.querySelectorAll(".dots > div");
@@ -662,7 +844,7 @@ if (reviewStart) {
         .then(function (categories) {
             reviewStart.innerHTML = "";
 
-            categories.slice(0, 4).forEach(function (category) {
+            categories.slice(0, 4).forEach(function (category, categoryIndex) {
                 const band = document.createElement("div");
                 band.className = "productBand";
 
@@ -682,13 +864,18 @@ if (reviewStart) {
 
                 const track = band.querySelector(".productTrack");
 
-                category.items.forEach(function (item) {
+                category.items.forEach(function (item, itemIndex) {
                     const card = document.createElement("article");
+                    const price = 18000 + categoryIndex * 3200 + itemIndex * 1200;
+                    const formattedPrice = `${price.toLocaleString("ko-KR")}\uC6D0`;
+
                     card.className = "productCard";
                     card.dataset.title = item.title;
                     card.dataset.creator = item.creator;
                     card.dataset.desc = item.desc;
                     card.dataset.image = item.image;
+                    card.dataset.price = formattedPrice;
+                    card.dataset.rating = (4.7 + (itemIndex % 3) * 0.1).toFixed(1);
 
                     card.innerHTML = `
                         <div class="productInner">
@@ -938,13 +1125,21 @@ function makeProductModal() {
     modal.className = "productModal";
     modal.innerHTML = `
         <div class="productModalBox">
-            <button class="productModalClose" type="button" aria-label="Close">×</button>
-            <img class="productModalImg" src="" alt="">
+            <button class="productModalClose" type="button" aria-label="Close">&times;</button>
+            <div class="productModalImageWrap">
+                <img class="productModalImg" src="" alt="">
+            </div>
             <div class="productModalText">
+                <div class="productModalMeta">
+                    <span class="productModalBadge">NEW</span>
+                    <span class="productModalRating"><span>&#9733;&#9733;&#9733;&#9733;&#9733;</span> <em></em></span>
+                </div>
                 <h3></h3>
                 <p class="productModalCreator"></p>
+                <strong class="productModalPrice"></strong>
                 <p class="productModalDesc"></p>
             </div>
+            <button class="productModalCart" type="button">Add to cart</button>
         </div>
     `;
 
@@ -974,6 +1169,8 @@ function openProductModal(item) {
     img.alt = item.title;
     modal.querySelector(".productModalText h3").textContent = item.title;
     modal.querySelector(".productModalCreator").textContent = item.creator;
+    modal.querySelector(".productModalPrice").textContent = item.price || "22,000\uC6D0";
+    modal.querySelector(".productModalRating em").textContent = `(${item.rating || "4.9"})`;
     modal.querySelector(".productModalDesc").textContent = item.desc;
     modal.classList.add("on");
     document.body.classList.add("modalOpen");
@@ -1039,7 +1236,7 @@ if (mainPopup) {
     updateMainPopupState();
 }
 
-// 베스트 리뷰의 자리
+// 베스??리뷰???�리
         const View=document.querySelector(".sec5>div>span")
         const observerView=new IntersectionObserver(function(entries){
             entries.forEach(function(entry){
@@ -1058,4 +1255,31 @@ if (mainPopup) {
         if (View) {
     observerView.observe(View);
 }
+//메인글??빼먹?�서 ?��?�?추�?
 
+const MM=document.querySelector(".heroLogo")
+        const observerMM=new IntersectionObserver(function(entries){
+            entries.forEach(function(entry){
+                if(entry.isIntersecting){
+                    entry.target.classList.add("on")
+                }
+                // }else{
+                //     entry.target.classList.remove("on")
+                // }
+            })
+        },{
+            threshold: 0.1
+
+        })
+
+if (MM) {
+    function startHeroLogoObserver() {
+        observerMM.observe(MM);
+    }
+
+    if (isHeroLogoReady) {
+        startHeroLogoObserver();
+    } else {
+        window.addEventListener("heroLogoReady", startHeroLogoObserver, { once: true });
+    }
+}
