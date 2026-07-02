@@ -3,7 +3,7 @@ const cloverWrap = document.querySelector(".cloverWarp");
 if (cloverWrap) {
     for (let i = 1; i <= 8; i++) {
         const num = String(i).padStart(2, "0");
-        const card = document.createElement("div");
+        const card = document.createElement("a");
         const cardInner = document.createElement("div");
         const front = document.createElement("div");
         const back = document.createElement("div");
@@ -11,6 +11,8 @@ if (cloverWrap) {
         const backImg = document.createElement("img");
 
         card.className = "cloverCard";
+        card.href = "../products/products_index.html";
+        card.setAttribute("aria-label", "Go to products");
         cardInner.className = "cloverCardInner";
         front.className = "cloverCardFace cloverCardFront";
         back.className = "cloverCardFace cloverCardBack";
@@ -66,7 +68,7 @@ if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").match
         const imageRect = getWateringImageRect(width, height);
         const startX = imageRect.x + imageRect.size * 0.385;
         const startY = imageRect.y + imageRect.size * 0.62;
-        const targetX = imageRect.x + imageRect.size * (0.43 + Math.random() * 0.16);
+        const targetX = imageRect.x + imageRect.size * (0.20 + Math.random() * 0.16);
         const targetY = imageRect.y + imageRect.size * (0.76 + Math.random() * 0.04);
 
         drops.push({
@@ -92,7 +94,7 @@ if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").match
         ctx.strokeStyle = "rgba(255, 253, 235, 0.65)";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.ellipse(drop.x, drop.y, drop.radius * 0.78, drop.radius * 1.35, -0.25, 0, Math.PI * 2);
+        ctx.ellipse(drop.x, drop.y, drop.radius * 0.78, drop.radius * 1.35, 0.25, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
         ctx.restore();
@@ -190,10 +192,33 @@ if (luckyCloverButtons.length > 0) {
 }
 
 const eventPop = document.querySelector(".eventPop");
-let isEventIntroDone = !eventPop;
-let isHeroLogoReady = !eventPop;
+const eventPopSessionKey = "forlogEventPopPlayed";
 
-if (eventPop) {
+function hasPlayedEventPop() {
+    try {
+        return window.sessionStorage.getItem(eventPopSessionKey) === "true";
+    } catch (error) {
+        return false;
+    }
+}
+
+function rememberEventPopPlayed() {
+    try {
+        window.sessionStorage.setItem(eventPopSessionKey, "true");
+    } catch (error) {
+        // Ignore storage errors so private browsing or blocked storage still runs the page.
+    }
+}
+
+const shouldPlayEventPop = eventPop && !hasPlayedEventPop();
+let isEventIntroDone = !shouldPlayEventPop;
+let isHeroLogoReady = !shouldPlayEventPop;
+
+if (eventPop && !shouldPlayEventPop) {
+    eventPop.classList.add("hide");
+}
+
+if (shouldPlayEventPop) {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
     const clovers = [];
@@ -206,6 +231,7 @@ if (eventPop) {
     canvas.className = "eventPopCanvas";
     eventPop.appendChild(canvas);
     document.body.classList.add("eventIntroPlaying");
+    rememberEventPopPlayed();
 
     function eventEaseOut(t) {
         return 1 - Math.pow(1 - t, 3);
@@ -1146,6 +1172,12 @@ function makeProductModal() {
     document.body.appendChild(modal);
 
     modal.addEventListener("click", function (e) {
+        if (e.target.closest(".productModalCart")) {
+            addCurrentModalProductToCart();
+            window.location.href = "../products/cart_test.html";
+            return;
+        }
+
         if (e.target === modal || e.target.closest(".productModalClose")) {
             closeProductModal();
         }
@@ -1156,6 +1188,61 @@ function makeProductModal() {
             closeProductModal();
         }
     });
+}
+
+function getHomeProductCartId(title) {
+    let hash = 0;
+    const text = String(title || "home-product");
+
+    for (let i = 0; i < text.length; i += 1) {
+        hash = ((hash << 5) - hash) + text.charCodeAt(i);
+        hash |= 0;
+    }
+
+    return 900000 + Math.abs(hash % 99999);
+}
+
+function getHomeProductCartPrice(priceText) {
+    const parsed = parseInt(String(priceText || "").replace(/[^\d]/g, ""), 10);
+
+    return Number.isNaN(parsed) ? 22000 : parsed;
+}
+
+function getHomeProductCartImage(imagePath) {
+    if (!imagePath) return "";
+    if (/^(https?:|data:|\/)/.test(imagePath)) return imagePath;
+
+    return `../Home/${imagePath.replace(/^\.\//, "")}`;
+}
+
+function addCurrentModalProductToCart() {
+    const modal = document.querySelector(".productModal");
+
+    if (!modal) return;
+
+    const title = modal.dataset.title || modal.querySelector(".productModalText h3").textContent;
+    const priceText = modal.dataset.price || modal.querySelector(".productModalPrice").textContent;
+    const imagePath = modal.dataset.image || modal.querySelector(".productModalImg").getAttribute("src");
+    const productId = getHomeProductCartId(title);
+    const cartItem = {
+        id: productId,
+        name: title,
+        price: getHomeProductCartPrice(priceText),
+        image: getHomeProductCartImage(imagePath),
+        quantity: 1
+    };
+    const cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
+    const existingItem = cart.find(function (item) {
+        return item.id === productId;
+    });
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push(cartItem);
+    }
+
+    localStorage.setItem("forlog_cart", JSON.stringify(cart));
 }
 
 function openProductModal(item) {
@@ -1172,6 +1259,9 @@ function openProductModal(item) {
     modal.querySelector(".productModalPrice").textContent = item.price || "22,000\uC6D0";
     modal.querySelector(".productModalRating em").textContent = `(${item.rating || "4.9"})`;
     modal.querySelector(".productModalDesc").textContent = item.desc;
+    modal.dataset.title = item.title;
+    modal.dataset.price = item.price || "22,000\uC6D0";
+    modal.dataset.image = item.image;
     modal.classList.add("on");
     document.body.classList.add("modalOpen");
 }
