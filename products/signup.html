@@ -50,6 +50,226 @@
             color: inherit;
         }
 
+        /* ----------------------------------------
+           [헤더 영역 스타일]
+        ------------------------------------------- */
+        header {
+            width: 100%;
+            height: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+        }
+
+        .headerInner {
+            width: 90%;
+            height: 60%;
+            background-color: var(--bg-color);
+            border-radius: 50px;
+            display: grid;
+            grid-template-columns: 15% 80% 5%;
+            padding: 0 40px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .headerInner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: color-mix(in srgb, var(--bg-color) 90%, transparent);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border-radius: 50px;
+            z-index: -1;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 250px;
+        }
+
+        .logo>a {
+            width: 75%;
+            height: 51%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gnb {
+            height: 100%;
+            display: flex;
+            justify-content: end;
+        }
+
+        .gnb>li {
+            height: 100%;
+            position: relative;
+            margin-right: 100px;
+            transition: all 0.2s;
+            font: var(--small2-font);
+            color: var(--dark-color);
+        }
+
+        .gnb>li:hover {
+            color: var(--main-color);
+        }
+
+        .gnb>li>a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.1s;
+        }
+
+        .snb {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 100%;
+            width: 150px;
+            background-color: color-mix(in srgb, var(--main-color) 80%, transparent);
+            backdrop-filter: blur(4px);
+            color: var(--bg-color);
+            border-radius: 0 0 15px 15px;
+            z-index: 200;
+            padding: 15px;
+            display: none;
+        }
+
+        .snb li {
+            padding: 5px 0;
+            font: var(--small2-font);
+        }
+
+        .ham {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .ham span {
+            width: 25px;
+            height: 2px;
+            border-radius: 5px;
+            background-color: var(--dark-color);
+            margin: 3px 0;
+            transition: all 0.2s;
+        }
+
+        .ham:hover span:nth-child(1) {
+            transform: rotate(-26deg) translateY(3px);
+        }
+
+        .ham:hover span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .ham:hover span:nth-child(3) {
+            transform: rotate(26deg) translateY(-3px);
+        }
+
+        .dim {
+            width: 100%;
+            height: 100vh;
+            background-color: color-mix(in srgb, var(--dark-color) 50%, transparent);
+            backdrop-filter: blur(4px);
+            position: fixed;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 500;
+        }
+
+        .dim.on {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .hamSideMenu {
+            width: 22rem;
+            height: 100vh;
+            background-color: var(--bg-color);
+            position: fixed;
+            right: -100%;
+            top: 0;
+            padding: 32px;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .hamSideMenu.on {
+            right: 0;
+        }
+
+        .hamGnb>li {
+            margin-top: 70px;
+            font: var(--small-font);
+            color: var(--dark-color);
+            transition: all 0.2s;
+        }
+
+        .hamGnb>li:hover {
+            color: var(--main-color);
+        }
+
+        .hamSnb {
+            display: none;
+        }
+
+        .hamSnb li {
+            margin-top: 20px;
+            font: var(--small2-font);
+            color: var(--main-color);
+        }
+
+        .close {
+            width: 20px;
+            color: var(--point-color);
+            font: var(--small-font);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .close:hover {
+            scale: 1.2;
+        }
+
+        @media(max-width:1000px) {
+            .gnb {
+                display: none;
+            }
+
+            .hamSideMenu {
+                width: 70%;
+            }
+
+            .ham {
+                align-items: end;
+            }
+        }
 
         /* -----------------------------------------
            [회원가입 페이지 전용 스타일]
@@ -114,7 +334,7 @@
             padding: 14px 25px;
             border: 1.5px solid var(--main-color);
             border-radius: 50px;
-            background: white;
+            background: transparent;
             font-size: 0.9rem;
             color: var(--dark-color);
             outline: none;
@@ -193,11 +413,139 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
         }
 
+        /* -----------------------------------------
+           [푸터 영역 스타일]
+        -------------------------------------------- */
+        footer {
+            width: 100%;
+            height: 31rem;
+            background-color: var(--point-color);
+            padding: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        footer .left {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            justify-content: space-between;
+            width: 70rem;
+        }
+
+        footer .info {
+            font: var(--small2-font);
+            color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        footer .line {
+            width: 90%;
+        }
+
+        footer .logo {
+            width: 80%;
+        }
+
+        footer .logo>img {
+            width: 100%;
+        }
+
+        footer .right {
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        footer .sns {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        footer .right>img,
+        footer .sns img {
+            width: 3rem;
+            cursor: pointer;
+        }
     </style>
 </head>
 
 <body>
-    <div id="headers"></div> 
+
+    <header>
+    <div class="headerInner">
+        <div class="logo"><a href="../Home/index.html"><img src="../common/img/logo(black) 2.png" alt="logo"></a></div>
+        <ul class="gnb">
+            <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
+                <ul class="snb">
+                    <li><a href="../brandstory/brandstory.html#concept">CONCEPT</a></li>
+                    <li><a href="../brandstory/brandstory.html#chologi">CHOLOGI</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../products/products_index.html">PRODUCT</a>
+                <ul class="snb">
+                    <li><a href="../products/products_index.html">SHOP</a></li>
+                    <li><a href="../products/cart_test.html">CART</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../support/index.html">SUPPORT</a>
+                <ul class="snb">
+                    <li><a href="../support/index.html#news">NEWS</a></li>
+                    <li><a href="../support/index.html#faq">FAQ</a></li>
+                    <li><a href="../support/index.html#location">LOCATION</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../products/login.html">LOG IN</a>
+                <ul class="snb">
+                    <li><a href="../products/signup.html">SIGN UP</a></li>
+                </ul>
+            </li>
+        </ul>
+            <div class="ham">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    </div>
+</header>
+
+    <div class="dim"></div>
+    <div class="hamSideMenu">
+        <div class="close">&#10006;</div>
+        <ul class="hamGnb">
+            <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
+                <ul class="hamSnb">
+                    <li><a href="../brandstory/brandstory.html">CONCEPT</a></li>
+                    <li><a href="#">CHOLOGI</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../products/products_index.html">PRODUCT</a>
+                <ul class="hamSnb">
+                    <li><a href="../products/products_index.html">SHOP</a></li>
+                    <li><a href="../products/cart_test.html">CART</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../support/html/index.html">SUPPORT</a>
+                <ul class="hamSnb">
+                    <li><a href="#news">NEWS</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#location">LOCATION</a></li>
+                        <li><a href="../products/login.html">LOG IN</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
     <!-- 메인 회원가입 영역 -->
     <main class="signup-page">
@@ -241,10 +589,70 @@
         </div>
     </main>
 
-    <div id="footer"></div>
+    <!-- 푸터 영역 -->
+    <footer>
+        <div class="left">
+            <div class="info">
+                <p>주소 : 서울특별시 강남구 테헤란로 427 위워크타워 10층</p>
+                <p>대표 : 김태은</p>
+                <p>사업자등록번호 : 123-45-67890</p>
+                <p>이메일 : info@company.com</p>
+                <p>이용약관 | 개인정보처리방침</p>
+                <p>© 2023 Company. All rights reserved.</p>
+            </div>
+            <div class="line">
+                <hr style="border: none; border-top: 2px dashed var(--bg-color);">
+            </div>
+            <div class="logo">
+                <img src="../common/img/logo(white).png" alt="logo">
+            </div>
+        </div>
+        <div class="right">
+            <div class="sns">
+                <img src="../common/img/youtube.png" alt="sns">
+                <img src="../common/img/instagram.png" alt="sns">
+                <img src="../common/img/blog.png" alt="sns">
+            </div>
+        </div>
+    </footer>
 
     <!-- 자바스크립트 로직 -->
     <script>
+
+        $(function () {
+            // 1. 데스크톱 GNB 마우스 호버 (슬라이드 다운/업)
+            $('.gnb > li').mouseenter(function () {
+                $('.snb').stop().slideUp(300);
+                $(this).children('.snb').stop().slideDown(300);
+            });
+            $('.gnb > li').mouseleave(function () {
+                $('.snb').stop().slideUp(300);
+            });
+
+            // 2. 모바일 햄버거 메뉴 열기
+            $('.ham').click(function () {
+                $('.dim').addClass('on');
+                $('.hamSideMenu').addClass('on');
+            });
+
+            // 3. 모바일 햄버거 메뉴 닫기 (배경 딤처리나 X버튼 클릭 시)
+            $('.dim, .close').click(function () {
+                $('.dim').removeClass('on');
+                $('.hamSideMenu').removeClass('on');
+            });
+
+            // 4. 모바일 사이드 메뉴 내부 아코디언 동작
+            $('.hamGnb > li > a').click(function (e) {
+                // a 태그 기본 링크 이동 막기 (서브메뉴만 열리도록)
+                if ($(this).siblings('.hamSnb').length > 0) {
+                    e.preventDefault();
+                }
+                let myMenu = $(this).siblings('.hamSnb');
+                $('.hamSnb').not(myMenu).stop().slideUp(300);
+                $(this).siblings('.hamSnb').stop().slideToggle(300);
+            });
+        });
+
         
         function handleSignup(event) {
             event.preventDefault(); // 폼 제출 새로고침 방지
@@ -306,21 +714,6 @@
             // 로그인 페이지로 리다이렉트
             window.location.href = 'login.html';
         }
-    </script>
-    <script src="../common/header.js"></script>
-    <script>
-        fetch('../common/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('headers').innerHTML = data;
-                initHeader(); 
-            });
-        fetch('../common/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer').innerHTML = data;
-
-            });
     </script>
 </body>
 
