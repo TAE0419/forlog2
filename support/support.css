@@ -15,11 +15,19 @@ body,
 
 body {
     background-color: var(--bg-color);
+    overflow-x: hidden;
 }
 
 /* 팀 공통 레이아웃 변수 선언 */
 :root {
     --support-content-width: 1500px;
+}
+
+html,
+#headers,
+#footer {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 
@@ -38,7 +46,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 60px auto 24px;
+    margin: 160px auto 24px;
     padding: 0;
     text-align: left;
     text-shadow: 0 3px 10px rgba(64, 121, 70, 0.35);
@@ -54,7 +62,7 @@ body {
 
 /* 타이틀 내부 보조 설명 텍스트 */
 .section h2 span {
-    font-size: 30px;
+    font-size: 20px;
     font-weight: normal;
     color: var(--dark-color);
     margin-top: 8px;
@@ -123,9 +131,9 @@ body {
 .scallop-divider {
     width: 100%;
     height: 90px;
-    margin-top: -11rem;
+    margin-top: -11.8rem;   /* 틈새를 메우기 위해 기존 -11rem에서 조금 더 위로 당김 */
     position: relative;
-    z-index: 3;
+    z-index: 10;           /* 잔디 이미지 위로 물결 패턴이 확실히 올라오도록 설정 */
 }
 
 
@@ -140,11 +148,12 @@ body {
 /* 화면 전체 너비의 스트라이프 배경 원단 효과 */
 .news-list-stripe-bg {
     width: 100vw;
-    /* margin-left: calc(-50vw + 50%);
+    margin-left: calc(-50vw + 50%);
     padding: 0 0 40px 0;
-    background: repeating-linear-gradient(90deg, #eef7e2, #eef7e2 15px, #ffffff 15px, #ffffff 30px); */
-    background-image: url(../common/img/pattern.png);
-    background-position: center; background-size: cover;
+    background: repeating-linear-gradient(90deg, #eef7e2, #eef7e2 15px, #ffffff 15px, #ffffff 30px);
+    /* background-image: url(../common/img/pattern.png);
+    background-position: center; 
+    background-size: cover; */
 }
 
 .news-list-wrap {
@@ -175,7 +184,7 @@ body {
     width: 90%;
     max-width: var(--support-content-width);
     margin: 0 auto;
-    padding: 24px 0;
+    padding: 24px 20px 30px 0;
 }
 
 .news-table-header-inner > div {
@@ -192,7 +201,7 @@ body {
     max-width: var(--support-content-width);
     margin: 0 auto;
     padding: 15px 0 0 0;
-    max-height: 360px;
+    max-height: 310px;
     overflow-y: auto;
     padding-right: 12px;
     scrollbar-width: thin;
@@ -265,10 +274,10 @@ body {
 
 /* 모달 실제 팝업창 바디 */
 .news-modal-content {
-    background-color: var(--bg-color); 
+    background: linear-gradient(135deg, #ffffff 65%, color-mix(in srgb, var(--main-color) 15%, #ffffff) 100%);
     margin: 5% auto; 
     padding: 50px 45px; 
-    border: 2px solid color-mix(in srgb, var(--dark-color) 20%, transparent); 
+    border: 2px solid color-mix(in srgb, var(--main-color) 30%, transparent);
     border-radius: 40px; 
     width: 92%;                   
     max-width: 900px; 
@@ -427,10 +436,6 @@ body {
     transform: rotate(180deg); 
 }
 
-/* 
-   ✨ [완전 수정] 기본 상태 (닫혀있을 때) 
-   - 닫힐 때 부드럽게 사라지도록 속성들을 최적화했습니다.
-*/
 .faq-answer {
     display: flex;
     align-items: flex-start;
@@ -458,10 +463,6 @@ body {
     padding-top: 12px;
 }
 
-/* 
-   ✨ [완전 수정] 활성화 상태 (열렸을 때)
-   - max-height를 너무 크지 않게(400px 정도로) 잡아야 닫힐 때 딜레이가 안 생깁니다.
-*/
 .faq-item.active .faq-answer {
     max-height: 400px;            /* 일반적인 답변 글 길이에 맞춰 400px로 최적화 */
     padding: 15px 20px 50px 20px; /* 열렸을 때 정상 패딩 적용 */
@@ -676,14 +677,14 @@ body {
    [1] 데스크톱 소형 & 태블릿 가로 (Max-width: 1280px)
    -------------------------------------------------------------------------- */
 @media (max-width: 1280px) {
-    .headerInner {
+    /* .headerInner {
         grid-template-columns: 220px 1fr 48px;
         padding: 0 28px;
     }
 
     .gnb > li {
         margin-right: 52px;
-    }
+    } */
 
     .support-main-title {
         font-size: 136px;
@@ -693,13 +694,22 @@ body {
         min-height: 860px;
     }
 
+    .character-img-box {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+        width: 100%;
+    }
+
     .character-img-box img {
         width: 96%;
         max-width: 1180px;
     }
 
     .scallop-divider {
-        margin-top: -72px;
+        margin-top: -11.2rem;   
+        position: relative;
+        z-index: 10;
     }
 
     .section h2 {
@@ -720,7 +730,7 @@ body {
    -------------------------------------------------------------------------- */
 @media (max-width: 1000px) {
     /* 내비게이션 바 전환 및 모바일 전용 UI 켜짐 */
-    .gnb {
+    /* .gnb {
         display: none;
     }
 
@@ -743,9 +753,29 @@ body {
 
     .headerInner .logo > a {
         width: 170px;
+    } */
+
+    #headers .headerInner {
+        width: 92%;
+        grid-template-columns: minmax(0, 1fr) 44px;
+        padding: 0 20px;
     }
 
-    /* 메인 비주얼 반응형 크기 조절 */
+    #headers .logo {
+        min-width: 0;
+        justify-content: flex-start;
+    }
+
+    #headers .logo > a {
+        width: 170px;
+    }
+
+    #headers .logo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
     .support-main-title {
         font-size: 86px;
     }
@@ -755,16 +785,23 @@ body {
         padding-top: 110px;
     }
 
+    .character-img-box {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
     .character-img-box img {
         width: 108%;
         max-width: 980px;
     }
 
     .scallop-divider {
-        margin-top: -64px;
+        margin-top: -9.2rem;    /* 기존 -6.5rem에서 대폭 위로 조정 */
+        position: relative;
+        z-index: 10;
     }
 
-    /* 레이아웃 폭 일괄 공통 조절 */
     .section h2,
     .news-table-header-inner,
     .news-table-body-inner,
@@ -787,28 +824,46 @@ body {
         max-height: 300px;
     }
 
-    /* 정보 하단 레이아웃을 세로(column) 배치로 흐름 변환 */
-    .info-inner,
+    /* .info-inner,
     footer {
         flex-direction: column;
-    }
+    } */
 
-    footer {
+    /* footer {
         height: auto;
         gap: 40px;
-    }
+    } */
 
     .left {
         width: 100%;
     }
 
-    footer .logo {
+    /* footer .logo {
         width: min(100%, 520px);
-    }
+    } */
 
     .right .sns {
         flex-direction: row;
         justify-content: center;
+    }
+
+    #footer footer {
+        max-width: 100%;
+        height: auto;
+        padding: 42px 28px;
+        gap: 32px;
+        overflow: hidden;
+    }
+
+    #footer .left {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    #footer .line,
+    #footer .logo {
+        max-width: 100%;
     }
 }
 
@@ -816,13 +871,17 @@ body {
    [3] 대형 모바일 & 스마트폰 가로 (Max-width: 768px)
    -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-    .headerInner {
+    /* .headerInner {
         width: 92%;
         grid-template-columns: 1fr 44px;
         padding: 0 20px;
-    }
+    } */
 
-    .headerInner .logo > a {
+    /* .headerInner .logo > a {
+        width: 145px;
+    } */
+
+    #headers .logo > a {
         width: 145px;
     }
 
@@ -832,6 +891,12 @@ body {
 
     .support-hero-section {
         min-height: 560px;
+    }
+
+    .character-img-box {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
     }
 
     .character-img-box img {
@@ -844,10 +909,11 @@ body {
     }
 
     .scallop-divider {
-        margin-top: -58px;
+        margin-top: -18rem;    
+        position: relative;
+        z-index: 10;
     }
 
-    /* 섹션 대제목 모바일화 */
     .section h2 {
         width: 92%;
         margin: 44px auto 18px;
@@ -865,7 +931,6 @@ body {
         font-size: 18px;
     }
 
-    /* 공지사항 목록 압축 및 말줄임표 처리 */
     .news-table-header-inner,
     .news-item {
         grid-template-columns: 14% 50% 18% 18%;
@@ -876,6 +941,13 @@ body {
         font-size: 13px;
     }
 
+    .badge-new {
+        font-size: 11px;
+        padding: 2px 5px;
+        border-radius: 7px;
+        margin-left: 4px;
+    }
+
     .td-title,
     .news-item > div:nth-child(2) {
         white-space: nowrap;
@@ -883,11 +955,20 @@ body {
         text-overflow: ellipsis;
     }
 
-    /* 글자 크기 축소 */
     .faq-question p { font-size: 18px; }
     .faq-answer p { font-size: 16px; }
     .info-inner { gap: 24px; }
     .info-row { font-size: 16px; }
+
+    #footer footer {
+        flex-direction: column;
+    }
+
+    #footer .right {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 24px;
+    }
 
     .news-table-header-inner,
     .news-table-body-inner,
@@ -896,21 +977,21 @@ body {
     .map-api-box {
         width: 92%;
     }
-
-    footer {
-        padding: 40px 28px;
-    }
-
-    footer .logo {
-        width: min(100%, 360px);
-    }
 }
 
 /* --------------------------------------------------------------------------
    [4] 초소형 스마트폰 세로 일반 (Max-width: 480px)
    -------------------------------------------------------------------------- */
 @media (max-width: 480px) {
-    .headerInner .logo > a {
+    /* .headerInner .logo > a {
+        width: 120px;
+    } */
+
+    #headers .headerInner {
+        padding: 0 16px;
+    }
+
+    #headers .logo > a {
         width: 120px;
     }
 
@@ -922,26 +1003,40 @@ body {
         min-height: 410px;
     }
 
+    .character-img-box {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+    }
+
     .character-img-box img {
         width: 138%;
     }
 
     .scallop-divider {
-        margin-top: -52px;
+        margin-top: -8.2rem;   
+        position: relative;
+        z-index: 10;
     }
 
     .news-list-stripe-bg {
         padding-bottom: 28px !important;
     }
 
-    /* 화면이 너무 작을 때 공지사항 테이블 가로 스크롤 생성 */
     .news-table-header-inner,
     .news-table-body-inner {
         width: 94%;
     }
 
     .news-item {
-        min-width: 520px;
+        min-width: 0;
+    }
+
+    .badge-new {
+        font-size: 10px;
+        padding: 1px 4px;
+        border-radius: 6px;
+        margin-left: 3px;
     }
 
     .news-table-body-inner {
@@ -964,15 +1059,14 @@ body {
         padding: 16px 12px;
     }
 
-    footer .logo {
+    /* footer .logo {
         width: min(100%, 280px);
-    }
+    } */
 
     .right .sns img {
         width: 2.4rem;
     }
 }
-
 
 /* ==========================================================================
    11. 스크롤 애니메이션 클래스 스타일
