@@ -1,24 +1,8 @@
 
-*{
-    box-sizing: border-box;
-}
-html, body{
-    width: 100%;
-    overflow-x: hidden;
-}
-body{
-    margin: 0;
-}
 section{
     width: 100%; height: 100vh; position: relative;
     display: flex; justify-content: center;align-items: center;
     background-color: var(--bg-color);
-    max-width: 100%;
-    overflow-x: hidden;
-}
-img{
-    max-width: 100%;
-    height: auto;
 }
 .scroll{
     height: 200vh; /* 이 구간 내에서는 페이지가 안 올라가고 고정됨 */
@@ -111,10 +95,10 @@ img{
     border-radius: 50%; overflow: hidden; 
 }
 .first>.glassesChologi>.glasses:nth-of-type(1){
-    left: 140px; top: 90px;
+    left: 141px; top: 91px;
 }
 .first>.glassesChologi>.glasses:nth-of-type(2){
-    left: 295px; top: 90px;
+    left: 299px; top: 92px;
 }
 .glasses::after {
     content: '';
@@ -150,59 +134,10 @@ img{
         display: none;
     }
 }
-@media (max-width: 768px) {
-    .first{
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 0 1rem;
-    }
-    .first>.titleBox{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .first>.titleBox>h1{
-        font-size: clamp(3rem, 10vw, 4.5rem);
-        line-height: 0.95;
-    }
-    .first>.titleBox>.light{
-        width: 100%;
-        justify-content: center;
-        gap: 1rem;
-    }
-    .seconde{
-        height: auto;
-        min-height: 100vh;
-        padding: 7rem 1rem 4rem;
-    }
-    .seconde>.textBox{
-        gap: 1.5rem;
-        margin-top: 0;
-    }
-    .seconde>.textBox>h1{
-        margin-bottom: 0;
-    }
-    .seconde>.textBox>img{
-        width: min(18rem, 80vw);
-        margin-left: 0;
-    }
-    .seconde>.textBox>p{
-        width: 100%;
-        max-width: 34rem;
-    }
-    .seconde>.plantPictogram{
-        top: 1.5rem;
-        height: 5rem;
-    }
-    .seconde>.productPictogram{
-        bottom: 1rem;
-        height: 8rem;
-    }
-}
 
 /* ============================================의의=================================================== */
 .seconde{
+    height: 106vh;
     background-color: var(--dark-color); flex-direction: column;
     position: relative; z-index: -100;
     box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.8);
@@ -224,11 +159,20 @@ img{
 .seconde>.textBox>img{
     width: 30rem; margin-left: 4rem;
 }
+@media (max-width: 768px) {
+    .seconde{
+        height: 70vh;
+    }
+    .seconde>.textBox>img{
+        width: min(100%, 30rem);
+        margin-left: 0;
+    }
+}
 /* ==================식물픽토그램================= */
 .seconde>.plantPictogram{
     width: 100%; height: 7rem;
     overflow: hidden;
-    position: absolute; top: 13%; z-index: -1;
+    position: absolute; top: 15%; z-index: -1;
 }
 .seconde>.plantPictogram>.slider{
     width: max-content; height: 100%; display: flex; gap: 70px;
@@ -251,7 +195,7 @@ img{
 .seconde>.productPictogram{
     width: 100%; height: 16rem;
     overflow: hidden;
-    position: absolute; bottom: 8%; 
+    position: absolute; bottom: 10%; 
 }
 .seconde>.productPictogram>.slider{
     width: max-content; height: 100%; display: flex; gap: 100px;
@@ -270,7 +214,51 @@ img{
         transform: translateX(-50%);
     }
 }
-
+/* ==================================================팁========================================== */
+.secondeSub{
+    width: 100%; height: 20vh;
+    background-color: var(--bg-color);
+    gap: 6rem;
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.3);
+}
+.secondeSub>.jump{
+    width: 15%; overflow: hidden;
+}
+.secondeSub>.jump>img{
+    width: 100%; object-fit: cover;
+    filter: hue-rotate(5deg) saturate(80%);
+}
+.secondeSub>.textBox{
+    display: flex; flex-direction: column;
+    gap: 1rem;
+    margin-left: -3rem; 
+    color: var(--sub-color);
+}
+.secondeSub>.textBox>h2{
+    font:var(--big3-font);
+}
+.secondeSub>.textBox>p{
+    font:var(--small2-font);
+}
+.secondeSub>.light{
+    animation: heartbeat2 1.5s linear infinite;
+}
+@media (max-width: 768px) {
+    .secondeSub{
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+    .secondeSub>.jump{
+        width:40%; overflow: hidden; 
+        position: relative; z-index: 10;
+    }
+    .secondeSub>.light{
+        width: 20%;
+    }
+    .secondeSub>.light>img{
+        width: 100%;
+    }
+}
 /* ======================================================컨셉============================================================== */
 .third{
     width: 100%; height: 240vh; position: relative;
@@ -293,7 +281,7 @@ img{
 }
 .third>.titleBox{
     display: flex; align-items: center; gap: 4rem;
-    margin: 5rem; margin-top: 17rem;
+    margin: 2rem; margin-top: 17rem;
     position: relative; z-index: 1;
 }
 .third>.titleBox>h1{
@@ -391,24 +379,33 @@ img{
 
 @media (max-width: 768px) {
     .third{
-        height: auto;
-        min-height: 170rem;
-        padding: 0 1rem 4rem;
+        height: 120rem;
     }
+    .third>.stripe{
+    width: 100%; height: 200px;overflow: hidden;
+    position:absolute; left: 0; top: 0;
+}
+    /* .oneClover.side{
+        display: none;
+    } */
     .oneClover{
-        width: min(80%, 24rem);
+        width: 80%;
     }
     .third>.titleBox{
-        margin: 2rem 0 0;
-        gap: 1.5rem;
-    }
-    .whiteClover>.textBox{
-        width: min(90%, 24rem);
-        padding: 0 0.75rem;
+        margin-top: 20rem;
     }
     .whiteClover>.textBox>p{
-        width: 100%;
+        width: 60%;
     }
+    .firstClovers.on{
+    transform: translateX(-100px);
+}
+.secondeClovers.on{
+    transform: translateX(100px);
+}
+.thirdClovers.on{
+    transform: translateX(-100px);
+}
 }
 /* ==================================================마스코트=================================================================== */
 .fourth{
@@ -445,7 +442,7 @@ img{
 /* ========초로기========== */
 .fourth>.circle>.titleBox{
     display: flex; justify-content: start; align-items:center; gap: 1rem;
-    color: var(--dark-color);  margin-top: 6rem;
+    color: var(--dark-color);  margin-top: 6rem; margin-left: 5rem;
 }
 .fourth>.circle>.titleBox>h1{
     font: var(--title2-font);
@@ -493,39 +490,40 @@ img{
     width: 100%;height: 100%; object-fit: cover;
 }
 @media (max-width: 768px) {
+    .fourth{
+        height: 130vh;
+    }
     .fourth>.circle{
-        width: 92%;
         display: flex; flex-direction: column; align-items: center;
-        padding: 2rem 1rem 14rem;
     }
+    
     .fourth>.circle>.detailBox{
-        width: 100%;
-        display: flex; justify-content: center; align-items: center; gap: 1.5rem;
-        margin: 1rem 0 0;
-        flex-direction: column;
+        display: flex; justify-content: center; align-items: center; gap: 3rem;
+        margin-left: 1rem;  margin-top: 1rem;
     }
-    .fourth>.circle>.detailBox>.leftBox{
-        flex-direction: row;
-        gap: 1rem;
+    .fourth>.circle>.titleBox{
+        margin-left: 0;
     }
     .fourth>.circle>.detailBox>.rightBox{
-        width: 100%;
+        width: 60%;
         display: flex; justify-content: center; align-items: center; flex-direction: column;
     }
     .fourth>.circle>.imgBox{
-        width: min(80%, 24rem); height: 24rem; overflow: hidden;
-        position: absolute; bottom: -2%;right: 50%; transform: translateX(50%);
+        width: 80%; height: 43rem; overflow: hidden;
+        position: absolute; bottom: -15%;right: 50%; transform: translateX(50%);
+        /* background-color: antiquewhite; */
     }
 }
-/* ========================================팁=================================================== */
+/* ========================================팁2=================================================== */
 .fourthSub{
     width: 100%; height: 20vh;
     background-color: var(--point-color);
-    gap: 5rem;
+    gap: 3rem;
+    padding: 0 2rem;
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.3);
 }
 .fourthSub>.sunflower{
-    width: 20%; overflow: hidden;
+    width: 15%; overflow: hidden;
 }
 .fourthSub>.sunflower>img{
     width: 100%; object-fit: cover;
@@ -546,12 +544,27 @@ img{
 .fourthSub>.light{
     animation: heartbeat2 1.5s linear infinite;
 }
-
+@media (max-width: 768px) {
+    .fourthSub{
+        gap: 5rem;
+    }
+    .fourthSub>.sunflower{
+        width:40%; overflow: hidden; 
+        position: relative; z-index: 10;
+    }
+    .fourthSub>.light{
+        width: 20%;
+    }
+    .fourthSub>.light>img{
+        width: 100%;
+    }
+}
 /* =======================================색깔============================================================== */
 .fifth{
     width: 100%; height: 140vh;
     justify-content: start; padding-top: 15rem;
     flex-direction: column; gap: 7rem; overflow: hidden;
+    background: linear-gradient(180deg,rgba(255, 254, 243, 1) 91%, rgba(110, 120, 101, 1) 96%, rgba(36, 51, 28, 1) 100%);
 }
 .fifth>.up{
     display: flex; align-items: start; justify-content: center;
@@ -604,37 +617,28 @@ img{
 }
 @media (max-width: 768px) {
     .fifth{
-        height: auto;
-        min-height: 120rem;
-        padding: 8rem 1rem 4rem;
-        gap: 3rem;
+        height: 120rem; overflow: hidden;
     }
     .fifth>.up{
         align-items: center; flex-direction: column;
-        gap: 2rem; width: 100%;
+        gap: 2rem; width: 90%;
     }
     .fifth>.up>.titleBox{
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-    }
-    .fifth>.up>.titleBox>.textBox{
-        width: 100%;
-        max-width: 28rem;
+        margin-left: 10rem;
+        
     }
     .fifth>.up>.titleBox>.textBox>p{
         display: none;
     }
     .fifth>.up>.colorBox{
-        width: 100%;
-        max-width: 32rem;
+        width: min(100%, 55rem);
     }
 }
 /* =================로고================ */
 .fifth>.down{
     display: flex; align-items: center; justify-content: center ;
     flex-direction: column; width: 70%;
-    position: absolute; top: 43%; gap: 1rem;
+    position: absolute; top: 46%; gap: 1rem;
 }
 .fifth>.down>.titleBox{
     display: flex; justify-content: start; align-items: start; gap: 3rem; 
@@ -651,39 +655,127 @@ img{
 }
 
 .fifth>.down>.logoOutBox{
-    width: 100%; height: 25rem; border-radius: 3px;
+    width: 100vw; height: 25rem; border-radius: 3px;
     background-color: var(--main-color);
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
+    position: relative; overflow: hidden;
 }
 .fifth>.down>.logoOutBox>.logoInBox{
-    height: 100%; width: 75%;
+    height: 100%; width: 85%;
     background: #FFFEF3;
     background: linear-gradient(90deg, rgba(255, 254, 243, 0) 0%, rgba(255, 254, 243, 1) 18%, rgba(255, 254, 243, 1) 82%, rgba(255, 254, 243, 0) 100%);
-    position: absolute; top: 0; left: 50%;
+    position: absolute; top: 0; left: 50%; z-index: 1;
     transform: translateX(-50%);
-    display: flex;align-items: center;justify-content: center; flex-direction: column; gap: 2rem;
+    display: flex;align-items: center;justify-content: center; flex-direction: column; gap: 3rem;
 }
 
 .fifth>.down>.logoOutBox>.logoInBox>.logo{
-    width: 65%; margin-left: 5rem;
+    width: 18%; gap: 2rem;
     display: flex; justify-content: center; align-items: center;
 }
 
 .fifth>.down>.logoOutBox>.logoInBox>.text{
     width: 50%;
     text-align: center;
+    font: var(--small2-font);
+    color: var(--dark-color);
 }
 
+.fifth>.down>.logoOutBox>.slider{
+    width: 100%; height: 100%; display: flex; flex-direction: column;
+    animation: slideDown 5s linear infinite;
+    will-change: transform;
+
+    backface-visibility: hidden; /* 뒷면 숨김 */
+    perspective: 1000px; /* 3D 공간을 만들어 부드럽게 처리 */
+    transform: translateZ(0); /* GPU 가속 활성화 */
+}
+.fifth>.down>.logoOutBox>.slider>img{
+    height: 100%; width: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+@keyframes slideDown {
+   0% {
+        transform: translateY(0);
+    }
+    100% {
+        /* 3세트이므로, 2세트 분량만큼만 이동하면 끊김 구간을 지나침 */
+        transform: translateY(-100%); 
+    }
+}
 @media (max-width: 768px) {
     .fifth>.down{
-        align-items: center; top: 50%;
-}
+        align-items: center; top: 50%; width: 90%;
+    }
     .fifth>.down>.titleBox{
         justify-content: center;
+        margin-bottom: 3rem;
     }
-    .fifth>.down>.logoBox>.logo{
-        height:100%; width: 70%;
+    .fifth>.down>.logoOutBox>.logoInBox{
+        width: 90%;
     }
+    .fifth>.down>.logoOutBox>.logoInBox>.logo{
+        width: min(100%, 50%);
+        margin-left: 3;
+        flex-direction: column;
+    }
+    .fifth>.down>.logoOutBox>.logoInBox>.text{
+        width: min(100%, 60%);
+    }
+}
+/* =========================================팁3========================================== */
+.fifthSub{
+    width: 100%; height: 16vh;
+    background-color: var(--dark-color);
+    gap: 9rem;
+}
+.fifthSub>.tomato{
+    width: 10%; overflow: hidden; 
+    position: relative; z-index: 10;
+}
+.fifthSub>.tomato>img{
+    width: 100%; object-fit: cover;
+    filter: hue-rotate(5deg) saturate(80%);
+}
+.fifthSub>.textBox{
+    display: flex; flex-direction: column;
+    gap: 1rem;
+    margin-left: -3rem; 
+    color: var(--point-color);
+}
+.fifthSub>.textBox>h2{
+    font:var(--big3-font);
+}
+.fifthSub>.textBox>p{
+    font:var(--small2-font);
+}
+.fifthSub>.light{
+    animation: heartbeat2 1.5s linear infinite;
+}
+@media (max-width: 768px) {
+    .fifthSub{
+        gap: 3rem;
+        padding: 0 2rem;
+    }
+    .fifthSub>.tomato{
+        width:40%; overflow: hidden; 
+        position: relative; z-index: 10;
+    }
+    .fifthSub>.light{
+        width: 20%;
+    }
+    .fifthSub>.light>img{
+        width: 100%;
+    }
+}
+
+/* ==================프릴==================== */
+.frill{
+    height: 12rem;
+    background-color: var(--point-color);
+}
+.frill>img{
+    width: 100%; height: 100%; object-fit: cover;
 }
