@@ -1,0 +1,37 @@
+CSS
+* {
+    font-size: 16px;
+}
+
+@font-face {
+    font-family: 'Cloudsofa';
+    src: url('Cloudsofa_namgim-Regular.ttf') format('truetype');
+    /* 브라우저가 두께를 강제로 무시하지 않도록 안전장치 추가 */
+    font-weight: 100 900; 
+}
+
+:root {
+    /* 테마 컬러 */
+    --main-color: #AAB664;
+    --sub-color: #6F8B41;
+    --bg-color: #FFFEF3;
+    --point-color: #DB824A;
+    --dark-color: #24331C;
+
+    /* 폰트 종류 */
+    --font-cloud: 'Cloudsofa', sans-serif;
+    --font-default: sans-serif;
+
+    /* 💡 반응형 폰트 설정 (clamp 적용) */
+    /* 규칙: clamp(모바일에서_최소_크기, 화면_비례_크기, PC에서_최대_크기) */
+    
+    --title-font: 900 clamp(4rem, 12vw, 15rem)/1.1 var(--font-cloud);
+    --subtitle-font: 900 clamp(3rem, 10vw, 12.5rem)/1.2 var(--font-cloud);
+    
+    --big1-font: 900 clamp(2rem, 5vw, 4rem)/1.2 var(--font-default);
+    --big2-font: 900 clamp(1.75rem, 4vw, 3rem)/1.2 var(--font-default);
+    --big3-font: 900 clamp(1.5rem, 3vw, 2.5rem)/1.3 var(--font-default);
+    
+    --small-font: 900 clamp(1rem, 2vw, 1.25rem)/1.5 var(--font-default);
+    --small2-font: 500 clamp(0.875rem, 1.5vw, 1rem)/1.5 var(--font-default);
+}

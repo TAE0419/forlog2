@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR-LOG - SIGN UP</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../common/FontAndColor/FontAndColor.css">
+
+    <style>
+        /* FOR-LOG 프로젝트 전용 테마 컬러 정의 */
+        :root {
+            --main-color: #AAB664;
+            --sub-color: #6F8B41;
+            --bg-color: #FFFEF3;
+            --point-color: #DB824A;
+            --dark-color: #24331C;
+            --line-color: #E2E8F0;
+            --font-cloud: 'Cloudsofa', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Cloudsofa';
+            src: url('/font/Cloudsofa_namgim-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+        }
+
+
+        /* -----------------------------------------
+           [회원가입 페이지 전용 스타일]
+        -------------------------------------------- */
+        .signup-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        /* 상단 아이보리 영역 */
+        .signup-top {
+            background-color: var(--bg-color);
+            padding: 140px 20px 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .big-logo {
+            font-family: 'Cloudsofa';
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            color: var(--main-color);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .dashed-divider {
+            width: 95%;
+            max-width: 1200px;
+            border-top: 2px dashed #d6dac0;
+            margin: 0 auto 50px;
+        }
+
+        .signup-title-simple {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .simple-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 380px;
+            margin: 0 auto 25px;
+        }
+
+        .input-wrap {
+            width: 100%;
+            text-align: left;
+        }
+
+        .simple-input {
+            width: 100%;
+            padding: 14px 25px;
+            border: 1.5px solid var(--main-color);
+            border-radius: 50px;
+            background: white;
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            outline: none;
+            font-weight: 700;
+        }
+
+        .simple-input::placeholder {
+            color: #888;
+            font-weight: 500;
+        }
+
+        .simple-input:focus {
+            box-shadow: 0 0 0 3px rgba(170, 182, 100, 0.2);
+            background: #fff;
+        }
+
+        .error-msg {
+            color: var(--point-color);
+            font-size: 0.8rem;
+            margin-top: 8px;
+            padding-left: 20px;
+            display: none;
+            font-weight: 700;
+        }
+
+        .btn-confirm {
+            background-color: var(--point-color);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 12px 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            background-color: #c9713b;
+        }
+
+        /* 하단 그린 영역 */
+        .signup-bottom {
+            background: linear-gradient(180deg, var(--main-color) 0%, rgba(170, 182, 100, 0.1) 100%);
+            padding: 50px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .or-text {
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+        .btn-login-link {
+            background-color: #fff;
+            color: var(--dark-color);
+            padding: 14px 45px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-login-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="headers"></div> 
+
+    <!-- 메인 회원가입 영역 -->
+    <main class="signup-page">
+        <!-- 상단 밝은 영역 -->
+        <div class="signup-top">
+            <h1 class="big-logo">FOR-LOGO</h1>
+            <div class="dashed-divider"></div>
+
+            <h2 class="signup-title-simple">SIGN UP</h2>
+
+            <form id="signupForm" onsubmit="return handleSignup(event)" style="width: 100%; text-align: center;">
+                <div class="simple-input-group">
+                    <div class="input-wrap">
+                        <input type="text" id="newId" class="simple-input" placeholder="사용하실 아이디를 입력해주세요">
+                        <div id="idError" class="error-msg">아이디를 입력해주세요.</div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <input type="password" id="newPw" class="simple-input" placeholder="비밀번호를 입력해주세요">
+                        <div id="pwError" class="error-msg">비밀번호를 입력해주세요.</div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <input type="password" id="newPwConfirm" class="simple-input" placeholder="비밀번호를 한번 더 입력해주세요">
+                        <div id="pwConfirmError" class="error-msg">비밀번호가 일치하지 않습니다.</div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <input type="text" id="newName" class="simple-input" placeholder="이름(닉네임)을 입력해주세요">
+                        <div id="nameError" class="error-msg">이름을 입력해주세요.</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-confirm">가입하기</button>
+            </form>
+        </div>
+
+        <!-- 하단 그린 그라데이션 영역 -->
+        <div class="signup-bottom">
+            <div class="or-text">이미 계정이 있으신가요?</div>
+            <button type="button" class="btn-login-link" onclick="location.href='login.html'">로그인하러 가기</button>
+        </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <!-- 자바스크립트 로직 -->
+    <script>
+        
+        function handleSignup(event) {
+            event.preventDefault(); // 폼 제출 새로고침 방지
+
+            const id = document.getElementById('newId').value.trim();
+            const pw = document.getElementById('newPw').value.trim();
+            const pwConfirm = document.getElementById('newPwConfirm').value.trim();
+            const name = document.getElementById('newName').value.trim();
+
+            // 에러 메시지 초기화
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+
+            let isValid = true;
+
+            // 1. 유효성 검사
+            if (!id) {
+                document.getElementById('idError').style.display = 'block';
+                isValid = false;
+            }
+            if (!pw) {
+                document.getElementById('pwError').style.display = 'block';
+                isValid = false;
+            }
+            if (pw && pw !== pwConfirm) {
+                document.getElementById('pwConfirmError').style.display = 'block';
+                isValid = false;
+            }
+            if (!name) {
+                document.getElementById('nameError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (!isValid) return false;
+
+            // 2. LocalStorage에 유저 정보 저장 배열 가져오기 (없으면 빈 배열)
+            let users = JSON.parse(localStorage.getItem('forlog_users')) || [];
+
+            // 3. 아이디 중복 체크
+            const isDuplicate = users.some(user => user.id === id);
+            if (isDuplicate) {
+                const idError = document.getElementById('idError');
+                idError.textContent = "이미 사용 중인 아이디입니다.";
+                idError.style.display = 'block';
+                return false;
+            }
+
+            // 4. 새로운 유저 객체 생성 및 배열에 추가
+            const newUser = {
+                id: id,
+                pw: pw,
+                name: name
+            };
+
+            users.push(newUser);
+            localStorage.setItem('forlog_users', JSON.stringify(users));
+
+            alert(`환영합니다, ${name}님! 회원가입이 완료되었습니다. 🍀\n로그인 페이지로 이동합니다.`);
+
+            // 로그인 페이지로 리다이렉트
+            window.location.href = 'login.html';
+        }
+    </script>
+    <script src="../common/header.js"></script>
+    <script>
+        fetch('../common/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('headers').innerHTML = data;
+                initHeader(); 
+            });
+        fetch('../common/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+
+            });
+    </script>
+</body>
+
+</html>

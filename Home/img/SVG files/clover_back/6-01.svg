@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 586.6 593.5">
+  <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
+  <defs>
+    <style>
+      .st0 {
+        font-size: 79px;
+      }
+
+      .st0, .st1 {
+        fill: #fff8e6;
+        font-family: 'Cloudsofa_namgim-Regular', Cloudsofa_namgim;
+      }
+
+      .st0, .st1, .st2 {
+        isolation: isolate;
+      }
+
+      .st1 {
+        font-size: 43.3px;
+      }
+
+      .st3 {
+        fill: #db864f;
+      }
+    </style>
+  </defs>
+  <path class="st3" d="M535.1,296.7c31.8-31.4,51.6-75.1,51.6-123.4,0-95.7-77.7-173.3-173.5-173.3s-88.8,18.3-119.9,48.2C262.2,18.3,219.9,0,173.4,0,77.6,0,0,77.6,0,173.4s19.7,91.9,51.6,123.4C19.7,328.2,0,371.8,0,420.1c0,95.8,77.6,173.4,173.4,173.4s88.8-18.3,119.9-48.2c31.1,29.8,73.4,48.2,119.9,48.2,95.8,0,173.4-77.6,173.4-173.4s-19.7-91.9-51.6-123.4h0Z"/>
+  <g class="st2">
+    <text class="st0" transform="translate(186.1 201)"><tspan x="0" y="0">BEST</tspan></text>
+    <text class="st0" transform="translate(105.2 282)"><tspan x="0" y="0">CHOROGI</tspan></text>
+    <text class="st0" transform="translate(168.4 363)"><tspan x="0" y="0">NO.06</tspan></text>
+    <text class="st1" transform="translate(172.5 439)"><tspan x="0" y="0">Click HERE!</tspan></text>
+  </g>
+</svg>

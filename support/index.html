@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <title>FOR-LOG | SUPPORT</title>
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./support.css">
+</head>
+
+<body>
+
+    <div id="headers"></div>
+
+    <!-------------- 색션 1 이미지 -------------------->
+    <section class="section support-hero-section">
+        <!-- 본문 제목에 직접 클래스 추가 -->
+        <h1 class="support-main-title scroll-fade">SUPPORT</h1>
+        <div class="character-img-box">
+            <img src="img/character2 2.png" alt="FOR-LOG character">
+        </div>
+    </section>
+
+    <!--------------색션 1 물결 패턴---------------- -->
+    <div class="scallop-divider">
+        <img src="../Home/img/png files(and logo)/pattern-green3.png"/>
+    </div>
+
+    <!-------------- 색션 2 공지사항 -------------------->
+    <section class="section news-section" id="news">
+        <!-- 본문 제목에 직접 클래스 추가 -->
+        <h2 class="scroll-fade"><span class="dot">&#8226;</span> NEWS <span>공지 사항</span></h2>
+        <div class="news-list-stripe-bg">
+            <div class="news-list-wrap">
+                <div class="news-table-header-box">
+                    <div class="news-table-header-inner">
+                        <div class="th-num">번호</div>
+                        <div class="th-title">제목</div>
+                        <div class="th-author">작성자</div>
+                        <div class="th-date">작성일</div>
+                    </div>
+                </div>
+                <div class="news-table-body-inner">
+                    <div class="news-item">
+                        <div class="td-num">8</div>
+                        <div class="td-title">FOR-LOG 고객센터 운영 안내 <span class="badge-new">NEW</span></div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.26</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">7</div>
+                        <div class="td-title">서비스 만족도 조사 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.25</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">6</div>
+                        <div class="td-title">회원 혜택 업데이트 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.24</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">5</div>
+                        <div class="td-title">FOR-LOG 서비스 점검 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.23</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">4</div>
+                        <div class="td-title">개인정보처리방침 개정 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.15</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">3</div>
+                        <div class="td-title">액세스 기능 개선 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.06.01</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">2</div>
+                        <div class="td-title">모바일 앱 환경 최적화 업데이트 완료 안내</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.05.20</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="td-num">1</div>
+                        <div class="td-title">FOR-LOG 정식 서비스 오픈 가이드</div>
+                        <div class="td-author">관리자</div>
+                        <div class="td-date">2026.05.01</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!----------색션2 팝업 모달창-->
+    <div id="newsModal" class="news-modal">
+        <div class="news-modal-content">
+            <span class="news-modal-close">&times;</span>
+            <div class="news-modal-body">
+                <div class="modal-top-tag">
+                    <span class="modal-dot">&#8226;</span> NEWS <span>공지 사항</span>
+                </div>
+                <h3 id="modalTitle">공지사항 제목</h3>
+                <div class="modal-meta">
+                    <span>번호: <strong id="modalNum">-</strong></span>
+                    <span>작성자: <strong id="modalAuthor">-</strong></span>
+                    <span>작성일: <strong id="modalDate">-</strong></span>
+                </div>
+                <div class="modal-divider"></div>
+                <div id="modalText">공지사항 내용이 들어가는 자리입니다.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-------------- 색션 3 자주묻는질문답변 -------------------->
+    <section class="section faq-section" id="faq">
+        <!-- 본문 제목에 직접 클래스 추가 -->
+        <h2 class="scroll-fade"><span class="dot">&#8226;</span> FAQ <span>자주 묻는 질문</span></h2>
+        <div class="faq-accordion">
+            <div class="faq-item">
+                <div class="faq-question"><span class="q-icon">Q.</span>
+                    <p>비밀번호를 분실했습니다.</p><span class="arrow-icon">&#9662;</span>
+                </div>
+                <div class="faq-answer"><span class="a-icon">A.</span>
+                    <p>로그인 페이지의 비밀번호 재설정 링크를 이용해 주세요. 가입하신 이메일 주소로 재설정 메일이 발송됩니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span class="q-icon">Q.</span>
+                    <p>계정을 삭제하면 어떻게 되나요?</p><span class="arrow-icon">&#9662;</span>
+                </div>
+                <div class="faq-answer"><span class="a-icon">A.</span>
+                    <p>계정 정보와 저장된 기록이 영구히 삭제되므로, 중요한 데이터는 미리 백업해 두시기 바랍니다.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question"><span class="q-icon">Q.</span>
+                    <p>고객 센터 운영 시간은 어떻게 되나요?</p><span class="arrow-icon">&#9662;</span>
+                </div>
+                <div class="faq-answer"><span class="a-icon">A.</span>
+                    <p>FOR-LOG 고객 센터는 평일 10:00부터 17:00까지 운영되며, 점심시간, 주말 및 공휴일은 제외됩니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-------------- 색션 4 오시는길 -------------------->
+    <section class="section location-section" id="location">
+        <!-- 本문 제목에 직접 클래스 추가 -->
+        <h2 class="scroll-fade"><span class="dot">&#8226;</span> LOCATION <span>오시는 길</span></h2>
+        <div class="wave-deco bottom-wave"></div>
+        <div style="width: min(90%, 1500px); margin: 0 auto; position: relative;">
+            <div class="map-api-box" id="map" style="margin: 40px 0;"></div>
+            <div
+                style="position: absolute; top: 55px; left: 15px; z-index: 10; display: flex; flex-direction: column; gap: 10px;">
+                <div
+                    style="background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); display: flex; gap: 6px;">
+                    <input type="text" id="keyword" placeholder="맛집,카페,주차장 등 입력"
+                        style="border: 1px solid #ccc; padding: 6px 10px; border-radius: 4px; font-size: 14px; width: 220px;">
+                    <button onclick="searchPlaces()"
+                        style="background: var(--main-color, #2C4224); color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 14px;">검색</button>
+                </div>
+                <div id="menu_wrap"
+                    style="background: white; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.2); max-height: 300px; overflow-y: auto; display: none; padding: 10px; position: relative; width: 240px;">
+                    <button onclick="closePlacesList()"
+                        style="position: absolute; top: 8px; right: 10px; background: none; border: none; font-size: 16px; font-weight: bold; color: #999; cursor: pointer; z-index: 20;">✕</button>
+                    <ul id="placesList" style="list-style: none; padding: 0; margin: 20px 0 0 0;"></ul>
+                    <div id="pagination" style="margin-top: 10px; text-align: center;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="location-info-container">
+            <div class="info-inner">
+                <div class="info-block">
+                    <div class="info-tag-title">오시는 방법</div>
+                    <div class="info-row"><span class="icon"></span>
+                        <p>그린 포레스트 버스정류장 도보 3분</p>
+                    </div>
+                    <div class="info-row"><span class="icon"></span>
+                        <p>2번 출구에서 200m 직진</p>
+                    </div>
+                </div>
+                <div class="info-block">
+                    <div class="info-tag-title">주소 및 연락처</div>
+                    <div class="info-row"><span class="icon"></span>
+                        <p>경기 안산시 상록구 광덕1로 375 FOR-LOG 3F</p>
+                    </div>
+                    <div class="info-row"><span class="icon"></span>
+                        <p>1544-0000</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer"></div>
+
+    <!-------------- 마우스 커서 효과 연결 -------------------->
+    <div class="roundG4"></div>
+    <script src="../products/mouseEffect.js"></script>
+
+    <!------------스크립트 연결------------>
+    <script type="text/javascript"
+        src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=f31372f50de7327023abf3be4282e61c&libraries=services"></script>
+    <script src="./support.js"></script>
+    <script src="../common/header.js"></script>
+</body>
+
+</html>

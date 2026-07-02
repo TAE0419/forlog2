@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1939.21 642.18">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+        font-size: 68.52px;
+      }
+
+      .cls-2 {
+        fill: none;
+      }
+
+      .cls-3 {
+        font-family: 'Cloudsofa_namgim-Regular', Cloudsofa_namgim;
+      }
+
+      .cls-4 {
+        font-family: NotoSansKR-Regular, 'Noto Sans KR';
+        font-variation-settings: 'wght' 400;
+      }
+
+      .cls-5 {
+        fill: #f8b2b9;
+      }
+
+      .cls-6 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-2" x="0" y="0" width="1825.26" height="642.18" rx="321.09" ry="321.09"/>
+    </clipPath>
+  </defs>
+  <g id="Layer_2-2" data-name="Layer 2">
+    <g>
+      <g class="cls-6">
+        <image width="1491" height="1055" transform="translate(-24.67 -722.6) scale(1.41 1.51)" xlink:href="../../character image/table-character.png"/>
+        <rect class="cls-5" x="149.89" y="-27.65" width="475.38" height="116.76"/>
+      </g>
+      <text class="cls-1" transform="translate(950.17 349.73)"><tspan class="cls-3"><tspan x="0" y="0">GREEN &amp; CUTE</tspan></tspan><tspan class="cls-3" x="-21.94" y="82.23">FOR</tspan><tspan class="cls-4" x="123.54" y="82.23">_</tspan><tspan class="cls-3" x="161.84" y="82.23">LOG</tspan></text>
+    </g>
+  </g>
+</svg>

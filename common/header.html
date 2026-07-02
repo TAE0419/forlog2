@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./FontAndColor/FontAndColor.css">
+    <style>
+        header{
+            width: 100%; height:90px;
+            display: flex; justify-content: center; align-items: center;
+            position: fixed; top: 0; left: 0; z-index: 100;
+        }
+        .headerInner{
+            width: 90%;  height:60%;
+            border-radius: 50px;
+            display:grid; grid-template-columns: 15% 80% 5%; 
+            padding: 0 40px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        .headerInner::before {
+        content: "";
+        position: absolute; top: 0; left: 0; 
+        width: 100%; height: 100%;
+        background-color: color-mix(in srgb, var(--bg-color) 90%, transparent);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border-radius: 50px;
+        z-index: -1; /* 내용물 뒤로 깔리게 하기 */
+    }
+        .logo{
+            display: flex; justify-content: center; align-items: center;min-width:250px;
+        }
+        .logo>a{
+            width: 75%; height: 51%;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .logo img{
+            width: 100%; height: 100%;
+            object-fit:cover;
+        }
+        .gnb{
+            height: 100%; 
+            display: flex; justify-content: end;
+        }
+        .gnb>li{
+            height: 100%; position: relative; margin-right: 100px;
+            transition: all 0.2s; font:var(--small2-font); color: var(--dark-color);
+        }
+        .gnb > li.login {
+        margin-right: 20px;
+        }
+        .gnb > li.sline {
+            margin-right: 20px;
+            cursor:default;
+            color: var(--main-color);
+        }
+        .gnb>li:hover{
+            color: var(--main-color);
+        }
+        .gnb>li>a{
+            width: 100%;height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            transition: all 0.1s;
+        }
+        
+        /* ===============================================서브메뉴============================================= */
+        .snb{
+            position: absolute; left: 50%; 
+            transform: translateX(-50%);
+            top: 100%;/*부모의 밑바닥 끝에 위치해라*/
+            width: 150px;
+            background-color: color-mix(in srgb, var(--main-color) 80%, transparent);
+            backdrop-filter: blur(4px);
+            color: var(--bg-color);
+            border-radius:  0 0 15px 15px;
+            z-index: 200;
+            padding: 15px;
+            display: none;
+        }
+        .snb li{
+            padding: 5px 0; font:var(--small2-font);
+        }
+        a {
+       color: inherit;
+        }
+
+/* ===============================햄버거===================================== */
+        .ham{
+            width: 100%;
+            display: flex; justify-content: center; align-items: center; flex-direction: column
+        }
+        .ham span{
+            width: 25px; height: 2px; border-radius: 5px;
+            background-color: var(--dark-color); margin: 3px 0;
+            transition: all 0.2s;
+        }
+        .ham:hover span:nth-child(1){
+            transform: rotate(-26deg) translateY(3px);
+        }
+        .ham:hover span:nth-child(2){
+            opacity: 0;
+        }
+        .ham:hover span:nth-child(3){
+            transform: rotate(26deg) translateY(-3px);
+        }
+        .dim{
+            width: 100%; height: 100vh;
+            background-color: color-mix(in srgb, var(--dark-color) 50%, transparent);
+            backdrop-filter: blur(4px);
+            position: fixed; left: 0;top: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 500;
+        }
+        .dim.on{
+            opacity: 1;
+            visibility: visible;
+        }
+        .hamSideMenu{
+            width: 22rem; height: 100vh;
+            background-color: var(--bg-color);
+            position: fixed; right: -100%; top: 0;
+            padding: 32px; transition: all 0.3s;
+            z-index: 1000;
+        }
+        .hamSideMenu.on{
+            right: 0;
+        }
+        .hamGnb>li{
+            margin-top: 70px;
+            font: var(--small-font); color: var(--dark-color);
+            transition: all 0.2s;
+        }
+        .hamGnb>li:hover{
+            color: var(--main-color);
+        }
+        .hamSnb{
+            display: none;
+        }
+        .hamSnb li{
+            margin-top: 20px;
+            font: var(--small2-font); color: var(--main-color);
+        }
+        .hamSnb li{
+            margin-top: 20px;
+            font: var(--small2-font); color: var(--main-color);
+        }
+        .close{
+            width:20px;
+            color: var(--point-color);
+            font: var(--small-font);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .close:hover{
+            scale: 1.2;
+        }
+        @media(max-width:1000px){
+            .gnb{
+                display: none;
+            }
+            .hamSideMenu{
+                width: 70%;
+            }
+            .ham{
+                align-items: end;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div class="headerInner">
+        <div class="logo"><a href="../Home/index.html"><img src="../common/img/logo(black) 2.png" alt="logo"></a></div>
+        <ul class="gnb">
+            <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
+                <ul class="snb">
+                    <li><a href="../brandstory/brandstory.html#concept">CONCEPT</a></li>
+                    <li><a href="../brandstory/brandstory.html#chologi">CHOLOGI</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../products/products_index.html">PRODUCT</a>
+                <ul class="snb">
+                    <li><a href="../products/products_index.html">SHOP</a></li>
+                    <li><a href="../products/cart_test.html">CART</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../support/index.html">SUPPORT</a>
+                <ul class="snb">
+                    <li><a href="../support/index.html#news">NEWS</a></li>
+                    <li><a href="../support/index.html#faq">FAQ</a></li>
+                    <li><a href="../support/index.html#location">LOCATION</a></li>
+                </ul>
+            </li>
+            <li  class="login"><a href="../products/login.html">LOG IN</a></li>
+            <li class="sline"><a>|</a></li>
+            <li><a href="../products/signup.html">SIGN UP</a></li>
+        </ul>
+            <div class="ham">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+    </div>
+</header>
+<!-- =============================햄버거 누르면 나타나는 전체메뉴=========================== -->
+    <div class="dim"></div>
+    <div class="hamSideMenu">
+        <div class="close">&#10006;</div>
+        <ul class="hamGnb">
+            <li><a href="../brandstory/brandstory.html">BRANDSTORY</a>
+            <ul class="hamSnb">
+                <li><a href="../brandstory/brandstory.html#concept">CONCEPT</a></li>
+                <li><a href="../brandstory/brandstory.html#chologi">CHOLOGI</a></li>
+            </ul>
+            </li>
+            <li>
+                <a href="../products/products_index.html">PRODUCT</a>
+                <ul class="hamSnb">
+                    <li><a href="../products/products_index.html">SHOP</a></li>
+                    <li><a href="../products/cart_test.html">CART</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="../support/index.html">SUPPORT</a>
+                <ul class="hamSnb">
+                    <li><a href="../support/index.html#news">NEWS</a></li>
+                    <li><a href="../support/index.html#faq">FAQ</a></li>
+                    <li><a href="../support/index.html#location">LOCATION</a></li>
+                </ul>
+            </li>
+            <li><a href="../products/login.html">LOG IN</a></li>    
+            <li class="signup"><a href="../products/signup.html">SIGN UP</a></li>
+        </ul>
+    </div>
+    <script>
+        
+    </script>
+</body>
+</html>

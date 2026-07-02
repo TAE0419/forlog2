@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./FontAndColor/FontAndColor.css">
+    <style>
+        footer{
+            width: 100%; height: 31rem;
+            background-color: var(--point-color);
+            padding: 50px 70px;
+            display: flex; justify-content: space-between;
+        }
+        .left{
+            display: flex; flex-direction: column; gap: 30px; justify-content: space-between;
+            width: 70rem; 
+        }
+        .info{
+            font: var(--small2-font);
+            color: var(--bg-color);
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .line{
+            width: 90%;
+        }
+        .logo{
+            width: 80%;
+        }
+        .logo>img{
+            width: 100%;
+        }
+        .right{
+            display: flex; flex-direction: column; gap: 60px;
+            align-items: center; justify-content: center;
+        }
+        .right>img{
+            width: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <div class="left">
+            <div class="info">
+                <p>주소 : 경기 안산시 상록구 광덕1로 375 FOR-LOG 3F</p>
+                <p>대표 : FOR-LOG Team</p>
+                <p>사업자등록번호 : 123-45-67890</p>
+                <p>이메일 : info@company.com</p>
+                <p>이용약관 | 개인정보처리방침</p>
+                <p>© 2023 Company. All rights reserved.</p>
+            </div>
+            <div class=line><hr style="border: none; border-top: 2px dashed var(--bg-color);"></div>
+            <div class="logo">
+                <img src="../Home/img/SVG files/logo/logo(white).svg" alt="logo">
+            </div>
+        </div>
+        <div class="right">
+            <img src="../common/img/youtube.png" alt="sns">
+            <img src="../common/img/instagram.png" alt="sns">
+            <img src="../common/img/blog.png" alt="sns">
+        </div>
+    </footer>
+</body>
+</html>

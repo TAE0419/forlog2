@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FOR-LOG - LOG IN</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../common/FontAndColor/FontAndColor.css">
+
+    <style>
+        /* FOR-LOG 프로젝트 전용 테마 컬러 정의*/
+        :root {
+            --main-color: #AAB664;
+            --sub-color: #6F8B41;
+            --bg-color: #FFFEF3;
+            --point-color: #DB824A;
+            --dark-color: #24331C;
+            --line-color: #E2E8F0;
+            --font-cloud: 'Cloudsofa', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'Cloudsofa';
+            src: url('/font/Cloudsofa_namgim-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--dark-color);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        a {
+            color: inherit;
+        }
+
+    
+
+        /* -----------------------------------------
+           로그인 페이지
+        -------------------------------------------- */
+        .login-page {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background:
+                radial-gradient(circle at 16% 12%, rgba(219, 130, 74, 0.14), transparent 24rem),
+                radial-gradient(circle at 88% 34%, rgba(170, 182, 100, 0.18), transparent 22rem),
+                var(--bg-color);
+        }
+
+        .login-top {
+            padding: 150px 20px 56px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .big-logo {
+            font-family: var(--font-cloud);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            color: var(--main-color);
+            margin-bottom: 22px;
+            letter-spacing: 2px;
+            text-align: center;
+            line-height: 0.9;
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.9);
+        }
+
+        .dashed-divider {
+            width: 95%;
+            max-width: 1200px;
+            border-top: 2px dashed rgba(111, 139, 65, 0.35);
+            margin: 0 auto 46px;
+        }
+
+        .login-title-simple {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--dark-color);
+            margin-bottom: 28px;
+            letter-spacing: 0.08em;
+        }
+
+        .simple-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 390px;
+            margin: 0 auto 26px;
+        }
+
+        .simple-input {
+            width: 100%;
+            padding: 15px 24px;
+            border: 1.5px solid rgba(111, 139, 65, 0.55);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.72);
+            font-size: 0.95rem;
+            color: var(--dark-color);
+            outline: none;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(36, 51, 28, 0.05);
+            transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+        }
+
+        .simple-input::placeholder {
+            color: rgba(36, 51, 28, 0.48);
+            font-weight: 500;
+        }
+
+        .simple-input:focus {
+            border-color: var(--sub-color);
+            box-shadow: 0 0 0 4px rgba(170, 182, 100, 0.18), 0 12px 28px rgba(36, 51, 28, 0.08);
+            background: #fff;
+        }
+
+        .btn-confirm {
+            min-width: 160px;
+            background: linear-gradient(135deg, var(--point-color), #c96f38);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 50px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 22px rgba(219, 130, 74, 0.28);
+        }
+
+        .btn-confirm:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(219, 130, 74, 0.34);
+        }
+
+        .login-bottom {
+            background: linear-gradient(180deg, rgba(170, 182, 100, 0.94) 0%, rgba(111, 139, 65, 0.88) 100%);
+            padding: 54px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+            box-shadow: inset 0 18px 40px rgba(36, 51, 28, 0.06);
+        }
+
+        .or-text {
+            color: #fff;
+            font-weight: 800;
+            margin-bottom: 28px;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+        }
+
+        .social-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 390px;
+            margin-bottom: 40px;
+        }
+
+        .btn-social {
+            width: 100%;
+            min-height: 52px;
+            padding: 0 20px;
+            background-color: #fff;
+            color: var(--dark-color);
+            border: 1px solid rgba(36, 51, 28, 0.08);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 10px 22px rgba(36, 51, 28, 0.12);
+        }
+
+        .btn-social:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 28px rgba(36, 51, 28, 0.16);
+        }
+
+        .btn-google {
+            border-color: rgba(219, 130, 74, 0.28);
+        }
+
+        .btn-google i {
+            color: #DB4437;
+        }
+
+        .btn-kakao {
+            background-color: #FEE500;
+            color: #2b2118;
+            border-color: rgba(36, 51, 28, 0.08);
+        }
+
+        .btn-kakao i {
+            color: #2b2118;
+        }
+
+        .btn-naver {
+            background-color: #0ea150;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .btn-naver span {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .btn-signup-link {
+            background-color: var(--dark-color);
+            color: var(--bg-color);
+            padding: 14px 45px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 900;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 10px 22px rgba(36, 51, 28, 0.18);
+        }
+
+        .btn-signup-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(36, 51, 28, 0.24);
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+    <div id="headers"></div>
+
+    <!-- 메인 로그인 영역 -->
+    <main class="login-page">
+        <div class="login-top">
+            <h1 class="big-logo">FOR-LOG</h1>
+            <div class="dashed-divider"></div>
+
+            <h2 class="login-title-simple">LOGIN</h2>
+
+            <form id="loginForm" onsubmit="return handleLogin(event)" style="width: 100%; text-align: center;">
+                <div class="simple-input-group">
+                    <input type="text" id="userId" class="simple-input" placeholder="아이디를 입력해주세요"
+                        autocomplete="username">
+                    <input type="password" id="userPw" class="simple-input" placeholder="비밀번호를 입력해주세요"
+                        autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn-confirm">로그인</button>
+            </form>
+        </div>
+
+        <div class="login-bottom">
+            <div class="or-text">또는</div>
+            <div class="social-btns">
+                <button type="button" class="btn-social btn-google" onclick="openSocialLogin('google')">
+                    <i class="fa-brands fa-google"></i>
+                    구글로 로그인
+                </button>
+
+                <button type="button" class="btn-social btn-kakao" onclick="openSocialLogin('kakao')">
+                    <i class="fa-solid fa-comment"></i>
+                    카카오로 로그인
+                </button>
+
+                <button type="button" class="btn-social btn-naver" onclick="openSocialLogin('naver')">
+                    <span style="font-weight: 900; font-size: 1.1rem; margin-right: 2px;">N</span>
+                    네이버로 로그인
+                </button>
+            </div>
+    </main>
+
+    <div id="footer"></div>
+
+    <div class="roundG4"></div>
+    <script src="../products/mouseEffect.js"></script>
+
+    <!-- 자바스크립트 로직 -->
+    <script>
+
+        // 페이지 로드 시 로그인 상태 체크
+        window.onload = function () {
+            const loggedInUser = localStorage.getItem('forlog_current_user');
+            if (loggedInUser) {
+                alert(`이미 로그인되어 있습니다. 환영합니다, ${loggedInUser}님! 🌿`);
+                location.href = '../Home/index.html';
+            }
+        };
+
+        // 로그인 처리 함수
+        function handleLogin(event) {
+            event.preventDefault();
+
+            const userIdInput = document.getElementById('userId').value.trim();
+            const userPwInput = document.getElementById('userPw').value.trim();
+
+            if (!userIdInput) {
+                alert("아이디를 입력해주세요.");
+                document.getElementById('userId').focus();
+                return false;
+            }
+            if (!userPwInput) {
+                alert("비밀번호를 입력해주세요.");
+                document.getElementById('userPw').focus();
+                return false;
+            }
+
+            const users = JSON.parse(localStorage.getItem('forlog_users')) || [];
+            const matchedUser = users.find(user => user.id === userIdInput && user.pw === userPwInput);
+
+            if (matchedUser) {
+                localStorage.setItem('forlog_current_user', matchedUser.name);
+                alert(`환영합니다, ${matchedUser.name}님! 로그인 되었습니다. 💚`);
+                window.location.href = 'products_index.html';
+            } else {
+                alert("아이디 또는 비밀번호가 일치하지 않거나, 가입되지 않은 계정입니다.");
+                document.getElementById('userPw').value = '';
+                document.getElementById('userPw').focus();
+            }
+
+            return false;
+        }
+
+        // 소셜로그인 페이지 연동
+        function openSocialLogin(provider) {
+            let url = "";
+
+            // 각 소셜 서비스의 실제 공식 로그인 페이지 URL 주소
+            switch (provider) {
+                case 'google':
+                    url = "https://accounts.google.com/v3/signin/identifier?flowName=GlifWebSignIn&flowEntry=ServiceLogin";
+                    break;
+                case 'kakao':
+                    url = "https://kauth.kakao.com/oauth/authorize";
+                    break;
+                case 'naver':
+                    url = "https://nid.naver.com/nidlogin.login";
+                    break;
+                default:
+                    return;
+            }
+
+            // 화면 중앙에 이쁘게 팝업창을 띄우기 위한 좌표 계산
+            const width = 500;
+            const height = 600;
+            const left = (window.screen.width / 2) - (width / 2);
+            const top = (window.screen.height / 2) - (height / 2);
+
+            // 실제 팝업창 열기 실행
+            window.open(url, `${provider}Login`, `width=${width}, height=${height}, top=${top}, left=${left}, scrollbars=yes, resizable=yes`);
+        }
+    </script>
+    <script src="../products/mouseEffect.js"></script>
+    
+    <script src="../common/header.js"></script>
+    <script>
+        fetch('../common/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('headers').innerHTML = data;
+                initHeader(); 
+            });
+        fetch('../common/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+
+            });
+    </script>
+</body>
+
+</html>

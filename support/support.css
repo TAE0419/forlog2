@@ -1,0 +1,993 @@
+@import url("../common/FontAndColor/FontAndColor.css");
+
+/* ==========================================================================
+   00. 글로벌 및 공통 스타일 (Global & Common)
+   ========================================================================== */
+
+/* 전역 폰트 및 배경 지정 */
+body,
+.support-hero-section,
+.news-section,
+.faq-section,
+.location-section {
+    font-family: var(--font-cloud), "Malgun Gothic", sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+}
+
+/* 팀 공통 레이아웃 변수 선언 */
+:root {
+    --support-content-width: 1500px;
+}
+
+
+
+/* ==========================================================================
+   03. 공통 섹션 타이틀 (Section Title Components)
+   ========================================================================== */
+
+/* 대제목 스타일 (공지사항, FAQ, 오시는길 등) */
+.section h2 {
+    width: 90%;
+    max-width: var(--support-content-width);
+    font-size: 100px;
+    font-weight: 900;
+    color: var(--dark-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 60px auto 24px;
+    padding: 0;
+    text-align: left;
+    text-shadow: 0 3px 10px rgba(64, 121, 70, 0.35);
+}
+
+/* 타이틀 옆 포인트 점(.) */
+.section h2 .dot {
+    color: var(--point-color);
+    font-size: 170px;
+    line-height: 1;
+    margin-left: 0;
+}
+
+/* 타이틀 내부 보조 설명 텍스트 */
+.section h2 span {
+    font-size: 30px;
+    font-weight: normal;
+    color: var(--dark-color);
+    margin-top: 8px;
+}
+
+
+/* ==========================================================================
+   04. 섹션 1: 비주얼 히어로 영역 (Hero Section)
+   ========================================================================== */
+
+.support-hero-section {
+    text-align: center;
+    padding-top: 100px;
+    padding-bottom: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 1120px;
+}
+
+/* 대형 메인 타이틀 텍스트 */
+.support-main-title {
+    font: var(--title-font);
+    color: var(--dark-color);
+    margin-bottom: 0;
+    position: relative;
+    z-index: 3;
+    text-shadow: 0 3px 10px rgba(64, 121, 70, 0.35);
+}
+
+/* 중앙 캐릭터 일러스트 박스 */
+.character-img-box {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.character-img-box img {
+    display: block;
+    width: 94%;
+    max-width: 1650px;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+/* 상단 그라데이션 오버레이 (자연스러운 배경 페이드) */
+.character-img-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 390px;
+    background: linear-gradient(to bottom, var(--bg-color) 20%, rgba(255, 254, 243, 0) 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* 섹션 경계면 물결 모양 디바이더 (SVG 패턴 활용) */
+.scallop-divider {
+    width: 100%;
+    height: 90px;
+    margin-top: -11rem;
+    position: relative;
+    z-index: 3;
+}
+
+
+/* ==========================================================================
+   05. 섹션 2: 공지사항 리스트 영역 (Notice Section)
+   ========================================================================== */
+
+.news-section {
+    scroll-margin-top: 110px;
+}
+
+/* 화면 전체 너비의 스트라이프 배경 원단 효과 */
+.news-list-stripe-bg {
+    width: 100vw;
+    /* margin-left: calc(-50vw + 50%);
+    padding: 0 0 40px 0;
+    background: repeating-linear-gradient(90deg, #eef7e2, #eef7e2 15px, #ffffff 15px, #ffffff 30px); */
+    background-image: url(../common/img/pattern.png);
+    background-position: center; background-size: cover;
+}
+
+.news-list-wrap {
+    width: 100%;
+    max-width: none;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 리스트 상단 테이블 헤더 바 */
+.news-table-header-box {
+    width: 100%;
+    background-color: var(--bg-color);
+    border-top: 1px solid #cbdcc0;
+    border-bottom: 2px solid #cbdcc0;
+    position: relative;
+    top: -15px;
+}
+
+/* 테이블의 열(Column) 4분할 그리드 규격 공통 설정 */
+.news-table-header-inner,
+.news-item {
+    display: grid;
+    grid-template-columns: 10% 55% 15% 20%;
+}
+
+.news-table-header-inner {
+    width: 90%;
+    max-width: var(--support-content-width);
+    margin: 0 auto;
+    padding: 24px 0;
+}
+
+.news-table-header-inner > div {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--dark-color);
+    text-align: center;
+}
+
+/* 리스트 본문 컨테이너 (스크롤 포함) */
+.news-table-body-inner {
+    width: 90%;
+    max-width: var(--support-content-width);
+    margin: 0 auto;
+    padding: 15px 0 0 0;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--main-color) rgba(170, 182, 100, 0.18);
+}
+
+/* 맞춤 커스텀 스크롤바 (Webkit 전용) */
+.news-table-body-inner::-webkit-scrollbar { width: 10px; }
+.news-table-body-inner::-webkit-scrollbar-track { background: rgba(170, 182, 100, 0.18); border-radius: 999px; }
+.news-table-body-inner::-webkit-scrollbar-thumb { background: var(--main-color); border-radius: 999px; }
+
+/* 공지사항 개별 항목(Row) 카드 스타일 */
+.news-item {
+    align-items: center;
+    background-color: var(--bg-color);
+    margin-bottom: 16px;
+    padding: 16px 0;
+    border-radius: 40px;
+    box-shadow: 0 3px 10px rgba(64, 121, 70, 0.35);
+    border: 2px solid var(--main-color);
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-2px);
+}
+
+.news-item > div {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    text-align: center;
+    color: var(--dark-color);
+    font-size: 16px;
+}
+
+.news-item > .td-title {
+    font-weight: 500;
+}
+
+/* NEW 아이콘 배지 */
+.badge-new {
+    background-color: #e48257;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+}
+
+
+/* ==========================================================================
+   06. 공지사항 모달 팝업 디자인 (Notice Modal Detail)
+   ========================================================================== */
+
+/* 모달 전체 스크린 오버레이 */
+.news-modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: color-mix(in srgb, var(--dark-color) 50%, transparent);
+    backdrop-filter: blur(4px); 
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* 모달 실제 팝업창 바디 */
+.news-modal-content {
+    background-color: var(--bg-color); 
+    margin: 5% auto; 
+    padding: 50px 45px; 
+    border: 2px solid color-mix(in srgb, var(--dark-color) 20%, transparent); 
+    border-radius: 40px; 
+    width: 92%;                   
+    max-width: 900px; 
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    position: relative;
+    animation: slideUpModal 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 위로 부드럽게 올라오는 모달 애니메이션 */
+@keyframes slideUpModal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 모달 우측 상단 ✕ 닫기 버튼 */
+.news-modal-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: var(--point-color); 
+    font-size: 38px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.news-modal-close:hover {
+    color: var(--main-color);
+    transform: scale(1.2);
+}
+
+/* 모달 내부 서브/미니 태그 레이아웃 */
+.modal-top-tag {
+    font: var(--small2-font);
+    font-weight: bold;
+    color: var(--main-color);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.modal-top-tag .modal-dot { color: var(--point-color); font-size: 22px; }
+.modal-top-tag span { font-size: 13px; color: var(--dark-color); opacity: 0.6; font-weight: normal; }
+
+/* 모달창 내부 공지사항 제목 */
+.news-modal-body h3 {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 28px; 
+    font-weight: bold;
+    color: var(--dark-color);
+    margin: 0 0 20px 0;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+/* 작성 정보 메타 영역 (날짜, 작성자 등) */
+.modal-meta {
+    display: flex;
+    gap: 20px;
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 15px;
+    color: var(--dark-color);
+    opacity: 0.8;
+    background-color: color-mix(in srgb, var(--dark-color) 3%, transparent); 
+    padding: 12px 24px;
+    border-radius: 15px;
+}
+
+.modal-meta strong { color: var(--main-color); font-weight: 600; }
+.modal-divider { height: 1px; background: repeating-linear-gradient(90deg, var(--main-color), var(--main-color) 4px, transparent 4px, transparent 8px); margin: 30px 0; opacity: 0.4; }
+
+/* 모달 본문 텍스트 디테일 */
+#modalText {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 17px; 
+    font-weight: normal;
+    color: var(--dark-color);
+    line-height: 1.8;
+    min-height: 280px; 
+    padding: 5px;
+    word-break: break-all;
+}
+
+#modalText p { margin-bottom: 16px; }
+#modalText strong { font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif; font-weight: bold; color: var(--main-color); }
+
+
+/* ==========================================================================
+   07. 섹션 3: 자주 묻는 질문 아코디언 영역 (FAQ Section)
+   ========================================================================== */
+
+.faq-section {
+    scroll-margin-top: 110px;
+    margin-top: 120px;
+    margin-bottom: 140px;
+    box-sizing: border-box;
+}
+
+.faq-accordion {
+    width: 90%;
+    max-width: var(--support-content-width);
+    margin: 20px auto 0 auto;
+}
+
+.faq-item {
+    border-bottom: 2.5px dashed var(--dark-color);
+    padding: 10px 0;
+}
+
+/* 질문 블록 (클릭바) */
+.faq-question {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background-color: rgba(44, 66, 36, 0.03);
+}
+
+/* Q & A 타이포 로고 스타일 */
+.faq-question .q-icon,
+.faq-answer .a-icon {
+    font-size: 45px;
+    font-weight: 900;
+    color: var(--dark-color);
+    margin-right: 25px;
+    font-family: "Arial Black", sans-serif;
+}
+
+.faq-question .q-icon { color: #8fa872; }
+.faq-answer .a-icon { color: var(--point-color); }
+
+.faq-question p {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #111111;
+    margin: 0;
+}
+
+/* 우측 아코디언 개폐 화살표 아이콘 */
+.faq-question .arrow-icon {
+    margin-left: auto;
+    font-size: 32px;
+    color: var(--dark-color);
+    font-weight: bold;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question .arrow-icon { 
+    transform: rotate(180deg); 
+}
+
+/* 
+   ✨ [완전 수정] 기본 상태 (닫혀있을 때) 
+   - 닫힐 때 부드럽게 사라지도록 속성들을 최적화했습니다.
+*/
+.faq-answer {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(250, 250, 242, 0.5);
+    
+    /* 닫혀있을 때 높이와 여백을 모두 0으로 꽉 닫아줍니다 */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 20px; /* 위아래 패딩을 0으로 만들어 줍니다 */
+    
+    /* 닫힐 때 부드럽게 처리하는 핵심 트랜지션 효과 */
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                padding 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.2s ease;
+}
+
+.faq-answer p {
+    font-family: "Malgun Gothic", "맑은 고딕", Apple SD Gothic Neo, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: #444444;
+    line-height: 1.7;
+    margin-top: 1rem;
+    padding-top: 12px;
+}
+
+/* 
+   ✨ [완전 수정] 활성화 상태 (열렸을 때)
+   - max-height를 너무 크지 않게(400px 정도로) 잡아야 닫힐 때 딜레이가 안 생깁니다.
+*/
+.faq-item.active .faq-answer {
+    max-height: 400px;            /* 일반적인 답변 글 길이에 맞춰 400px로 최적화 */
+    padding: 15px 20px 50px 20px; /* 열렸을 때 정상 패딩 적용 */
+    opacity: 1;
+}
+
+
+/* ==========================================================================
+   08. 섹션 4: 오시는 길 지도 API 및 상세 위치 영역 (Location Section)
+   ========================================================================== */
+
+.location-section {
+    scroll-margin-top: 110px;
+    padding-bottom: 100px;
+}
+
+/* 지도 표시 박스 프레임 */
+.map-api-box {
+    width: 90%;
+    max-width: var(--support-content-width);
+    height: 360px;
+    margin: 40px auto;
+    border: 2px dashed #cbdcc0;
+    border-radius: 16px;
+    background: #fafaf2;
+}
+
+/* 지도 하단 오프라인 정보 상세 컨테이너 */
+.location-info-container {
+    width: 90%;
+    max-width: var(--support-content-width);
+    margin: 0 auto;
+}
+
+.info-inner {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.info-block {
+    flex: 1;
+    max-width: 680px;
+}
+
+/* 정보 구분 태그 (주소, 고객센터 등) */
+.info-tag-title {
+    display: inline-block;
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background-color: var(--main-color);
+    color: var(--bg-color);
+    font: var(--small-font);
+}
+
+/* 개별 한 줄 정보 단위 정보행 */
+.info-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
+    color: var(--dark-color);
+}
+
+/* 텍스트 앞 왼쪽 포인트 도트 불릿 기호 */
+.info-row .icon {
+    width: 10px;
+    height: 10px;
+    margin-top: 14px;
+    border-radius: 50%;
+    background-color: var(--point-color);
+    flex: 0 0 auto;
+}
+
+.location-section input,
+.location-section button,
+.location-section .info-row p {
+    font-family: "Malgun Gothic", Dotum, AppleSDGothicNeo, sans-serif !important;
+}
+
+/* 리스트 및 페이지네이션 기본 제어 숨김 처리 */
+#pagination { display: none !important; }
+#placesList, #placesList h5, #placesList span {
+    font-family: "Malgun Gothic", Dotum, AppleSDGothicNeo, sans-serif !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   08-1. 지도 API 내부 카카오맵 전용 커스텀 오버레이 말풍선 디자인
+   -------------------------------------------------------------------------- */
+
+/* 말풍선 전체 랩 */
+.map-overlay-box {
+    position: relative;
+    width: 310px;
+    background: var(--bg-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: 1px solid color-mix(in srgb, var(--main-color) 20%, transparent);
+    font-family: "Malgun Gothic", sans-serif;
+    overflow: visible; 
+}
+
+/* 말풍선 우측 상단 ✕ 닫기 버튼 스타일 */
+.map-overlay-box .overlay-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--bg-color);
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    z-index: 10;
+}
+
+.map-overlay-box .overlay-close-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.15);
+}
+
+/* 아래쪽 말풍선 촉 기호 화살표 꼬리 */
+.map-overlay-box::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top: 10px solid var(--bg-color);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 0 solid transparent;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+/* 오버레이 상단 타이틀 바 */
+.map-overlay-box .overlay-header {
+    background: var(--main-color);
+    padding: 10px 14px;
+    border-radius: 7px 7px 0 0;
+}
+
+.map-overlay-box .overlay-title {
+    color: var(--bg-color);
+    font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+/* 오버레이 하단 알맹이 정보 구성 레이아웃 */
+.map-overlay-box .overlay-body {
+    display: flex;
+    padding: 14px;
+    gap: 14px;
+    background: var(--bg-color);
+    border-radius: 0 0 7px 7px;
+    align-items: center;
+}
+
+/* 로고 프레임 썸네일 박스 */
+.map-overlay-box .overlay-img {
+    width: 65px;
+    height: 65px;
+    flex: 0 0 auto;
+    border: 1px solid color-mix(in srgb, var(--dark-color) 10%, transparent);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    overflow: hidden;
+}
+
+.map-overlay-box .overlay-img img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+/* 우측 텍스트 정보 영역 분할 */
+.map-overlay-box .overlay-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.map-overlay-box .overlay-content p {
+    margin: 0 0 4px 0 !important; 
+    line-height: 1.4;
+    white-space: normal; /* 자동 개행 확보 */
+}
+
+.map-overlay-box .overlay-content .addr { font-size: 13px; font-weight: bold; color: var(--dark-color); }
+.map-overlay-box .overlay-content .sub { font-size: 11px; color: var(--dark-color); opacity: 0.6; }
+.map-overlay-box .overlay-content .lnk { font-size: 11px; color: var(--main-color); text-decoration: underline; margin-top: 2px; font-weight: bold; }
+
+
+
+.right .sns img {
+    max-width: 3rem;
+}
+
+
+/* ==========================================================================
+   10. 반응형 레이아웃 미디어 쿼리 (Responsive Media Queries)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   [1] 데스크톱 소형 & 태블릿 가로 (Max-width: 1280px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1280px) {
+    .headerInner {
+        grid-template-columns: 220px 1fr 48px;
+        padding: 0 28px;
+    }
+
+    .gnb > li {
+        margin-right: 52px;
+    }
+
+    .support-main-title {
+        font-size: 136px;
+    }
+
+    .support-hero-section {
+        min-height: 860px;
+    }
+
+    .character-img-box img {
+        width: 96%;
+        max-width: 1180px;
+    }
+
+    .scallop-divider {
+        margin-top: -72px;
+    }
+
+    .section h2 {
+        width: 88%;
+    }
+
+    .news-table-header-inner,
+    .news-table-body-inner,
+    .faq-accordion,
+    .location-info-container,
+    .map-api-box {
+        width: 88%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [2] 일반 태블릿 세로 규격 (Max-width: 1000px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+    /* 내비게이션 바 전환 및 모바일 전용 UI 켜짐 */
+    .gnb {
+        display: none;
+    }
+
+    .hamSideMenu {
+        width: 70%;
+    }
+
+    .ham {
+        align-items: flex-end;
+    }
+
+    .headerInner {
+        grid-template-columns: minmax(120px, 220px) 1fr 48px;
+        height: 58%;
+    }
+
+    .headerInner .logo {
+        justify-content: flex-start;
+    }
+
+    .headerInner .logo > a {
+        width: 170px;
+    }
+
+    /* 메인 비주얼 반응형 크기 조절 */
+    .support-main-title {
+        font-size: 86px;
+    }
+
+    .support-hero-section {
+        min-height: 680px;
+        padding-top: 110px;
+    }
+
+    .character-img-box img {
+        width: 108%;
+        max-width: 980px;
+    }
+
+    .scallop-divider {
+        margin-top: -64px;
+    }
+
+    /* 레이아웃 폭 일괄 공통 조절 */
+    .section h2,
+    .news-table-header-inner,
+    .news-table-body-inner,
+    .faq-accordion,
+    .location-info-container,
+    .map-api-box {
+        width: 90%;
+    }
+
+    .news-table-header-inner,
+    .news-item {
+        grid-template-columns: 15% 50% 15% 20%;
+    }
+
+    .news-item > div {
+        font-size: 16px;
+    }
+
+    .news-table-body-inner {
+        max-height: 300px;
+    }
+
+    /* 정보 하단 레이아웃을 세로(column) 배치로 흐름 변환 */
+    .info-inner,
+    footer {
+        flex-direction: column;
+    }
+
+    footer {
+        height: auto;
+        gap: 40px;
+    }
+
+    .left {
+        width: 100%;
+    }
+
+    footer .logo {
+        width: min(100%, 520px);
+    }
+
+    .right .sns {
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [3] 대형 모바일 & 스마트폰 가로 (Max-width: 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .headerInner {
+        width: 92%;
+        grid-template-columns: 1fr 44px;
+        padding: 0 20px;
+    }
+
+    .headerInner .logo > a {
+        width: 145px;
+    }
+
+    .support-main-title {
+        font-size: 66px;
+    }
+
+    .support-hero-section {
+        min-height: 560px;
+    }
+
+    .character-img-box img {
+        width: 124%;
+        max-width: 760px;
+    }
+
+    .character-img-box::before {
+        height: 220px;
+    }
+
+    .scallop-divider {
+        margin-top: -58px;
+    }
+
+    /* 섹션 대제목 모바일화 */
+    .section h2 {
+        width: 92%;
+        margin: 44px auto 18px;
+        gap: 8px;
+        font-size: 44px;
+    }
+
+    .section h2 .dot {
+        font-size: 58px;
+    }
+
+    .section h2 span {
+        width: auto;
+        margin-left: 0;
+        font-size: 18px;
+    }
+
+    /* 공지사항 목록 압축 및 말줄임표 처리 */
+    .news-table-header-inner,
+    .news-item {
+        grid-template-columns: 14% 50% 18% 18%;
+    }
+
+    .news-table-header-inner > div,
+    .news-item > div {
+        font-size: 13px;
+    }
+
+    .td-title,
+    .news-item > div:nth-child(2) {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 글자 크기 축소 */
+    .faq-question p { font-size: 18px; }
+    .faq-answer p { font-size: 16px; }
+    .info-inner { gap: 24px; }
+    .info-row { font-size: 16px; }
+
+    .news-table-header-inner,
+    .news-table-body-inner,
+    .faq-accordion,
+    .location-info-container,
+    .map-api-box {
+        width: 92%;
+    }
+
+    footer {
+        padding: 40px 28px;
+    }
+
+    footer .logo {
+        width: min(100%, 360px);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   [4] 초소형 스마트폰 세로 일반 (Max-width: 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    .headerInner .logo > a {
+        width: 120px;
+    }
+
+    .support-main-title {
+        font-size: 50px;
+    }
+
+    .support-hero-section {
+        min-height: 410px;
+    }
+
+    .character-img-box img {
+        width: 138%;
+    }
+
+    .scallop-divider {
+        margin-top: -52px;
+    }
+
+    .news-list-stripe-bg {
+        padding-bottom: 28px !important;
+    }
+
+    /* 화면이 너무 작을 때 공지사항 테이블 가로 스크롤 생성 */
+    .news-table-header-inner,
+    .news-table-body-inner {
+        width: 94%;
+    }
+
+    .news-item {
+        min-width: 520px;
+    }
+
+    .news-table-body-inner {
+        overflow: auto;
+    }
+
+    .section h2 {
+        width: 94%;
+    }
+
+    .news-table-header-inner,
+    .news-table-body-inner,
+    .faq-accordion,
+    .location-info-container,
+    .map-api-box {
+        width: 94%;
+    }
+
+    .faq-question {
+        padding: 16px 12px;
+    }
+
+    footer .logo {
+        width: min(100%, 280px);
+    }
+
+    .right .sns img {
+        width: 2.4rem;
+    }
+}
+
+
+/* ==========================================================================
+   11. 스크롤 애니메이션 클래스 스타일
+   ========================================================================== */
+
+.scroll-fade {
+    opacity: 0 !important;
+    transform: translateY(40px) !important;
+    /* cubic-bezier를 사용하여 끝에서 살짝 쫀득하고 부드럽게 멈추는 고급 애니메이션 구현 */
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: opacity, transform;
+}
+
+/* 감지 시 원래 위치로 복구 */
+.scroll-fade.show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}

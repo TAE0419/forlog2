@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 992.1 99.2">
+  <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: #6f8b41;
+      }
+
+      .st1 {
+        display: none;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1">
+    <path class="st0" d="M0,0v56.2c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9c0,23.7,19.2,42.9,42.9,42.9s42.9-19.2,42.9-42.9V0H0Z"/>
+  </g>
+  <g id="Layer_2" class="st1">
+    <image width="1224" height="1238" transform="translate(-83.5 -294.1) scale(.1)" xlink:href="clover-color-white.png"/>
+    <image width="1224" height="1238" transform="translate(98.8 -288.2) scale(.1)" xlink:href="clover-color-green1.png"/>
+    <image width="1224" height="1238" transform="translate(300.3 -272.1) scale(.1)" xlink:href="clover-color-green2.png"/>
+    <image width="1224" height="1238" transform="translate(460.2 -289.1) scale(.1)" xlink:href="clover-color-orange.png"/>
+  </g>
+</svg>
