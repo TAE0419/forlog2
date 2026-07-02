@@ -40,6 +40,19 @@
     <div id="headers"></div>
 
     <!-- 화면 시작 섹션1 -->
+     <div class="movingClover">
+        <div class="clvWrap">
+            <img src="./img/move/ccv.png" alt="움직이다">
+        </div>
+        <div class="clvWrap2">
+            <!-- <span class="clvTrail trail1"></span>
+            <span class="clvTrail trail2"></span>
+            <span class="clvTrail trail3"></span>
+            <span class="clvTrail trail4"></span>
+            <span class="clvTrail trail5"></span> -->
+            <img src="./img/move/ccv.png" alt="움직이다">
+        </div>
+     </div>
     <div class="mainWrap">
         <div class="characterWrap">
             <img src="./img/character image/PNG/choro-gi-nomal.png" alt="Main character">
@@ -70,7 +83,7 @@
         <div class="inner">
             <div class="heroContent">
                 <img class="heroLogo" src="./img/SVG files/logo/logo(white).svg" alt="FOR-LOG">
-                <!-- <p>&#49885;&#47932; &#47784;&#54000;&#48652; &#51105;&#54868; &amp; &#52488;&#47196;&#44592; &#44415;&#51592; &#49660;&#54609;&#47792;</p> -->
+                <p>&#49885;&#47932; &#47784;&#54000;&#48652; &#51105;&#54868; &amp; &#52488;&#47196;&#44592; &#44415;&#51592; &#49660;&#54609;&#47792;</p>
             </div>
         </div>
     </section>
@@ -83,24 +96,37 @@
         </div>
         <div class="inner2">
         <div class="boxUp">
-            <img src="./img/character image/table-character2.png" alt="Brand story">
-            <div class="whiteCircle"><span>
-                                    Product</span></div>
-            <img src="./img/character image/modernhouse-01.png" alt="Product">
-            <div class="whiteCircle"><span>Location</span></div>
+            <div class="shortcutCard shortcutCardSunflower">
+                <img class="shortcutPhoto" src="./img/character image/table-character2.png" alt="Brand story">
+                <img class="hoverCharacter" src="./img/character image/PNG/sunflower (2).png" alt="" aria-hidden="true">
+            </div>
+            <div class="whiteCircle"><span><a href="../products/products_index.html">
+                                    Product</span></a></div>
+            <div class="shortcutCard shortcutCardSunflower">
+                <img class="shortcutPhoto" src="./img/character image/modernhouse-01.png" alt="Product">
+                <img class="hoverCharacter" src="./img/character image/PNG/sunflower (2).png" alt="" aria-hidden="true">
+            </div>
+            <div class="whiteCircle"><span><a href="../products/products_index.html">Location</a></span></div>
         </div>
          <div class="boxDown">
             <div class="whiteCircle"><span class="p_span">Brand<br>
                                     Story</span></div>
-            <img src="./img/character image/green-01.png" alt="News">
+            <div class="shortcutCard shortcutCardBottom">
+                <img class="shortcutPhoto" src="./img/character image/green-01.png" alt="News">
+                <img class="hoverCharacter" src="./img/character image/PNG/mostra.png" alt="" aria-hidden="true">
+            </div>
             <div class="whiteCircle"><span class="p_span">News</span></div>
-            <img src="./img/character image/welcome.png" alt="Location">
+            <div class="shortcutCard shortcutCardBottom">
+                <img class="shortcutPhoto" src="./img/character image/welcome.png" alt="Location">
+                <img class="hoverCharacter" src="./img/character image/PNG/mostra.png" alt="" aria-hidden="true">
+            </div>
         </div>
         </div>
     </section> 
         <!-- 섹션2 끝 -->
         <!-- 섹션3 시작 -->
     <section class="sec3">
+        <canvas class="sec3CloverCanvas" aria-hidden="true"></canvas>
         <div class="inner">
             <!-- 움직이는 것들-옵저버 끝나고 -->
             <div class="spakleGreenBox">
@@ -130,6 +156,12 @@
             <div class="secondWrap">
                 <span class="BestGallery">BEST<br>GALLERY</span>
                 <div class="anotherIMG"></div>
+                <div class="luckyCloverPick" aria-label="Lucky clover event">
+                    <button class="luckyCloverButton luckyCloverButton1" type="button" aria-label="Open lucky clover"></button>
+                    <button class="luckyCloverButton luckyCloverButton2" type="button" aria-label="Open lucky clover"></button>
+                    <button class="luckyCloverButton luckyCloverButton3" type="button" aria-label="Open lucky clover"></button>
+                    <p>click clover!</p>
+                </div>
             </div>
         </div>
     </section>
