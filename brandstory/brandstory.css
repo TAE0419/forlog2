@@ -803,9 +803,118 @@ section{
 .frill>img{
     width: 100%; height: 100%; object-fit: cover;
 }
+
+/* =========================================떠다니는 클로버들========================================= */
+.floatingCloversTop,
+.floatingCloversBetween {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
+.floatingCloversTop {
+    top: 280px;
+    left: 0;
+}
+
+.floatingCloversBetween {
+    bottom: 115px;
+    left: 0;
+    height: auto;
+}
+
+.floatingClover {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    opacity: 1;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 3px rgb(79, 95, 0));
+}
+
+/* 타이틀 위 클로버들 배치 */
+.floatingCloversTop .float1 {
+    left: 10%;
+    top: 50px;
+    animation: floatWave 10s ease-in-out infinite;
+}
+
+.floatingCloversTop .float2 {
+    left: 25%;
+    top: 0px;
+    animation: floatWave 12s ease-in-out infinite 0.5s;
+}
+
+.floatingCloversTop .float3 {
+    right: 22%;
+    top: 10px;
+    animation: floatWave 11s ease-in-out infinite 1s;
+}
+
+.floatingCloversTop .float4 {
+    right: 8%;
+    top: 50px;
+    animation: floatWave 13s ease-in-out infinite 1.5s;
+}
+
+/* 섹션 사이 클로버들 배치 */
+.floatingCloversBetween .float1 {
+    left: 8%;
+    top: 0;
+    animation: floatWave 11s ease-in-out infinite;
+}
+
+.floatingCloversBetween .float2 {
+    left: 25%;
+    top: 30px;
+    animation: floatWave 9s ease-in-out infinite 0.8s;
+}
+
+.floatingCloversBetween .float3 {
+    left: 45%;
+    top: 15px;
+    animation: floatWave 12s ease-in-out infinite 1.2s;
+}
+
+.floatingCloversBetween .float4 {
+    right: 22%;
+    top: 40px;
+    animation: floatWave 10s ease-in-out infinite 0.4s;
+}
+
+.floatingCloversBetween .float5 {
+    right: 5%;
+    top: 5px;
+    animation: floatWave 13s ease-in-out infinite 1.6s;
+}
+
+/* 떠다니는 애니메이션 */
+@keyframes floatWave {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.45;
+    }
+    25% {
+        transform: translateY(-8px) scale(1.02);
+        opacity: 0.55;
+    }
+    50% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.45;
+    }
+    75% {
+        transform: translateY(-6px) scale(1.01);
+        opacity: 0.5;
+    }
+}
+
 @media (max-width: 768px) {
     .frill{
     height: 10rem;
     background-color: var(--point-color);
 }
+    .floatingClover{
+        display: none;
+    }
 }
