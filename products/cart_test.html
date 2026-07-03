@@ -780,21 +780,10 @@
     <script src="../products/mouseEffect.js"></script>
 
     <script>
-        // 에러를 방지하기 위한 더미 데이터 세팅 (초기 로드시 장바구니가 비어있을 경우)
+        // 1. 초기 더미 데이터 (비어있을 경우)
         const sampleCart = [
-            { id: 1, name: "포로그 시그니처 머그컵", price: 15000, quantity: 1, image: "https://via.placeholder.com/70x70?text=Mug" }
+            { id: 5, name: "FOR-LOG 시그니처 유리 머그컵", price: 14000, quantity: 1, image: "./img/004.jpg" }
         ];
-
-        // jQuery 의존성을 없애고 순수 자바스크립트로 변경하여 ReferenceError 방지
-        document.addEventListener("DOMContentLoaded", function () {
-            const deliverySelect = document.getElementById('sidebar-delivery-select');
-            if (deliverySelect) {
-                deliverySelect.addEventListener('change', function () {
-                    const totalProductPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-                    updateSummary(totalProductPrice);
-                });
-            }
-            renderCartTable();
 
         if (!localStorage.getItem("forlog_cart")) {
             localStorage.setItem("forlog_cart", JSON.stringify(sampleCart));
@@ -805,7 +794,6 @@
                 ? item.price
                 : parseInt(String(item.price || "").replace(/[^\d]/g, ""), 10);
             const quantity = parseInt(item.quantity, 10);
-
             return {
                 ...item,
                 price: Number.isNaN(price) ? 0 : price,
@@ -813,14 +801,26 @@
             };
         }
 
+        // 2. 장바구니 데이터 파싱 및 전역 변수화
         let cart = (JSON.parse(localStorage.getItem("forlog_cart")) || []).map(normalizeCartItem);
         localStorage.setItem("forlog_cart", JSON.stringify(cart));
+        
         const tableBody = document.getElementById('cart-table-body');
         const sidebarProductPriceEl = document.getElementById('sidebar-product-price');
         const sidebarShippingFeeEl = document.getElementById('sidebar-shipping-fee');
         const sidebarDiscountPriceEl = document.getElementById('sidebar-discount-price');
         const sidebarFinalPriceEl = document.getElementById('sidebar-final-price');
+        const deliverySelect = document.getElementById('sidebar-delivery-select');
 
+        // 3. 배송 옵션 이벤트
+        if (deliverySelect) {
+            deliverySelect.addEventListener('change', function () {
+                const totalProductPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                updateSummary(totalProductPrice);
+            });
+        }
+
+        // 4. 화면 그리기 (가장 중요한 함수)
         function renderCartTable() {
             if (!tableBody) return;
             if (cart.length === 0) {
@@ -857,7 +857,8 @@
             updateSummary(totalProductPrice);
         }
 
-        function changeQty(id, amount) {
+        // 5. 버튼 클릭 시 작동할 글로벌 함수들 (window 객체에 명시적 등록)
+        window.changeQty = function(id, amount) {
             const product = cart.find(p => p.id === id);
             if (product) {
                 product.quantity += amount;
@@ -865,28 +866,30 @@
                 localStorage.setItem("forlog_cart", JSON.stringify(cart));
                 renderCartTable();
             }
-        }
+        };
 
-        function deleteItem(id) {
+        window.deleteItem = function(id) {
             cart = cart.filter(p => p.id !== id);
             localStorage.setItem("forlog_cart", JSON.stringify(cart));
             renderCartTable();
-        }
+        };
 
-        function openClearModal() {
+        window.openClearModal = function() {
             if (cart.length === 0) {
                 alert("이미 장바구니가 비어 있습니다. 🌿");
                 return;
             }
             document.getElementById("clear-confirm-modal").style.display = "flex";
-        }
-        function closeClearModal() { document.getElementById("clear-confirm-modal").style.display = "none"; }
-        function executeClearCart() {
+        };
+        
+        window.closeClearModal = function() { document.getElementById("clear-confirm-modal").style.display = "none"; };
+        
+        window.executeClearCart = function() {
             cart = [];
             localStorage.setItem("forlog_cart", JSON.stringify(cart));
             renderCartTable();
             closeClearModal();
-        }
+        };
 
         function updateSummary(totalProductPrice) {
             const deliveryType = document.getElementById('sidebar-delivery-select')?.value || 'regular';
@@ -895,11 +898,9 @@
 
             if (totalProductPrice > 0) {
                 if (deliveryType === 'express') {
-                    // 샛별 배송은 무조건 5,000원 부과
                     shippingFee = 5000;
                     shippingText = `+ ${shippingFee.toLocaleString()}원`;
                 } else {
-                    // 일반 배송은 30,000원 이상 무료
                     const isFree = totalProductPrice >= 30000;
                     shippingFee = isFree ? 0 : 3000;
                     shippingText = isFree ? "무료배송" : `+ ${shippingFee.toLocaleString()}원`;
@@ -908,7 +909,6 @@
                 shippingFee = 0;
                 shippingText = "0원";
             }
-
             const discount = totalProductPrice > 0 ? 1000 : 0;
 
             if(sidebarProductPriceEl) sidebarProductPriceEl.textContent = `${totalProductPrice.toLocaleString()}원`;
@@ -917,78 +917,51 @@
             if(sidebarFinalPriceEl) sidebarFinalPriceEl.textContent = `${Math.max(0, totalProductPrice + shippingFee - discount).toLocaleString()}원`;
         }
 
-        // ✨ 폭죽을 양옆에서 터뜨려주는 함수 ✨
         function triggerFireworks() {
-            var duration = 3 * 1000; // 3초 동안 폭죽
+            var duration = 3 * 1000;
             var animationEnd = Date.now() + duration;
             var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 }; 
             var colors = ['#AAB664', '#DB824A', '#6F8B41', '#ffffff'];
 
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
+            function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
             var interval = setInterval(function () {
                 var timeLeft = animationEnd - Date.now();
-
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
-
+                if (timeLeft <= 0) return clearInterval(interval);
                 var particleCount = 50 * (timeLeft / duration);
-
-                // 왼쪽에서 팡!
-                confetti(Object.assign({}, defaults, {
-                    particleCount,
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-                    colors: colors
-                }));
-                // 오른쪽에서 팡!
-                confetti(Object.assign({}, defaults, {
-                    particleCount,
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-                    colors: colors
-                }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }, colors: colors }));
+                confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }, colors: colors }));
             }, 250);
         }
 
-        // 주문 완료 로직
-        function executeOrder() {
+        window.executeOrder = function() {
             if (cart.length === 0) {
                 alert("장바구니가 비어 있습니다. 상품을 먼저 담아주세요! 🌿");
                 return;
             }
-
-            // 1. 그럴싸한 가짜 주문번호 생성
             const orderNum = "FL-" + Math.floor(Math.random() * 100000000);
             document.getElementById('receipt-order-num').textContent = orderNum;
-
-            // 2. 오늘 날짜 연동
             const today = new Date();
             const dateStr = today.getFullYear() + "." + String(today.getMonth() + 1).padStart(2, '0') + "." + String(today.getDate()).padStart(2, '0');
             document.getElementById('receipt-date').textContent = dateStr;
-
-            // 3. 사이드바에서 최종 결제 금액 스틸해오기
             const finalPrice = sidebarFinalPriceEl.textContent;
             document.getElementById('receipt-total').textContent = finalPrice;
-
-            // 4. 모달 열기!
             document.getElementById("order-receipt-modal").style.display = "flex";
-
-            // ✨ 5. 폭죽 터뜨리기! ✨
             triggerFireworks();
-        }
+        };
 
-        function closeOrderModal() {
+        window.closeOrderModal = function() {
             document.getElementById("order-receipt-modal").style.display = "none";
-        }
+        };
 
-        function finishOrder() {
-            // 주문 완료 후 장바구니 싹 비우고 쇼핑 목록으로 이동
+        window.finishOrder = function() {
             cart = [];
             localStorage.setItem("forlog_cart", JSON.stringify(cart));
             window.location.href = 'products_index.html';
-        }
+        };
+
+        // 🔥 [가장 중요] 변수와 함수가 모두 준비된 맨 마지막에 테이블을 호출합니다! 🔥
+        renderCartTable();
     </script>
 
     <!-- 공통 헤더/푸터 및 관련 스크립트 비동기 호출 -->
