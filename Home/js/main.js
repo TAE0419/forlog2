@@ -1215,6 +1215,10 @@ function getHomeProductCartImage(imagePath) {
     return `../Home/${imagePath.replace(/^\.\//, "")}`;
 }
 
+function getHomeProductModalDesc(desc) {
+    return String(desc || "").replace(/<br\s*\/?>/gi, "\n");
+}
+
 function addCurrentModalProductToCart() {
     const modal = document.querySelector(".productModal");
 
@@ -1258,7 +1262,7 @@ function openProductModal(item) {
     modal.querySelector(".productModalCreator").textContent = item.creator;
     modal.querySelector(".productModalPrice").textContent = item.price || "22,000\uC6D0";
     modal.querySelector(".productModalRating em").textContent = `(${item.rating || "4.9"})`;
-    modal.querySelector(".productModalDesc").textContent = item.desc;
+    modal.querySelector(".productModalDesc").textContent = getHomeProductModalDesc(item.desc);
     modal.dataset.title = item.title;
     modal.dataset.price = item.price || "22,000\uC6D0";
     modal.dataset.image = item.image;
