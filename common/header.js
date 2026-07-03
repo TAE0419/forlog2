@@ -1,5 +1,26 @@
 function initHeader(){
 $(function(){
+            function getHomeUrl() {
+                const pathParts = window.location.pathname.split('/');
+                const sectionIndex = pathParts.findIndex(function (part) {
+                    return ['Home', 'products', 'support', 'brandstory'].includes(part);
+                });
+                const rootParts = sectionIndex >= 0 ? pathParts.slice(0, sectionIndex) : pathParts.slice(0, -1);
+                const rootPath = rootParts.join('/') || '';
+
+                return `${window.location.origin}${rootPath}/Home/index.html`;
+            }
+
+            $('.logo > a').attr('href', getHomeUrl()).on('click', function(e){
+                const homeUrl = getHomeUrl();
+                const currentUrl = `${window.location.origin}${window.location.pathname}`;
+
+                if (currentUrl === homeUrl) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            })
+
             $('.gnb > li').mouseenter(function(){
                 $('.snb').stop().slideUp(300)
                 $(this).children('.snb').stop().slideDown(300)

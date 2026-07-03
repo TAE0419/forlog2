@@ -795,13 +795,26 @@
                 });
             }
             renderCartTable();
-        });
 
         if (!localStorage.getItem("forlog_cart")) {
             localStorage.setItem("forlog_cart", JSON.stringify(sampleCart));
         }
 
-        let cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
+        function normalizeCartItem(item) {
+            const price = typeof item.price === "number"
+                ? item.price
+                : parseInt(String(item.price || "").replace(/[^\d]/g, ""), 10);
+            const quantity = parseInt(item.quantity, 10);
+
+            return {
+                ...item,
+                price: Number.isNaN(price) ? 0 : price,
+                quantity: Number.isNaN(quantity) || quantity < 1 ? 1 : quantity
+            };
+        }
+
+        let cart = (JSON.parse(localStorage.getItem("forlog_cart")) || []).map(normalizeCartItem);
+        localStorage.setItem("forlog_cart", JSON.stringify(cart));
         const tableBody = document.getElementById('cart-table-body');
         const sidebarProductPriceEl = document.getElementById('sidebar-product-price');
         const sidebarShippingFeeEl = document.getElementById('sidebar-shipping-fee');
