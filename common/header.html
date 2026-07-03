@@ -138,6 +138,12 @@
         .hamGnb>li:hover{
             color: var(--main-color);
         }
+        .hamGnb > li > a{
+            transition: all 0.2s;
+        } 
+        .hamGnb > li.on > a {
+    color: var(--main-color);
+}
         .hamSnb{
             display: none;
         }
@@ -176,6 +182,12 @@
             .ham{
                 align-items: end;
             }
+            .hamGnb>li{
+            font: var(--big2-font); 
+        }
+        .hamSnb li{
+            font: var(--small-font);
+        }
         }
     </style>
 </head>
