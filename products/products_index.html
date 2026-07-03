@@ -12,18 +12,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        #footer i,
+        #footer [class^="fa-"],
+        #footer [class*=" fa-"] {
+            font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", sans-serif !important;
+            font-weight: 400 !important;
+        }
+    </style>
+</head>
+
 </head>
 
 <body>
     <!-- 팀 공통 헤더가 삽입될 위치 -->
     <div id="headers"></div>
-    
+
     <div class="striped-bg">
         <main class="page">
 
@@ -147,7 +158,7 @@
     <script src="../products/mouseEffect.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
+
     <!-- 공통 헤더/푸터 및 관련 스크립트 비동기 호출 -->
     <script src="../common/header.js"></script>
     <script>
@@ -160,7 +171,7 @@
                 })
                 .then(data => {
                     document.getElementById('headers').innerHTML = data;
-                    if (typeof initHeader === 'function') initHeader(); 
+                    if (typeof initHeader === 'function') initHeader();
                 })
                 .catch(err => console.warn("헤더를 불러올 수 없습니다 (로컬 환경에서 실행 필요):", err));
         } catch (error) {
@@ -182,7 +193,7 @@
         }
     </script>
     <script>
-    
+
 
         // 경로 단순화: 같은 폴더에 있으므로 파일 이름만 정확히 지정
         const PRODUCT_URL = "./products.json";
