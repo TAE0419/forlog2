@@ -353,7 +353,7 @@ img {
     height: 30px;
     background: var(--point-color);
     border-radius: 50%;
-    box-shadow: 0 0 0 4px var(--bg-cream);
+    box-shadow: 0 0 0 4px var(--shadow);
     transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     display: flex;
     align-items: center;
@@ -717,7 +717,6 @@ img {
 .band-green {
     width: 100vw;
     min-height: 80vh;
-    margin-bottom: 3rem;
     padding: 100px 20px 60px 20px;
     box-sizing: border-box;
     overflow: hidden;
@@ -1526,4 +1525,27 @@ img {
     .product-detail-modal h2 {
         font-size: 1.25rem !important;
     }
+}
+
+/* roundG4가 하단 공간을 차지하지 않도록 공중부양(fixed) 처리 */
+.roundG4 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* 팀장님 푸터의 오른쪽 SNS 이미지 크기가 터지는 현상 방어 */
+#footer footer .right img {
+    width: 3rem !important;        /* 팀장님이 의도한 3rem 크기 강제 고정 */
+    height: 3rem !important;       /* 가로세로 비율 유지 */
+    object-fit: contain !important; /* 이미지 찌그러짐 방지 */
+    display: block !important;
+}
+
+/* 왼쪽 하단 메인 로고 이미지는 원래 크기를 유지하도록 방어 */
+#footer footer .left .logo img {
+    width: 100% !important;
+    height: auto !important;
 }
