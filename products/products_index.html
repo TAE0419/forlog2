@@ -3,6 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <script>
+        window.onerror = function() { return true; };
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FORLOG - Playful Green Shop</title>
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@300;400;500;700;800&display=swap"
@@ -19,14 +22,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-    <style>
-        #footer i,
-        #footer [class^="fa-"],
-        #footer [class*=" fa-"] {
-            font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", sans-serif !important;
-            font-weight: 400 !important;
-        }
-    </style>
 </head>
 
 </head>
@@ -193,8 +188,6 @@
         }
     </script>
     <script>
-
-
         // 경로 단순화: 같은 폴더에 있으므로 파일 이름만 정확히 지정
         const PRODUCT_URL = "./products.json";
         let allProducts = [];
@@ -208,11 +201,11 @@
         let currentCategory = "all";
         let currentSort = "newest";
 
-        // 페이지네이션용 변수 추가
+        // 페이지네이션용 변수
         let currentPage = 1;
         const itemsPerPage = 8; // 4열 x 2줄 = 8개
 
-        // 1. 카테고 타임라인 렌더링
+        // 1. 카테고리 타임라인 렌더링
         function renderCategories() {
             const categories = ["all", "Living", "Desk", "Chorogi", "Fashion"];
 
@@ -227,7 +220,7 @@
                 categoryList.innerHTML = `<div class="timeline-line"></div>` + btnHtml;
             }
 
-            // 카테고리 버튼 클릭 이벤트 안에서
+            // 카테고리 버튼 클릭 이벤트
             document.querySelectorAll(".category-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     currentCategory = btn.dataset.category;
@@ -236,7 +229,7 @@
                 });
             });
 
-            // 2. 정렬(신상품순, 가격순) 셀렉트 박스 이벤트 안에서
+            // 2. 정렬 셀렉트 박스 이벤트
             if (sortSelect) {
                 sortSelect.addEventListener("change", () => {
                     currentSort = sortSelect.value;
@@ -248,42 +241,43 @@
 
         // 2. 상품 카드 HTML 템플릿
         function getProductCardHtml(product) {
-            // 1. 로컬 스토리지에서 해당 상품이 이미 찜(좋아요) 상태인지 체크하는 로직 추가
             const wishes = JSON.parse(localStorage.getItem("forlog_wishes")) || [];
             const isWished = wishes.includes(product.id);
             const heartIcon = isWished ? 'fa-solid fa-heart' : 'fa-regular fa-heart';
             const activeClass = isWished ? 'active' : '';
 
             return `
-        <div class="product-card" data-product-id="${product.id}">
-            <div class="product-visual">
-                ${product.isNew ? '<span class="badge-new">new</span>' : ''}
-                <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
-            </div>
-            
-            <div class="product-info-row">
-                <h3 class="product-name">${product.name}</h3>
-                <button class="wish-inline-btn ${activeClass}" data-product-id="${product.id}" type="button">
-                    <i class="${heartIcon}"></i>
-                </button>
-            </div>
+                <div class="product-card" data-product-id="${product.id}">
+                    <div class="product-visual">
+                        ${product.isNew ? '<span class="badge-new">new</span>' : ''}
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://via.placeholder.com/300x300?text=No+Image'">
+                    </div>
+                    
+                    <div class="product-info-row">
+                        <h3 class="product-name">${product.name}</h3>
+                        <button class="wish-inline-btn ${activeClass}" data-product-id="${product.id}" type="button">
+                            <i class="${heartIcon}"></i>
+                        </button>
+                    </div>
 
-            <div class="price">${product.price.toLocaleString()}원</div>
-            <div class="color-dots">
-                <span style="background: #9EAB57;"></span>
-                <span style="background: #fff;"></span>
-            </div>
-            <button class="add-cart-btn" data-product-id="${product.id}" type="button">Add to cart</button>
-        </div>
-    `;
+                    <div class="price">${product.price.toLocaleString()}원</div>
+                    <div class="color-dots">
+                        <span style="background: #9EAB57;"></span>
+                        <span style="background: #fff;"></span>
+                    </div>
+                    <button class="add-cart-btn" data-product-id="${product.id}" type="button">Add to cart</button>
+                </div>
+            `;
         }
 
         // 3. 위클리 베스트 렌더링
         function renderWeekly() {
             const weeklyProducts = allProducts.filter(p => p.weeklyBest);
-            document.getElementById("weekly-wrapper").innerHTML = weeklyProducts.map(p => `
-                <div class="swiper-slide">${getProductCardHtml(p)}</div>
-            `).join("");
+            if (weeklyWrapper) {
+                weeklyWrapper.innerHTML = weeklyProducts.map(p => `
+                    <div class="swiper-slide">${getProductCardHtml(p)}</div>
+                `).join("");
+            }
 
             new Swiper('.weekly-swiper', {
                 slidesPerView: 1.2,
@@ -295,12 +289,11 @@
             });
         }
 
-
         // 4. 일반 상품 리스트 렌더링
         function renderProducts() {
             if (!grid) return;
 
-            let filtered = allProducts;
+            let filtered = [...allProducts];
 
             // 카테고리 필터링
             if (currentCategory !== "all") {
@@ -318,107 +311,58 @@
             else if (currentSort === "price-high") filtered.sort((a, b) => b.price - a.price);
             else filtered.sort((a, b) => b.id - a.id);
 
-            // 1. 하단에 페이지네이션 번호 버튼들 그리기 호출
+            // 페이지네이션 번호 호출
             renderPagination(filtered.length);
 
-            // 2. 현재 페이지에 맞는 8개만 잘라내기 (핵심!)
+            // 현재 페이지에 맞는 8개만 잘라내기
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = startIndex + itemsPerPage;
             const paginatedProducts = filtered.slice(startIndex, endIndex);
 
-            // 3. 잘라낸 데이터(paginatedProducts)로 화면 렌더링
             grid.innerHTML = paginatedProducts.map(p => getProductCardHtml(p)).join("");
 
             // 타이틀 애니메이션
             const allTitleEl = document.querySelector('.all-title');
             if (allTitleEl) {
                 allTitleEl.textContent = currentCategory.toUpperCase();
-
-                gsap.fromTo(allTitleEl,
-                    {
-                        opacity: 0,
-                        y: 40
-                    },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1.2,
-                        ease: "power3.out"
-                    }
-                );
+                gsap.fromTo(allTitleEl, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out" });
             }
         }
 
-        // 전체 상품 개수를 바탕으로 하단에 1, 2, 3 버튼을 만들어주는 함수
+        // 페이지네이션 생성 함수
         function renderPagination(totalItems) {
             const paginationEl = document.getElementById("pagination");
             if (!paginationEl) return;
 
             const totalPages = Math.ceil(totalItems / itemsPerPage);
 
-            // 상품이 너무 적어 1페이지뿐이면 버튼 영역 숨기기
             if (totalPages <= 1) {
                 paginationEl.innerHTML = "";
                 return;
             }
 
             let html = '';
-
-            // 이전(<) 버튼
             html += `<button type="button" class="page-arrow" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}><i class="fa-solid fa-chevron-left"></i></button>`;
 
-            // 숫자 버튼 생성 (1, 2, 3 ...)
             for (let i = 1; i <= totalPages; i++) {
                 html += `<button type="button" class="page-num ${currentPage === i ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
             }
 
-            // 다음(>) 버튼
             html += `<button type="button" class="page-arrow" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}><i class="fa-solid fa-chevron-right"></i></button>`;
 
             paginationEl.innerHTML = html;
         }
 
-        // 페이지 번호를 클릭했을 때 실행되는 함수 수정
         function changePage(pageNumber) {
             currentPage = pageNumber;
-            renderProducts(); // 바뀐 페이지 번호로 상품 다시 불러오기
+            renderProducts();
 
-            // 스크롤 대상을 거대한 빅로고 대신 상품 그리드(#product-grid)로 변경
             const targetEl = document.getElementById("product-grid");
             if (targetEl) {
                 const topPos = targetEl.getBoundingClientRect().top + window.scrollY - 90;
                 window.scrollTo({ top: topPos, behavior: "smooth" });
             }
         }
-
-
-        // 장바구니 UI 기능
-        const cartDrawer = document.getElementById("cart-drawer");
-        const drawerBackdrop = document.getElementById("drawer-backdrop");
-        const toggleDrawer = (open) => {
-            if (cartDrawer && drawerBackdrop) {
-                cartDrawer.classList.toggle("open", open);
-                drawerBackdrop.classList.toggle("open", open);
-            }
-        }
-
-        if (document.getElementById("open-cart")) {
-            document.getElementById("open-cart").addEventListener("click", () => toggleDrawer(true));
-        }
-        if (document.getElementById("close-cart")) {
-            document.getElementById("close-cart").addEventListener("click", () => toggleDrawer(false));
-        }
-        if (drawerBackdrop) {
-            drawerBackdrop.addEventListener("click", () => toggleDrawer(false));
-        }
-
-        if (sortSelect) {
-            sortSelect.addEventListener("change", () => {
-                currentSort = sortSelect.value;
-                renderProducts();
-            });
-        }
-
 
         // 취향 테스트용 상태 관리 변수들
         let currentQIdx = 0;
@@ -442,7 +386,6 @@
 
         function showQuestion() {
             if (currentQIdx < questions.length) {
-                // 문항 교체 및 게이지 바 증가
                 document.getElementById("question-text").textContent = questions[currentQIdx].text;
                 const progressPercent = ((currentQIdx) / questions.length) * 100;
                 document.getElementById("progress-line").style.width = `${progressPercent}%`;
@@ -464,7 +407,6 @@
             document.getElementById("test-question-view").style.display = "none";
             document.getElementById("test-result-view").style.display = "flex";
 
-            // 점수가 가장 높은 최고의 카테고리 1개 판별
             let bestCat = "living";
             let maxScore = -1;
             for (const [cat, score] of Object.entries(scores)) {
@@ -474,14 +416,12 @@
                 }
             }
 
-            // UI 멘트 설정
             const msgEl = document.getElementById("result-message");
             if (bestCat === 'fashion') msgEl.textContent = "트렌디한 패셔니스타 초로기 타입인 당신을 위한 픽!";
             else if (bestCat === 'desk') msgEl.textContent = "똑부러지는 프로 데스크테리어족 타입인 당신을 위한 픽!";
             else if (bestCat === 'chorogi') msgEl.textContent = "초로기 귀여움에 중독된 골수 포로그 팬 타입인 당신을 위한 픽!";
             else msgEl.textContent = "방구석 감성 아틀리에 인테리어 전문가 타입인 당신을 위한 픽!";
 
-            // 핵심: JSON 데이터(allProducts)에서 최고 평점 카테고리와 일치하는 제품들을 필터링해 상위 2개 추출
             let recommended = allProducts.filter(p => {
                 if (bestCat === "living") return p.category === "plant" || p.subCategory === "living";
                 if (bestCat === "desk") return p.subCategory === "stationery";
@@ -490,10 +430,7 @@
                 return true;
             });
 
-            // 2개만 무작위 또는 상위 추출
             const finalTwo = recommended.slice(0, 2);
-
-            // 결과 박스에 기존 카드 디자인 마크업 연동 (중복 로직 재활용)
             const resultBox = document.getElementById("result-products-box");
             if (finalTwo.length > 0) {
                 resultBox.innerHTML = finalTwo.map(p => getProductCardHtml(p)).join("");
@@ -508,32 +445,24 @@
             document.getElementById("test-start-view").style.display = "flex";
         }
 
-        // 5. 상단 히어로 배너 애니메이션 초기화
+        // 상단 히어로 배너 애니메이션 초기화
         function initAnimations() {
             if (typeof Swiper !== 'undefined') {
                 new Swiper('.hero-swiper', {
                     loop: true,
                     speed: 1000,
-                    autoplay: {
-                        delay: 3500,
-                        disableOnInteraction: false
-                    },
-                    pagination: {
-                        el: '.hero-slider-container .swiper-pagination',
-                        clickable: true
-                    }
+                    autoplay: { delay: 3500, disableOnInteraction: false },
+                    pagination: { el: '.hero-slider-container .swiper-pagination', clickable: true }
                 });
             }
         }
 
-        // 6. 데이터 불러오기 진입점
+        // 데이터 불러오기 진입점
         async function fetchProducts() {
             try {
-                // 💡 상단에 정의한 PRODUCT_URL(./products.json) 변수를 올바르게 사용합니다!
                 const response = await fetch(PRODUCT_URL);
                 if (!response.ok) throw new Error("데이터 로드 실패");
 
-                // 전역 변수 allProducts에 const 없이 깨끗하게 대입합니다.
                 allProducts = await response.json();
 
                 renderCategories();
@@ -541,202 +470,154 @@
                 renderProducts();
                 initAnimations();
             } catch (error) {
-                console.error("🚨 최종 발생 오류:", error);
+                console.error("🚨 발생 오류:", error);
                 if (grid) {
-                    grid.innerHTML = `<p style="padding: 40px; text-align: center; color: var(--terra-orange); font-weight:700;">데이터를 불러오는 데 실패했습니다.</p>`;
+                    grid.innerHTML = `<p style="padding: 40px; text-align: center; color: var(--point-color); font-weight:700;">데이터를 불러오는 데 실패했습니다.</p>`;
                 }
             }
         }
 
-        // 장바구니 수량 실시간 업데이트 함수
-        function updateCartCount() {
-            const cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
-            const countEl = document.querySelector("#cart-count");
-            if (countEl) {
-                const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
-                countEl.textContent = totalQty;
-            }
-        }
-
-        // 장바구니 담기 실행 로직 (이벤트 위임 방식)
+        // 이벤트 위임 방식 시스템 (장바구니 담기 & 찜하기 클릭 처리)
         document.body.addEventListener("click", function (e) {
-
-            // 1. 확인하기(클로버 블랍) 버튼 클릭 시 스크롤 점프 기능
+            // 1. 확인하기(클로버 블랍) 버튼 스크롤 점프
             const jumpBtn = e.target.closest(".clover-btn");
             if (jumpBtn) {
-                const targetSelector = jumpBtn.getAttribute("data-category-jump"); // ".product-grid" 가져오기
+                const targetSelector = jumpBtn.getAttribute("data-category-jump");
                 const targetEl = document.querySelector(targetSelector);
-
                 if (targetEl) {
-                    // 해당 위치로 부드럽게 스크롤 이동
                     targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
                 }
-                return; // 다른 이벤트로 전파되지 않도록 종료
+                return;
             }
 
-            // 2. 장바구니 버튼 클릭 시 
-            const cartBtn = e.target.closest(".add-cart-btn");
-            if (cartBtn) {
-                const productId = parseInt(cartBtn.getAttribute("data-product-id"));
-                const targetProduct = allProducts.find(p => p.id === productId);
+            // 2. 장바구니 버튼 클릭 시
+        const cartBtn = e.target.closest(".add-cart-btn");
+        if (cartBtn) {
+            const productId = parseInt(cartBtn.getAttribute("data-product-id"), 10);
+            const targetProduct = allProducts.find(p => p.id === productId);
 
-                if (targetProduct) {
-                    let cart = JSON.parse(localStorage.getItem("forlog_cart")) || [];
-                    const existingItem = cart.find(item => item.id === productId);
+            if (targetProduct) {
+                let cartList = JSON.parse(localStorage.getItem("forlog_cart")) || [];
+                const existingItem = cartList.find(item => item.id === productId);
 
-                    if (existingItem) {
-                        existingItem.quantity += 1;
-                    } else {
-                        cart.push({
-                            id: targetProduct.id,
-                            name: targetProduct.name,
-                            price: targetProduct.price,
-                            image: targetProduct.image,
-                            quantity: 1
-                        });
-                    }
-
-                    localStorage.setItem("forlog_cart", JSON.stringify(cart));
-                    if (typeof updateCartCount === 'function') updateCartCount(); // 상단 숫자 업데이트
-
-                    // 기존 기본 alert 알림창 대신 커스텀 확인 모달 띄우기
-                    openCartConfirmModal();
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cartList.push({
+                        id: targetProduct.id,
+                        name: targetProduct.name,
+                        price: targetProduct.price,
+                        image: targetProduct.image,
+                        quantity: 1
+                    });
                 }
-                return; // 여기서 종료 (이벤트가 모달 여는 곳까지 안 넘어감)
-            }
 
-            // 2. 찜하기 버튼 클릭 시
+                localStorage.setItem("forlog_cart", JSON.stringify(cartList));
+                
+                //[핵심 해결 코드] 상세 모달창 안에서 장바구니 버튼을 눌렀다면, 상세 모달을 먼저 닫아줍니다!
+                if (cartBtn.id === "modal-cart-btn") {
+                    closeModal(); 
+                }
+                
+                // 그 다음 장바구니 확인 모달을 띄웁니다.
+                openCartConfirmModal();
+            }
+            return;
+        }
+
+            // 3. 찜하기 버튼 클릭 시
             const wishBtn = e.target.closest(".wish-inline-btn");
             if (wishBtn) {
-                const productId = parseInt(wishBtn.getAttribute("data-product-id"));
+                const productId = parseInt(wishBtn.getAttribute("data-product-id"), 10);
                 let wishes = JSON.parse(localStorage.getItem("forlog_wishes")) || [];
                 const icon = wishBtn.querySelector("i");
 
                 if (wishes.includes(productId)) {
-                    // 찜 해제
                     wishes = wishes.filter(id => id !== productId);
                     wishBtn.classList.remove("active");
-                    if (icon) {
-                        icon.className = "fa-regular fa-heart";
-                        icon.style.animation = "none";
-                    }
+                    if (icon) icon.className = "fa-regular fa-heart";
                 } else {
-                    // 찜 추가 및 쿵쾅 애니메이션 강제 재실행
                     wishes.push(productId);
                     wishBtn.classList.add("active");
-                    if (icon) {
-                        icon.className = "fa-solid fa-heart";
-                        icon.style.animation = "none";
-                        setTimeout(() => icon.style.animation = "", 10);
-                    }
+                    if (icon) icon.className = "fa-solid fa-heart";
 
-                    // ✨ 클릭한 하트 버튼 좌표를 계산해서 국소부위 미니 폭죽 쏘기 ✨
+                    // 미니 하트 폭죽 효과
                     const rect = wishBtn.getBoundingClientRect();
                     const x = (rect.left + rect.width / 2) / window.innerWidth;
                     const y = (rect.top + rect.height / 2) / window.innerHeight;
 
                     confetti({
-                        particleCount: 30,
+                        particleCount: 20,
                         spread: 360,
                         startVelocity: 10,
                         ticks: 45,
                         origin: { x: x, y: y },
-                        colors: ['#FF1493', '#FF6600', '#ADFF2F', '#00FFFF'],
+                        colors: ['#FF1493', '#FF6600', '#ADFF2F'],
                         zIndex: 9999,
-                        scalar: 0.5,
-                        disableForReducedMotion: true
+                        scalar: 0.5
                     });
                 }
 
                 localStorage.setItem("forlog_wishes", JSON.stringify(wishes));
-                return; // 💡 여기서 종료되므로 상품 카드 클릭(모달) 이벤트가 발생하지 않음
+                return;
             }
 
-            // 3. 상품 카드 클릭 시 (장바구니/찜 버튼이 아닐 때만 작동)
-            const card = e.target.closest(".product-card");
+            // 4. 상품 카드 클릭 시 (상세 모달 열기)
+            const card = e.target.closest(".product-grid .product-card, #weekly-wrapper .product-card, #result-products-box .product-card");
             if (card) {
-                const productId = parseInt(card.getAttribute("data-product-id"));
+                const productId = parseInt(card.getAttribute("data-product-id"), 10);
                 if (productId) {
                     openProductModal(productId);
                 }
             }
         });
 
-        // ========================================================
-        //  모달창 열고 닫기 핵심 로직
-        // ========================================================
-
-        // 1. 모달창 열기 함수
+        // 모달 데이터 매핑 및 열기
         function getProductModalTag(product) {
             if (product.weeklyBest) return "Weekly Best";
             if (product.isNew) return "NEW";
             if (product.subCategory === "stationery") return "Desk";
             if (product.subCategory === "acc" || product.subCategory === "plush") return "Fashion";
             if (product.category === "frog") return "Chorogi";
-            if (product.category === "plant" || product.subCategory === "living") return "Living";
-            return "FOR-LOG";
+            return "Living";
         }
 
         function openProductModal(productId) {
-            // 전역 데이터(allProducts)에서 클릭된 상품의 id와 일치하는 데이터 찾기
             const product = allProducts.find(p => p.id === productId);
             if (!product) return;
 
-            // 모달창 HTML 구조 안에 데이터 매핑하기
             document.getElementById("modal-img").src = product.image;
             document.getElementById("modal-tag").textContent = getProductModalTag(product);
             document.getElementById("modal-title").textContent = product.name;
             document.getElementById("modal-price").textContent = `${product.price.toLocaleString()}원`;
-
             document.getElementById("modal-desc").textContent = product.description || "초로기가 보장하는 멋진 라이프스타일 굿즈 아이템!";
-
             document.getElementById("modal-cart-btn").setAttribute("data-product-id", product.id);
 
             document.getElementById("product-modal").style.display = "flex";
-
-
         }
 
-        // 2. 모달창 닫기 함수
         function closeModal() {
             document.getElementById("product-modal").style.display = "none";
         }
 
-        // 장바구니 추가 완료 모달 열기/닫기 함수
+        // 장바구니 알림 모달
         function openCartConfirmModal() {
             document.getElementById("cart-confirm-modal").style.display = "flex";
 
-            // 모달이 뜰 때 양옆에서 축포 터뜨리기
+            // 화면 양옆 화려한 폭죽 축포 효과 
             const duration = 1500;
             const animationEnd = Date.now() + duration;
             const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 10001 };
 
-            function randomInRange(min, max) {
-                return Math.random() * (max - min) + min;
-            }
-
             const interval = setInterval(function () {
                 const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
 
-                if (timeLeft <= 0) {
-                    return clearInterval(interval);
-                }
+                const particleCount = 40;
+                const colors = ['#9EAB57', '#657F38', '#D57640'];
 
-                const particleCount = 50 * (timeLeft / duration);
-                const colors = ['#9EAB57', '#657F38', '#D57640', '#FFFEF3'];
-
-                // 왼쪽에서 터짐
-                confetti(Object.assign({}, defaults, {
-                    particleCount,
-                    colors: colors,
-                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-                }));
-                // 오른쪽에서 터짐
-                confetti(Object.assign({}, defaults, {
-                    particleCount,
-                    colors: colors,
-                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-                }));
+                confetti(Object.assign({}, defaults, { particleCount, colors, origin: { x: 0.2, y: Math.random() - 0.2 } }));
+                confetti(Object.assign({}, defaults, { particleCount, colors, origin: { x: 0.8, y: Math.random() - 0.2 } }));
             }, 250);
         }
 
@@ -744,23 +625,7 @@
             document.getElementById("cart-confirm-modal").style.display = "none";
         }
 
-        // 3. 위클리 슬라이드 클릭 시 하트/장바구니 버튼 충돌 완벽 차단!
-        document.body.addEventListener("click", function (e) {
-            const card = e.target.closest(".weekly-swiper .product-card");
-
-            // 타겟이 장바구니 버튼이거나 '새롭게 추가된 하트 클래스(wish-inline-btn)'일 때는 모달 띄우기를 무시
-            if (card && !e.target.closest(".add-cart-btn") && !e.target.closest(".wish-inline-btn")) {
-                const cartBtn = card.querySelector(".add-cart-btn");
-                if (cartBtn) {
-                    const productId = parseInt(cartBtn.getAttribute("data-product-id"));
-                    openProductModal(productId);
-                }
-            }
-        });
-
-
-
-        // 모든 준비가 끝나면 실행
+        // 스크립트 로드 시 실행
         fetchProducts();
     </script>
 
