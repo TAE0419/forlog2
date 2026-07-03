@@ -23,12 +23,12 @@ body {
     --support-content-width: 1500px;
 }
 
-html,
+/* html,
 #headers,
 #footer {
     max-width: 100%;
     overflow-x: hidden;
-}
+} */
 
 
 
@@ -668,7 +668,6 @@ html,
     max-width: 3rem;
 }
 
-
 /* ==========================================================================
    10. 반응형 레이아웃 미디어 쿼리 (Responsive Media Queries)
    ========================================================================== */
@@ -755,7 +754,7 @@ html,
         width: 170px;
     } */
 
-    #headers .headerInner {
+    /* #headers .headerInner {
         width: 92%;
         grid-template-columns: minmax(0, 1fr) 44px;
         padding: 0 20px;
@@ -774,7 +773,7 @@ html,
         width: 100%;
         height: 100%;
         object-fit: contain;
-    }
+    } */
 
     .support-main-title {
         font-size: 86px;
@@ -842,12 +841,12 @@ html,
         width: min(100%, 520px);
     } */
 
-    .right .sns {
+    /* .right .sns {
         flex-direction: row;
         justify-content: center;
-    }
+    } */
 
-    #footer footer {
+    /* #footer footer {
         max-width: 100%;
         height: auto;
         padding: 42px 28px;
@@ -864,7 +863,7 @@ html,
     #footer .line,
     #footer .logo {
         max-width: 100%;
-    }
+    }*/
 }
 
 /* --------------------------------------------------------------------------
@@ -881,9 +880,9 @@ html,
         width: 145px;
     } */
 
-    #headers .logo > a {
+    /* #headers .logo > a {
         width: 145px;
-    }
+    } */
 
     .support-main-title {
         font-size: 66px;
@@ -909,7 +908,7 @@ html,
     }
 
     .scallop-divider {
-        margin-top: -10.4rem;    
+        margin-top: -11.9rem;    
         position: relative;
         z-index: 10;
     }
@@ -960,7 +959,7 @@ html,
     .info-inner { gap: 24px; }
     .info-row { font-size: 16px; }
 
-    #footer footer {
+    /* #footer footer {
         flex-direction: column;
     }
 
@@ -968,7 +967,7 @@ html,
         flex-direction: row;
         justify-content: flex-start;
         gap: 24px;
-    }
+    } */
 
     .news-table-header-inner,
     .news-table-body-inner,
@@ -987,13 +986,13 @@ html,
         width: 120px;
     } */
 
-    #headers .headerInner {
+    /* #headers .headerInner {
         padding: 0 16px;
     }
 
     #headers .logo > a {
         width: 120px;
-    }
+    } */
 
     .support-main-title {
         font-size: 50px;
@@ -1014,7 +1013,7 @@ html,
     }
 
     .scallop-divider {
-        margin-top: -8.2rem;   
+        margin-top: -11rem;   
         position: relative;
         z-index: 10;
     }
@@ -1055,6 +1054,30 @@ html,
         width: 94%;
     }
 
+    .news-table-header-inner,
+    .news-item {
+        grid-template-columns: 36px 1fr 48px 72px !important;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    /* 2. 좁은 화면에 맞게 글자 크기와 자간을 살짝 다듬기 */
+    .news-table-header-inner > div,
+    .news-item > div {
+        font-size: 12px !important;
+        letter-spacing: -0.5px;
+    }
+
+    /* 3. 제목 칸은 길면 자연스럽게 말줄임표(...) 처리 */
+    .td-title,
+    .news-item > div:nth-child(2) {
+        text-align: left;
+        padding-left: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .faq-question {
         padding: 16px 12px;
     }
@@ -1063,9 +1086,9 @@ html,
         width: min(100%, 280px);
     } */
 
-    .right .sns img {
+    /* .right .sns img {
         width: 2.4rem;
-    }
+    } */
 }
 
 /* ==========================================================================
