@@ -164,11 +164,15 @@ section{
     .seconde{
         height: 90vh;
     }
+    .seconde>.textBox>h1{
+    font: var(--big3-font); 
+}
     .seconde>.textBox>img{
         width: min(100%, 30rem);
         margin-left: 10;
     }
     .seconde>.textBox>p{
+        font: var(--mobile-font);
     width: 80%;
     }
 }
@@ -249,18 +253,23 @@ section{
 }
 @media (max-width: 768px) {
     .secondeSub{
-        gap: 3rem;
-        padding: 0 2rem;
+        gap: 5rem;
+        padding: 0 4rem;
     }
     .secondeSub>.jump{
-        width:40%; overflow: hidden; 
-        position: relative; z-index: 10;
+        width:50%; overflow: hidden; 
     }
     .secondeSub>.light{
-        width: 20%;
+        width: 10%;
     }
     .secondeSub>.light>img{
         width: 100%;
+    }
+    .secondeSub>.textBox>p{
+    font:var(--mobile-font);
+}
+    .forlogInfo{
+        display: none;
     }
 }
 /* ======================================================컨셉============================================================== */
@@ -383,17 +392,14 @@ section{
 
 @media (max-width: 768px) {
     .third{
-        height: 100rem;
+        height: 150rem;
     }
     .third>.stripe{
     width: 100%; height: 200px;overflow: hidden;
     position:absolute; left: 0; top: 0;
 }
-    /* .oneClover.side{
-        display: none;
-    } */
     .oneClover{
-        width: 100%;
+        width: 80%;
     }
     .third>.titleBox{
         margin-top: 10rem;
@@ -402,14 +408,20 @@ section{
         width: 90%;
     }
     .firstClovers.on{
-    transform: translateX(0px);
-}
-.secondeClovers.on{
-    transform: translateX(0px);
-}
-.thirdClovers.on{
-    transform: translateX(0px);
-}
+        transform: translateX(0px);
+    }
+    .secondeClovers.on{
+        transform: translateX(0px);
+    }
+    .thirdClovers.on{
+        transform: translateX(0px);
+    }
+    .whiteClover>.textBox>h2{
+        font: var(--big2-font);
+    }
+    .whiteClover>.textBox>p{
+        display: none;
+    }
 }
 /* ==================================================마스코트=================================================================== */
 .fourth{
@@ -476,13 +488,13 @@ section{
 }
 .fourth>.circle>.detailBox>.rightBox{
     width: 45%;
-    display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 2rem;
+    display: flex; justify-content: center; align-items: center; flex-direction: column; gap: 1rem;
 }
 .fourth>.circle>.detailBox>.rightBox>p{
     font: var(--small2-font);
 }
 .fourth>.circle>.detailBox>.rightBox>img{
-    width: 80%;
+    width: 100%;
 }
 .fourth>.circle>.imgBox{
     width: 48%; height: 42rem; overflow: hidden;
@@ -510,24 +522,30 @@ section{
     }
     .fourth>.circle{
         display: flex; flex-direction: column; align-items: center;
-        height: 60%;
+        height: 60%; gap: 1rem;
     }
     
     .fourth>.circle>.detailBox{
-        display: flex; justify-content: center; align-items: center; gap: 3rem;
+        display: flex; justify-content: center; align-items: center ; gap: 4rem;
         margin-left: 1rem;  
     }
     .fourth>.circle>.titleBox{
-        margin-left: 0; margin-top: -4rem;
+        margin-left: 0; margin-top: -5rem;
         position: relative; z-index: 5;
     }
     .fourth>.circle>.detailBox>.rightBox{
         width: 60%;
         display: flex; justify-content: center; align-items: center; flex-direction: column;
     }
+    .fourth>.circle>.detailBox>.rightBox>p{
+        font: var(--mobile-font);
+    }
+    .chologiInfo{
+        display: none;
+    }
     .fourth>.circle>.imgBox{
-        width: 85%; height: 43rem; overflow: hidden;
-        position: absolute; bottom: -40%;right: 50%; transform: translateX(50%);
+        width: 70%; height: 43rem; overflow: hidden;
+        position: absolute; bottom: -35%;right: 50%; transform: translateX(50%);
         /* background-color: antiquewhite; */ z-index: 5;
     }
     @keyframes dungsil {
@@ -568,18 +586,20 @@ section{
 }
 @media (max-width: 768px) {
     .fourthSub{
-        gap: 5rem;
+        gap: 5rem; padding: 0 4rem;
     }
     .fourthSub>.sunflower{
-        width:40%; overflow: hidden; 
-        position: relative; z-index: 10;
+        width:40%;
     }
     .fourthSub>.light{
-        width: 20%;
+        width: 10%;
     }
     .fourthSub>.light>img{
         width: 100%;
     }
+    .fourthSub>.textBox>p{
+    font:var(--mobile-font);
+}
 }
 /* =======================================색깔============================================================== */
 .fifth{
@@ -655,6 +675,9 @@ section{
     .fifth>.up>.colorBox{
         width: min(100%, 55rem);
     }
+    .fifth>.up>.colorBox>div{
+        font: var(--mobile-font);
+    }
 }
 /* =================로고================ */
 .fifth>.down{
@@ -729,25 +752,31 @@ section{
 }
 @media (max-width: 768px) {
     .fifth>.down{
-        align-items: center; top: 50%; width: 90%;
+        align-items: center; top: 40%; width: 90%;
     }
     .fifth>.down>.titleBox{
         justify-content: center;
         margin-bottom: 3rem;
     }
+    .fifth>.down>.logoOutBox{
+        height: 40rem;
+    }
     .fifth>.down>.logoOutBox>.logoInBox{
-        width: 90%;
+        width: 85%;
     }
     .fifth>.down>.logoOutBox>.logoInBox>.logo{
-        width: 15%;
-        height: 20%;
-        margin-left: 3; margin-bottom: 4rem; margin-top:4rem;
+        width: 50%;
+        height: 50%;
+        margin-left: 3; margin-bottom: 1rem; margin-top:4rem;
         flex-direction: column;
         padding: 1rem;
     }
-    .fifth>.down>.logoOutBox>.logoInBox>.text{
-        width: 50%; 
+    .logoInfo{
+        display: none;
     }
+     .fifth>.down>.logoOutBox>.logoInBox>.text{
+    font: var(--mobile-font);
+}
 }
 /* =========================================팁3========================================== */
 .fifthSub{
@@ -780,19 +809,22 @@ section{
 }
 @media (max-width: 768px) {
     .fifthSub{
-        gap: 3rem;
-        padding: 0 2rem;
+        gap: 7rem;
+        padding: 0 4rem;
     }
     .fifthSub>.tomato{
-        width:40%; overflow: hidden; 
+        width:30%; overflow: hidden; 
         position: relative; z-index: 10;
     }
     .fifthSub>.light{
-        width: 20%;
+        width: 10%;
     }
     .fifthSub>.light>img{
         width: 100%;
     }
+    .fifthSub>.textBox>p{
+    font:var(--mobile-font);
+}
 }
 
 /* ==================프릴==================== */
@@ -914,7 +946,18 @@ section{
     height: 10rem;
     background-color: var(--point-color);
 }
-    .floatingClover{
-        display: none;
+    .floatingClover {
+        width: 40px;
+        height: 40px;
     }
+    .floatingCloversTop {
+    top: 120px;
+    left: 0;
+}
+
+.floatingCloversBetween {
+    bottom: 85px;
+    left: 0;
+    height: auto;
+}
 }
