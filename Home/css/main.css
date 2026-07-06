@@ -851,23 +851,24 @@ video {
 }
 @media (max-width: 768px) {
     .sec2 {
-        margin-bottom: 10rem;
+        padding: 0 0.75rem;
+        padding-bottom: 6rem;
+        margin-bottom: 4rem;
         overflow: visible;
     }
     .inner2 {
-        width: min(100% - 4rem, 28rem);
-        display: flex;
-        flex-direction: column;
-        gap: 1.6rem;
+        width: min(100%, 52rem);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem;
         margin-top: 2rem;
     }
 
    .boxUp,
     .boxDown {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.6rem;
+        display: contents;
+        width: auto;
+        gap: 0;
         margin: 0;
         transform: none;
         opacity: 1;
@@ -884,7 +885,7 @@ video {
     .boxDown > .shortcutCard {
         width: 100%;
         margin-top: 0;
-        padding-bottom: 0.5rem;
+        padding-bottom: 0;
         line-height: 0;
         
     }
@@ -899,6 +900,7 @@ video {
     }
 
     .shortcutPhoto {
+        width: 100%;
         height: auto;
         aspect-ratio: 16 / 9;
         object-fit: cover;
@@ -1267,9 +1269,13 @@ video {
     width: 100%;
     min-height: 100vh;
     background-color:#24331C;
+    position: relative;
+    overflow: hidden;
 }
 .sec4 > img{
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .galleryStart{
@@ -1278,6 +1284,8 @@ video {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 7rem;
+    position: relative;
+    z-index: 1;
 }
 .cloverWarp{
     width: 100%;
@@ -1372,6 +1380,17 @@ video {
     inset: 0;
     width: 100%;
     height: 100%;
+    pointer-events: none;
+}
+
+.galleryRainCanvas {
+    --gallery-rain-opacity: 0.58;
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    opacity: var(--gallery-rain-opacity);
     pointer-events: none;
 }
 
@@ -2483,8 +2502,7 @@ section {
 
     .boxUp,
     .boxDown {
-         width: 100%;
-        gap: 1.6rem;
+        gap: 1rem;
     }
 
     .whiteCircle {
@@ -2609,6 +2627,13 @@ section {
     footer .sns {
         flex-direction: row;
         gap: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .inner2 {
+        width: min(100%, 28rem);
+        grid-template-columns: 1fr;
     }
 }
 

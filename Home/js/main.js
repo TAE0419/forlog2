@@ -30,114 +30,82 @@ if (cloverWrap) {
     }
 }
 
-const wateringArea = document.querySelector(".anotherIMG");
+const gallerySection = document.querySelector(".sec4");
 
-if (wateringArea && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    const drops = [];
-    let lastTime = 0;
-    let spawnTimer = 0;
-    let wateringAnimationId = null;
+if (gallerySection && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const rainCanvas = document.createElement("canvas");
+    const rainCtx = rainCanvas.getContext("2d");
+    const rainDrops = [];
+    let rainLastTime = 0;
+    let rainAnimationId = null;
 
-    canvas.className = "wateringCanvas";
-    wateringArea.appendChild(canvas);
+    rainCanvas.className = "galleryRainCanvas";
+    gallerySection.prepend(rainCanvas);
 
-    function resizeWateringCanvas() {
+    function resizeRainCanvas() {
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        const rect = wateringArea.getBoundingClientRect();
+        const rect = gallerySection.getBoundingClientRect();
 
-        canvas.width = Math.floor(rect.width * dpr);
-        canvas.height = Math.floor(rect.height * dpr);
-        canvas.style.width = `${rect.width}px`;
-        canvas.style.height = `${rect.height}px`;
-        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+        rainCanvas.width = Math.floor(rect.width * dpr);
+        rainCanvas.height = Math.floor(rect.height * dpr);
+        rainCanvas.style.width = `${rect.width}px`;
+        rainCanvas.style.height = `${rect.height}px`;
+        rainCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-    function getWateringImageRect(width, height) {
-        const imageSize = Math.min(width, height);
+        rainDrops.length = 0;
+        const count = Math.max(42, Math.floor(rect.width / 8));
 
-        return {
-            x: (width - imageSize) / 2,
-            y: (height - imageSize) / 2,
-            size: imageSize
-        };
-    }
-
-    function makeWaterDrop(width, height) {
-        const imageRect = getWateringImageRect(width, height);
-        const startX = imageRect.x + imageRect.size * 0.385;
-        const startY = imageRect.y + imageRect.size * 0.62;
-        const targetX = imageRect.x + imageRect.size * (0.20 + Math.random() * 0.16);
-        const targetY = imageRect.y + imageRect.size * (0.76 + Math.random() * 0.04);
-
-        drops.push({
-            x: startX + Math.random() * imageRect.size * 0.018,
-            y: startY + Math.random() * imageRect.size * 0.012,
-            vx: (targetX - startX) * (0.5 + Math.random() * 0.18),
-            vy: (targetY - startY) * (0.04 + Math.random() * 0.08),
-            gravity: imageRect.size * (1.05 + Math.random() * 0.25),
-            life: 0,
-            maxLife: 0.62 + Math.random() * 0.22,
-            floorY: imageRect.y + imageRect.size * 0.8,
-            radius: Math.max(2, imageRect.size * (0.003 + Math.random() * 0.0018)),
-            alpha: 0.72 + Math.random() * 0.22
-        });
-    }
-
-    function drawWaterDrop(drop) {
-        const fade = Math.max(0, 1 - drop.life / drop.maxLife);
-
-        ctx.save();
-        ctx.globalAlpha = drop.alpha * Math.min(1, drop.life * 8) * fade;
-        ctx.fillStyle = "#bfe8df";
-        ctx.strokeStyle = "rgba(255, 253, 235, 0.65)";
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.ellipse(drop.x, drop.y, drop.radius * 0.78, drop.radius * 1.35, 0.25, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        ctx.restore();
-    }
-
-    function animateWatering(timestamp) {
-        if (!lastTime) lastTime = timestamp;
-
-        const delta = Math.min((timestamp - lastTime) / 1000, 0.04);
-        const width = canvas.clientWidth;
-        const height = canvas.clientHeight;
-
-        lastTime = timestamp;
-        spawnTimer += delta;
-
-        while (spawnTimer > 0.045) {
-            makeWaterDrop(width, height);
-            spawnTimer -= 0.045;
+        for (let i = 0; i < count; i += 1) {
+            rainDrops.push({
+                x: Math.random() * rect.width,
+                y: Math.random() * rect.height,
+                length: 18 + Math.random() * 24,
+                speed: 210 + Math.random() * 150,
+                alpha: 0.2 + Math.random() * 0.24
+            });
         }
+    }
 
-        ctx.clearRect(0, 0, width, height);
+    function animateRain(timestamp) {
+        if (!rainLastTime) rainLastTime = timestamp;
 
-        for (let i = drops.length - 1; i >= 0; i -= 1) {
-            const drop = drops[i];
+        const delta = Math.min((timestamp - rainLastTime) / 1000, 0.04);
+        const width = rainCanvas.clientWidth;
+        const height = rainCanvas.clientHeight;
 
-            drop.life += delta;
-            drop.x += drop.vx * delta;
-            drop.y += drop.vy * delta + drop.gravity * drop.life * delta;
+        rainLastTime = timestamp;
+        rainCtx.clearRect(0, 0, width, height);
+        rainCtx.lineWidth = 2;
+        rainCtx.lineCap = "round";
 
-            if (drop.life >= drop.maxLife || drop.y > drop.floorY) {
-                drops.splice(i, 1);
-                continue;
+        rainDrops.forEach(function (drop) {
+            rainCtx.beginPath();
+            rainCtx.strokeStyle = `rgba(210, 235, 228, ${drop.alpha})`;
+            rainCtx.moveTo(drop.x, drop.y);
+            rainCtx.lineTo(drop.x - drop.length * 0.25, drop.y + drop.length);
+            rainCtx.stroke();
+
+            drop.x -= drop.speed * 0.12 * delta;
+            drop.y += drop.speed * delta;
+
+            if (drop.y > height + drop.length) {
+                drop.x = Math.random() * width;
+                drop.y = -drop.length;
             }
 
-            drawWaterDrop(drop);
-        }
+            if (drop.x < -drop.length) {
+                drop.x = width + drop.length;
+            }
+        });
 
-        wateringAnimationId = requestAnimationFrame(animateWatering);
+        rainAnimationId = requestAnimationFrame(animateRain);
     }
 
-    resizeWateringCanvas();
-    wateringAnimationId = requestAnimationFrame(animateWatering);
-    window.addEventListener("resize", resizeWateringCanvas);
+    resizeRainCanvas();
+    rainAnimationId = requestAnimationFrame(animateRain);
+    window.addEventListener("resize", function () {
+        resizeRainCanvas();
+    });
 }
 
 const luckyCloverButtons = document.querySelectorAll(".luckyCloverButton");
